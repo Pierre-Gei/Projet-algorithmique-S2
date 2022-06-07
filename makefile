@@ -6,5 +6,3 @@ fonctions.o: fonctions.c
 	gcc -g -Wall -c fonctions.c
 clean:
 	rm -f *~ *.o
-
-
