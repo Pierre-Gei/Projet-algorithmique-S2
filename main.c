@@ -5,8 +5,6 @@
 #include "GFXlib/BmpLib.h" // Cet include permet de manipuler des fichiers BMP
 #include "GFXlib/ESLib.h" // Pour utiliser valeurAleatoire()
 #include "fonctions.h"
-
-// Largeur et hauteur par defaut d'une image correspondant a nos criteres
 #define LargeurFenetre 800
 #define HauteurFenetre 600
 
@@ -27,7 +25,6 @@ int main(int argc, char **argv)
 	/* Lance la boucle qui aiguille les evenements sur la fonction gestionEvenement ci-apres,
 		qui elle-meme utilise fonctionAffichage ci-dessous */
 	lanceBoucleEvenements();
-	
 	return 0;
 }
 
@@ -56,13 +53,19 @@ void cercle(float centreX, float centreY, float rayon)
 des qu'une evenement survient */
 void gestionEvenement(EvenementGfx evenement)
 {
-	/* On va aussi animer une balle traversant l'ecran */
+	static bool pleinEcran = false;
     static float temps = 0;
     static int rayon_orbite_terre=300;
     static int rayon_orbite_lune=75;
     static int rayon_terre=20;
     static int rayon_lune=10;
     static int rayon_soleil=75;
+	static int x_soleil=0;
+	static int y_soleil=0;
+	static int x_terre=0;
+	static int y_terre=0;
+	static int x_lune=0;
+	static int y_lune=0;
 	
 	switch (evenement)
 	{
@@ -74,25 +77,31 @@ void gestionEvenement(EvenementGfx evenement)
 			break;
 			
 		case Affichage:
+			x_soleil=(0.5*largeurFenetre());
+			y_soleil=(0.5*hauteurFenetre());
+			x_terre=(x_absolute(x_soleil,(rayon_orbite_terre*calculAbscisse(temps))));
+			y_terre=(y_absolute(y_soleil,(rayon_orbite_terre*calculOrdonee(temps))));
+			x_lune=(x_absolute(x_terre,(rayon_orbite_lune*calculAbscisse(temps*13.3593607))));
+			y_lune=(y_absolute(y_terre,(rayon_orbite_lune*calculOrdonee(temps*13.3593607))));
+			
 			effaceFenetre (0, 0, 0);
 			couleurCourante(255, 255, 0);
-			cercle((0.5*largeurFenetre()),(0.5*hauteurFenetre()),(rayon_soleil));
+			cercle(x_soleil,y_soleil,(rayon_soleil));
+			centre_text(x_soleil,y_soleil,rayon_soleil,"soleil");
             couleurCourante(0, 0, 255);
-            cercle((x_absolute((0.5*largeurFenetre()),(rayon_orbite_terre*calculAbscisse(temps)))),(y_absolute((0.5*hauteurFenetre()),(rayon_orbite_terre*calculOrdonnee(temps)))),rayon_terre);
-            couleurCourante(125, 125, 125);
-            cercle(x_absolute(x_absolute((0.5*largeurFenetre()),(rayon_orbite_terre*calculAbscisse(temps))),(rayon_orbite_lune*calculAbscisse(temps*10))),y_absolute(y_absolute((0.5*hauteurFenetre()),(rayon_orbite_terre*calculOrdonnee(temps))),rayon_orbite_lune*calculOrdonnee(temps*10)),rayon_lune);
-            temps+= 0.1;
+            cercle(x_terre,y_terre,rayon_terre);
+            centre_text(x_terre,y_terre,rayon_terre,"terre");
+			couleurCourante(125, 125, 125);
+            cercle(x_lune,y_lune,rayon_lune);
+            centre_text(x_lune,y_lune,rayon_lune,"lune");
+			temps+= 1;
 			break;
-			
-		case Clavier:
+			case Clavier:
 			printf("%c : ASCII %d\n", caractereClavier(), caractereClavier());
-			
 			switch (caractereClavier())
 			{
 				case 'Q': /* Pour sortir quelque peu proprement du programme */
 				case 'q':
-					libereDonneesImageRGB(&image); /* On libere la structure image,
-					c'est plus propre, meme si on va sortir du programme juste apres */
 					termineBoucleEvenements();
 					break;
 					
@@ -104,7 +113,7 @@ void gestionEvenement(EvenementGfx evenement)
 					else
 						redimensionneFenetre(LargeurFenetre, HauteurFenetre);
 					break;
-				
+			}
 			break;
 			
 		case ClavierSpecial:
