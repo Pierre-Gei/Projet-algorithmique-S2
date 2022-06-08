@@ -3,3 +3,16 @@ Pierre GEIGUER
 Hugo LAMBALLAIS
 Théo FERNADO
 Raphael LGDC
+
+
+Fait:
+    -Affichage des noms des objets
+    -Affichage des planètes
+    -facteur temps de la lune
+
+A faire:
+    -Mise a l'echelle des orbites
+    -Mise a l'echelle des planètes
+    -fonction calcul facteur temps
+    -passage en temps réel
+    -commenter les fonctions
