@@ -85,6 +85,26 @@ void gestionEvenement(EvenementGfx evenement)
 			break;
 			
 		case Clavier:
+			printf("%c : ASCII %d\n", caractereClavier(), caractereClavier());
+			
+			switch (caractereClavier())
+			{
+				case 'Q': /* Pour sortir quelque peu proprement du programme */
+				case 'q':
+					libereDonneesImageRGB(&image); /* On libere la structure image,
+					c'est plus propre, meme si on va sortir du programme juste apres */
+					termineBoucleEvenements();
+					break;
+					
+				case 'F':
+				case 'f':
+					pleinEcran = !pleinEcran; // Changement de mode plein ecran
+					if (pleinEcran)
+						modePleinEcran();
+					else
+						redimensionneFenetre(LargeurFenetre, HauteurFenetre);
+					break;
+				
 			break;
 			
 		case ClavierSpecial:
