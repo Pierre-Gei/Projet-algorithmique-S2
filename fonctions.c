@@ -43,3 +43,7 @@ float echelle_planete(double distance_reel, double rayon_reel)
 {
     return (echelle_orbite(distance_reel)*rayon_reel)/distance_reel;
 }
+
+float facteur_temps(float periode){
+    return (1/periode);
+}

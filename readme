@@ -9,11 +9,11 @@ Fait:
     -Affichage des noms des objets
     -Affichage des planètes
     -facteur temps de la lune
+    -passage en temps réel
+    -commenter les fonctions
 
 A faire:
     -Mise a l'echelle des orbites
     -Mise a l'echelle des planètes
     -fonction calcul facteur temps
-    -passage en temps réel
-    -commenter les fonctions
     -image background

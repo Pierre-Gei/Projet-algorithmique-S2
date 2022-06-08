@@ -117,7 +117,6 @@ void gestionEvenement(EvenementGfx evenement)
 		case Temporisation:
 			rafraichisFenetre();
 			break;
-			
 		case Affichage:
 			x_soleil=(0.5*largeurFenetre());
 			y_soleil=(0.5*hauteurFenetre());
@@ -169,6 +168,7 @@ void gestionEvenement(EvenementGfx evenement)
             	cercle(x_terre,y_terre,rayon_terre);
             	centre_text(x_terre,y_terre,rayon_terre,"Terre");
 
+				couleurCourante(125, 125, 125);
            		cercle(x_lune,y_lune,rayon_lune);
            		centre_text(x_lune,y_lune,rayon_lune,"Lune");
            		
@@ -191,10 +191,8 @@ void gestionEvenement(EvenementGfx evenement)
            		couleurCourante(125, 125, 125);
            		cercle(x_neptune,y_neptune,rayon_neptune);
            		centre_text(x_neptune,y_neptune,rayon_neptune,"Neptune");
-            
-				temps=temps+0.04;
-			
-			break;
+				temps=temps+0.02;
+				break;
 			case Clavier:
 			printf("%c : ASCII %d\n", caractereClavier(), caractereClavier());
 			switch (caractereClavier())
