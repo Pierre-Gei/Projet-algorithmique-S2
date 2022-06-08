@@ -59,24 +59,24 @@ void gestionEvenement(EvenementGfx evenement)
 	static time_t temps_reel = 0;
     static int rayon_orbite_mercure=100;
     static int rayon_orbite_venus=200;
-    static int rayon_orbite_terre=300;
-    static int rayon_orbite_lune=75;
+    static int rayon_orbite_terre=0;
+    static int rayon_orbite_lune=0;
     static int rayon_orbite_mars=400;
     static int rayon_orbite_jupiter=500;
     static int rayon_orbite_saturn=600;
     static int rayon_orbite_uranus=700;
     static int rayon_orbite_neptune=800;
     
-    static int rayon_soleil=75;
-    static int rayon_mercure=15;
-    static int rayon_venus=15;
-    static int rayon_terre=20;
-    static int rayon_lune=10;
-    static int rayon_mars=15;
-    static int rayon_jupiter=15;
-    static int rayon_saturn=15;
-    static int rayon_uranus=15;
-    static int rayon_neptune=15;
+    static int rayon_soleil=0;
+    static int rayon_mercure=0;
+    static int rayon_venus=0;
+    static int rayon_terre=0;
+    static int rayon_lune=0;
+    static int rayon_mars=0;
+    static int rayon_jupiter=0;
+    static int rayon_saturn=0;
+    static int rayon_uranus=0;
+    static int rayon_neptune=0;
     
 	static int x_soleil=0;
 	static int y_soleil=0;
@@ -104,6 +104,14 @@ void gestionEvenement(EvenementGfx evenement)
 		case Initialisation:
 			temps_reel = time(NULL);
 			temps = (double) difftime( temps_reel, 0 );
+
+		  rayon_terre = echelle_planete(149598262,6371);
+		  rayon_soleil = (696342 * rayon_terre)/6371;
+		  rayon_lune = echelle_planete(384400,1737.4);
+		  rayon_mercure = echelle_planete(57909227,2439.7);
+
+		  rayon_orbite_terre= echelle_orbite(149598262);
+		  rayon_orbite_lune = echelle_orbite(384400);
 			demandeTemporisation(20);
 			break;
 		case Temporisation:

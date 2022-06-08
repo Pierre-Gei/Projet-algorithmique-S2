@@ -11,4 +11,7 @@ float calculAbscisse(double secondes);
 float calculOrdonee(double secondes);
 
 /* Affiche le nom d'un objet au dessus de celui-ci */
+
 void centre_text(int x_objet, int y_objet, int rayon_objet, char nom_objet[]);
+float echelle_orbite(double distance_reel);
+float echelle_planete(double distance_reel, double rayon_reel);
