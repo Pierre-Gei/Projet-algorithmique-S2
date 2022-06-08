@@ -5,6 +5,7 @@
 #include "GFXlib/BmpLib.h" // Cet include permet de manipuler des fichiers BMP
 #include "GFXlib/ESLib.h" // Pour utiliser valeurAleatoire()
 #include "fonctions.h"
+#include <time.h>
 #define LargeurFenetre 800
 #define HauteurFenetre 600
 
@@ -52,9 +53,10 @@ void cercle(float centreX, float centreY, float rayon)
 /* La fonction de gestion des evenements, appelee automatiquement par le systeme
 des qu'une evenement survient */
 void gestionEvenement(EvenementGfx evenement)
-{
+{	
 	static bool pleinEcran = false;
-    static float temps = 0;
+    static double temps = 0;
+	static time_t temps_reel = 0;
     static int rayon_orbite_terre=300;
     static int rayon_orbite_lune=75;
     static int rayon_terre=20;
@@ -70,6 +72,8 @@ void gestionEvenement(EvenementGfx evenement)
 	switch (evenement)
 	{
 		case Initialisation:
+			temps_reel = time(NULL);
+			temps = (double) difftime( temps_reel, 0 );
 			demandeTemporisation(20);
 			break;
 		case Temporisation:
@@ -94,7 +98,8 @@ void gestionEvenement(EvenementGfx evenement)
 			couleurCourante(125, 125, 125);
             cercle(x_lune,y_lune,rayon_lune);
             centre_text(x_lune,y_lune,rayon_lune,"lune");
-			temps+= 1;
+			temps=temps+0.04;
+			printf("%f\n",temps);
 			break;
 			case Clavier:
 			printf("%c : ASCII %d\n", caractereClavier(), caractereClavier());

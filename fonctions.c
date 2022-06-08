@@ -1,4 +1,5 @@
 #include <math.h> 
+#include <stdio.h>
 #include "GFXlib/GfxLib.h"
 #include "GFXlib/BmpLib.h"
 #include "GFXlib/ESLib.h"
@@ -11,18 +12,18 @@ int y_absolute(int y_centre, int y_relatif){
     return(y_relatif+y_centre);
 }
 
-float calculAbscisse(float secondes)
+float calculAbscisse(double secondes)
 {
     float longueurAbscisse;
-    float angle = (2 * M_PI * secondes) / 18262.5;
+    double angle = (2 * M_PI * secondes) / 365.25;
     longueurAbscisse = cos(angle);
     return longueurAbscisse;
 }
 
-float calculOrdonee(float secondes)
+float calculOrdonee(double secondes)
 {
     float longueurOrdonne;
-    float angle = (2 * M_PI * secondes) / 18262.5;
+    double angle = (2 * M_PI * secondes) / 365.25;
     longueurOrdonne = sin(angle);
     return longueurOrdonne;
 }
