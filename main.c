@@ -55,17 +55,31 @@ void gestionEvenement(EvenementGfx evenement)
 {
 	static bool pleinEcran = false;
     static float temps = 0;
+    static int rayon_orbite_mercure=100;
+    static int rayon_orbite_venus=200;
     static int rayon_orbite_terre=300;
     static int rayon_orbite_lune=75;
+    static int rayon_orbite_mars=400;
+    
+    static int rayon_soleil=75;
+    static int rayon_mercure=15;
+    static int rayon_venus=15;
     static int rayon_terre=20;
     static int rayon_lune=10;
-    static int rayon_soleil=75;
+    static int rayon_mars=15;
+    
 	static int x_soleil=0;
 	static int y_soleil=0;
+	static int x_mercure=0;
+	static int y_mercure=0;
+	static int x_venus=0;
+	static int y_venus=0;
 	static int x_terre=0;
 	static int y_terre=0;
 	static int x_lune=0;
 	static int y_lune=0;
+	static int x_mars=0;
+	static int y_mars=0;
 	
 	switch (evenement)
 	{
@@ -79,21 +93,50 @@ void gestionEvenement(EvenementGfx evenement)
 		case Affichage:
 			x_soleil=(0.5*largeurFenetre());
 			y_soleil=(0.5*hauteurFenetre());
+			
+			x_mercure=(x_absolute(x_soleil,(rayon_orbite_mercure*calculAbscisse(temps))));
+			y_mercure=(y_absolute(y_soleil,(rayon_orbite_mercure*calculOrdonee(temps))));
+			
+			x_venus=(x_absolute(x_soleil,(rayon_orbite_venus*calculAbscisse(temps))));
+			y_venus=(y_absolute(y_soleil,(rayon_orbite_venus*calculOrdonee(temps))));
+			
 			x_terre=(x_absolute(x_soleil,(rayon_orbite_terre*calculAbscisse(temps))));
 			y_terre=(y_absolute(y_soleil,(rayon_orbite_terre*calculOrdonee(temps))));
+			
 			x_lune=(x_absolute(x_terre,(rayon_orbite_lune*calculAbscisse(temps*13.3593607))));
 			y_lune=(y_absolute(y_terre,(rayon_orbite_lune*calculOrdonee(temps*13.3593607))));
 			
+			x_mars=(x_absolute(x_soleil,(rayon_orbite_mars*calculAbscisse(temps))));
+			y_mars=(y_absolute(y_soleil,(rayon_orbite_mars*calculOrdonee(temps))));
+			
+			
+			
 			effaceFenetre (0, 0, 0);
+			
 			couleurCourante(255, 255, 0);
 			cercle(x_soleil,y_soleil,(rayon_soleil));
-			centre_text(x_soleil,y_soleil,rayon_soleil,"soleil");
-            couleurCourante(0, 0, 255);
-            cercle(x_terre,y_terre,rayon_terre);
-            centre_text(x_terre,y_terre,rayon_terre,"terre");
+			centre_text(x_soleil,y_soleil,rayon_soleil,"Soleil");
+			
 			couleurCourante(125, 125, 125);
-            cercle(x_lune,y_lune,rayon_lune);
-            centre_text(x_lune,y_lune,rayon_lune,"lune");
+           		cercle(x_mercure,y_mercure,rayon_mercure);
+           		centre_text(x_mercure,y_mercure,rayon_mercure,"Mercure");
+           		
+           		couleurCourante(125, 125, 125);
+           		cercle(x_venus,y_venus,rayon_venus);
+           		centre_text(x_venus,y_venus,rayon_venus,"Venus");
+           		
+            		couleurCourante(0, 0, 255);
+            		cercle(x_terre,y_terre,rayon_terre);
+            		centre_text(x_terre,y_terre,rayon_terre,"Terre");
+            		
+			couleurCourante(125, 125, 125);
+           		cercle(x_lune,y_lune,rayon_lune);
+           		centre_text(x_lune,y_lune,rayon_lune,"Lune");
+           		
+           		couleurCourante(125, 125, 125);
+           		cercle(x_mars,y_mars,rayon_mars);
+           		centre_text(x_mars,y_mars,rayon_mars,"Mars");
+            
 			temps+= 1;
 			break;
 			case Clavier:
