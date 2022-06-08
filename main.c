@@ -55,6 +55,7 @@ des qu'une evenement survient */
 void gestionEvenement(EvenementGfx evenement)
 {	
 	static bool pleinEcran = false;
+	static DonneesImageRGB *image = NULL;
     static double temps = 0;
 	static time_t temps_reel = 0;
     static int rayon_orbite_mercure=100;
@@ -113,6 +114,8 @@ void gestionEvenement(EvenementGfx evenement)
 		  rayon_orbite_terre= echelle_orbite(149598262);
 		  rayon_orbite_lune = echelle_orbite(384400);
 			demandeTemporisation(20);
+			
+			image = lisBMPRGB("background1.bmp");
 			break;
 		case Temporisation:
 			rafraichisFenetre();
@@ -151,6 +154,8 @@ void gestionEvenement(EvenementGfx evenement)
 			
 			
 			effaceFenetre (0, 0, 0);
+			
+			ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
 			
 				couleurCourante(255, 255, 0);
 				cercle(x_soleil,y_soleil,(rayon_soleil));
