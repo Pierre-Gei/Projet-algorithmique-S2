@@ -60,6 +60,10 @@ void gestionEvenement(EvenementGfx evenement)
     static int rayon_orbite_terre=300;
     static int rayon_orbite_lune=75;
     static int rayon_orbite_mars=400;
+    static int rayon_orbite_jupiter=500;
+    static int rayon_orbite_saturn=600;
+    static int rayon_orbite_uranus=700;
+    static int rayon_orbite_neptune=800;
     
     static int rayon_soleil=75;
     static int rayon_mercure=15;
@@ -67,6 +71,10 @@ void gestionEvenement(EvenementGfx evenement)
     static int rayon_terre=20;
     static int rayon_lune=10;
     static int rayon_mars=15;
+    static int rayon_jupiter=15;
+    static int rayon_saturn=15;
+    static int rayon_uranus=15;
+    static int rayon_neptune=15;
     
 	static int x_soleil=0;
 	static int y_soleil=0;
@@ -80,6 +88,14 @@ void gestionEvenement(EvenementGfx evenement)
 	static int y_lune=0;
 	static int x_mars=0;
 	static int y_mars=0;
+	static int x_jupiter=0;
+	static int y_jupiter=0;
+	static int x_saturn=0;
+	static int y_saturn=0;
+	static int x_uranus=0;
+	static int y_uranus=0;
+	static int x_neptune=0;
+	static int y_neptune=0;
 	
 	switch (evenement)
 	{
@@ -109,6 +125,18 @@ void gestionEvenement(EvenementGfx evenement)
 			x_mars=(x_absolute(x_soleil,(rayon_orbite_mars*calculAbscisse(temps))));
 			y_mars=(y_absolute(y_soleil,(rayon_orbite_mars*calculOrdonee(temps))));
 			
+			x_jupiter=(x_absolute(x_soleil,(rayon_orbite_jupiter*calculAbscisse(temps))));
+			y_jupiter=(y_absolute(y_soleil,(rayon_orbite_jupiter*calculOrdonee(temps))));
+			
+			x_saturn=(x_absolute(x_soleil,(rayon_orbite_saturn*calculAbscisse(temps))));
+			y_saturn=(y_absolute(y_soleil,(rayon_orbite_saturn*calculOrdonee(temps))));
+			
+			x_uranus=(x_absolute(x_soleil,(rayon_orbite_uranus*calculAbscisse(temps))));
+			y_uranus=(y_absolute(y_soleil,(rayon_orbite_uranus*calculOrdonee(temps))));
+			
+			x_neptune=(x_absolute(x_soleil,(rayon_orbite_neptune*calculAbscisse(temps))));
+			y_neptune=(y_absolute(y_soleil,(rayon_orbite_neptune*calculOrdonee(temps))));
+			
 			
 			
 			effaceFenetre (0, 0, 0);
@@ -136,6 +164,22 @@ void gestionEvenement(EvenementGfx evenement)
            		couleurCourante(125, 125, 125);
            		cercle(x_mars,y_mars,rayon_mars);
            		centre_text(x_mars,y_mars,rayon_mars,"Mars");
+           		
+           		couleurCourante(125, 125, 125);
+           		cercle(x_jupiter,y_jupiter,rayon_jupiter);
+           		centre_text(x_jupiter,y_jupiter,rayon_jupiter,"Jupiter");
+           		
+           		couleurCourante(125, 125, 125);
+           		cercle(x_saturn,y_saturn,rayon_saturn);
+           		centre_text(x_saturn,y_saturn,rayon_saturn,"Saturn");
+           		
+           		couleurCourante(125, 125, 125);
+           		cercle(x_uranus,y_uranus,rayon_uranus);
+           		centre_text(x_uranus,y_uranus,rayon_uranus,"Uranus");
+           		
+           		couleurCourante(125, 125, 125);
+           		cercle(x_neptune,y_neptune,rayon_neptune);
+           		centre_text(x_neptune,y_neptune,rayon_neptune,"Neptune");
             
 			temps+= 1;
 			break;
