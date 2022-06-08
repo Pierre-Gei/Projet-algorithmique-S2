@@ -11,9 +11,16 @@ Fait:
     -facteur temps de la lune
     -passage en temps réel
     -commenter les fonctions
+    -fonction calcul facteur temps
+    -image background
+    -structure planètes
+    -fonction calcul facteur temps
 
 A faire:
     -Mise a l'echelle des orbites
     -Mise a l'echelle des planètes
-    -fonction calcul facteur temps
-    -image background
+    -affichage intéractif:
+        -focus
+        -zoom
+        -déplacement
+        -pause
