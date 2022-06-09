@@ -76,6 +76,9 @@ void gestionEvenement(EvenementGfx evenement)
 		setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.01);
 		setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79);
 
+		tabPlanete[0].x = (0.5 * largeurFenetre());
+		tabPlanete[0].y = (0.5 * hauteurFenetre());
+
 		demandeTemporisation(20);
 
 		image = lisBMPRGB("background1.bmp");
@@ -95,8 +98,6 @@ void gestionEvenement(EvenementGfx evenement)
 		echelle_tab(tabPlanete, 8, (double)2870658186, (double)25362, 2, 0.008);
 		echelle_tab(tabPlanete, 9, (double)4498396441, (double)24622, 2, 0.008);
 	
-		tabPlanete[0].x = (0.5 * largeurFenetre());
-		tabPlanete[0].y = (0.5 * hauteurFenetre());
 
 		tabPlanete[1].x = (x_absolute(tabPlanete[0].x, (tabPlanete[1].Distance_orbit * calculAbscisse(temps))));
 		tabPlanete[1].y= (y_absolute(tabPlanete[0].y, (tabPlanete[1].Distance_orbit * calculOrdonee(temps))));
@@ -177,6 +178,7 @@ void gestionEvenement(EvenementGfx evenement)
 		{
 		case 'Q': /* Pour sortir quelque peu proprement du programme */
 		case 'q':
+			
 			termineBoucleEvenements();
 			break;
 
@@ -233,6 +235,27 @@ void gestionEvenement(EvenementGfx evenement)
 
 	case ClavierSpecial:
 		printf("ASCII %d\n", toucheClavier());
+		switch(toucheClavier())
+		{
+		case 13:
+			printf("b");
+			tabPlanete[0] = deplacementH(tabPlanete[0]);
+			break;
+		
+		case 14:
+			tabPlanete[0] = deplacementB(tabPlanete[0]);
+			break;
+		
+		case 15:
+			tabPlanete[0] = deplacementG(tabPlanete[0]);
+			break;
+		
+		case 16:
+			tabPlanete[0] = deplacementD(tabPlanete[0]);
+			break;
+		
+		break;
+		}
 		break;
 
 	case BoutonSouris:

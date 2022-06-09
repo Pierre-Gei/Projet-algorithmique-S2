@@ -133,3 +133,24 @@ void echelle_tab(Planete tab[], int position, double distance_orbitale, double r
     tab[position].Distance_orbit = echelle_orbite(distance_orbitale);
     tab[position].rayon = echelle_planete(rayon, planete_fixe, planet_coeff);
 }
+
+Planete deplacementH(Planete astre){
+	astre.y=astre.y-50;
+    printf("a");
+	return astre;
+}
+
+Planete deplacementB(Planete astre){
+	astre.y=astre.y+50;
+	return astre;
+}
+
+Planete deplacementG(Planete astre){
+	astre.x=astre.x+50;
+	return astre;
+}
+
+Planete deplacementD(Planete astre){
+	astre.x=astre.x-50;
+	return astre;
+}	

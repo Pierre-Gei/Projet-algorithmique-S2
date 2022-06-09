@@ -38,3 +38,9 @@ void setTab(Planete tab[], int position, char nom[],double masse,float orbit_per
 
 /*Remplir les echelles du tableaux*/
 void echelle_tab(Planete tab[], int position, double distance_orbitale, double rayon, int planete_fixe, float planet_coeff);
+
+/*Déplacement Haut Bas Gauche Droite*/
+Planete deplacementH(Planete astre);
+Planete deplacementB(Planete astre);
+Planete deplacementG(Planete astre);
+Planete deplacementD(Planete astre);
