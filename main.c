@@ -94,6 +94,9 @@ void gestionEvenement(EvenementGfx evenement)
 	static int x_neptune = 0;
 	static int y_neptune = 0;
 
+	static int etat_pause = 1;
+	static float vitesse_simulation = 1;
+
 	switch (evenement)
 	{
 	case Initialisation:
@@ -200,7 +203,7 @@ void gestionEvenement(EvenementGfx evenement)
 		couleurCourante(125, 125, 125);
 		cercle(x_neptune, y_neptune, rayon_neptune);
 		centre_text(x_neptune, y_neptune, rayon_neptune, "Neptune");
-		temps = temps + 0.02;
+		temps = button_pause(etat_pause,temps,vitesse_simulation);
 		break;
 	case Clavier:
 		printf("%c : ASCII %d\n", caractereClavier(), caractereClavier());
@@ -218,6 +221,46 @@ void gestionEvenement(EvenementGfx evenement)
 				modePleinEcran();
 			else
 				redimensionneFenetre(LargeurFenetre, HauteurFenetre);
+			break;
+		case ' ':
+			switch (etat_pause)
+			{
+			case 0 :
+				etat_pause++;
+				break;
+			case 1 :
+				etat_pause = 0;
+				break;
+			default:
+				break;
+			}
+			break;
+		case 'S':
+		case 's':
+			if(vitesse_simulation > 100000 || vitesse_simulation < -100000){
+				vitesse_simulation = vitesse_simulation;
+			}
+			else if (vitesse_simulation > 3124 || vitesse_simulation < -3124){
+				vitesse_simulation*=2.5;
+			}
+			else{
+				vitesse_simulation*=5;
+			}
+			
+			break;
+		case 'D':
+		case 'd':
+			if (vitesse_simulation > 3126 || vitesse_simulation < -3126){
+				vitesse_simulation/=2.5;
+			}
+			else{
+				vitesse_simulation/=5;
+			}
+			
+			break;
+		case 'R':
+		case 'r':
+			vitesse_simulation*=(-1);
 			break;
 		}
 		break;

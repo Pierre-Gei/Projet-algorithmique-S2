@@ -59,3 +59,18 @@ Planete initplanete(char nomP[],float Distance_OrbitP,float rayonP,float masseP,
     plane.Orbit_periode=Orbit_periodeP;
     return plane;
 }
+
+double button_pause(int etat, double temps, float facteur){
+    if(etat==0){
+        couleurCourante(255, 255, 0);
+        afficheChaine("paused",20,((largeurFenetre()/2)-((tailleChaine("paused",20))/2)),((hauteurFenetre())-20));
+        return temps;
+    }
+    else{
+        char chaine[40];
+        couleurCourante(255, 255, 0);
+        sprintf(chaine, "Vitesse de la simulation = %3.2f", facteur);
+        afficheChaine(chaine,20,((largeurFenetre()/2)-((tailleChaine(chaine,20))/2)),((hauteurFenetre())-20));
+        return (temps+(0.02*facteur));
+    }
+}
