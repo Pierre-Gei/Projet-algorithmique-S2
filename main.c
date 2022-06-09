@@ -135,11 +135,11 @@ void gestionEvenement(EvenementGfx evenement)
 		cercle(tabPlanete[0].x, tabPlanete[0].y, (tabPlanete[0].rayon));
 		centre_text(tabPlanete[0].x, tabPlanete[0].y, tabPlanete[0].rayon, "Soleil");
 
-		couleurCourante(125, 125, 125);
+		couleurCourante(239,213,158);
 		cercle(tabPlanete[1].x, tabPlanete[1].y, tabPlanete[1].rayon);
 		centre_text(tabPlanete[1].x, tabPlanete[1].y, tabPlanete[1].rayon, "Mercure");
 
-		couleurCourante(125, 125, 125);
+		couleurCourante(238,140,65);
 		cercle(tabPlanete[2].x, tabPlanete[2].y, tabPlanete[2].rayon);
 		centre_text(tabPlanete[2].x, tabPlanete[2].y, tabPlanete[2].rayon, "Venus");
 
@@ -151,23 +151,23 @@ void gestionEvenement(EvenementGfx evenement)
 		cercle(tabPlanete[4].x, tabPlanete[4].y, tabPlanete[4].rayon);
 		centre_text(tabPlanete[4].x, tabPlanete[4].y, tabPlanete[4].rayon, "Lune");
 
-		couleurCourante(125, 125, 125);
+		couleurCourante(215,72,38);
 		cercle(tabPlanete[5].x, tabPlanete[5].y, tabPlanete[5].rayon);
 		centre_text(tabPlanete[5].x, tabPlanete[5].y, tabPlanete[5].rayon, "Mars");
 
-		couleurCourante(125, 125, 125);
+		couleurCourante(246,212,145);
 		cercle(tabPlanete[6].x, tabPlanete[6].y, tabPlanete[6].rayon);
 		centre_text(tabPlanete[6].x, tabPlanete[6].y, tabPlanete[6].rayon, "Jupiter");
 
-		couleurCourante(125, 125, 125);
+		couleurCourante(249,223,172);
 		cercle(tabPlanete[7].x, tabPlanete[7].y, tabPlanete[7].rayon);
 		centre_text(tabPlanete[7].x, tabPlanete[7].y, tabPlanete[7].rayon, "Saturn");
 
-		couleurCourante(125, 125, 125);
+		couleurCourante(82,191,219);
 		cercle(tabPlanete[8].x, tabPlanete[8].y, tabPlanete[8].rayon);
 		centre_text(tabPlanete[8].x, tabPlanete[8].y, tabPlanete[8].rayon, "Uranus");
 
-		couleurCourante(125, 125, 125);
+		couleurCourante(21,133,183);
 		cercle(tabPlanete[9].x, tabPlanete[9].y, tabPlanete[9].rayon);
 		centre_text(tabPlanete[9].x, tabPlanete[9].y, tabPlanete[9].rayon, "Neptune");
 		temps = button_pause(etat_pause,temps,vitesse_simulation);
