@@ -4,6 +4,7 @@
 #include "GFXlib/GfxLib.h" // Seul cet include est necessaire pour faire du graphique
 #include "GFXlib/BmpLib.h" // Cet include permet de manipuler des fichiers BMP
 #include "GFXlib/ESLib.h"  // Pour utiliser valeurAleatoire()
+#include "structure.h"
 #include "fonctions.h"
 #include <time.h>
 #define LargeurFenetre 800
@@ -52,47 +53,8 @@ void gestionEvenement(EvenementGfx evenement)
 	static DonneesImageRGB *image = NULL;
 	static double temps = 0;
 	static time_t temps_reel = 0;
-	static int rayon_orbite_mercure = 0;
-	static int rayon_orbite_venus = 0;
-	static int rayon_orbite_terre = 0;
-	static int rayon_orbite_lune = 0;
-	static int rayon_orbite_mars = 0;
-	static int rayon_orbite_jupiter = 0;
-	static int rayon_orbite_saturn = 0;
-	static int rayon_orbite_uranus = 0;
-	static int rayon_orbite_neptune = 0;
 
-	static int rayon_soleil = 0;
-	static int rayon_mercure = 0;
-	static int rayon_venus = 0;
-	static int rayon_terre = 0;
-	static int rayon_lune = 0;
-	static int rayon_mars = 0;
-	static int rayon_jupiter = 0;
-	static int rayon_saturn = 0;
-	static int rayon_uranus = 0;
-	static int rayon_neptune = 0;
-
-	static int x_soleil = 0;
-	static int y_soleil = 0;
-	static int x_mercure = 0;
-	static int y_mercure = 0;
-	static int x_venus = 0;
-	static int y_venus = 0;
-	static int x_terre = 0;
-	static int y_terre = 0;
-	static int x_lune = 0;
-	static int y_lune = 0;
-	static int x_mars = 0;
-	static int y_mars = 0;
-	static int x_jupiter = 0;
-	static int y_jupiter = 0;
-	static int x_saturn = 0;
-	static int y_saturn = 0;
-	static int x_uranus = 0;
-	static int y_uranus = 0;
-	static int x_neptune = 0;
-	static int y_neptune = 0;
+	static Planete tabPlanete[10];
 
 	static int etat_pause = 1;
 	static float vitesse_simulation = 1;
@@ -102,6 +64,18 @@ void gestionEvenement(EvenementGfx evenement)
 	case Initialisation:
 		temps_reel = time(NULL);
 		temps = (double)difftime(temps_reel, 0);
+		initTab(tabPlanete, 10);
+		setTab(tabPlanete, 0, "Soleil", (double)1.98E+30, 0.0);
+		setTab(tabPlanete, 1, "Mercure", (double)3.3E+23, 0.24);
+		setTab(tabPlanete, 2, "Venus", (double)4.87E+24, 0.615);
+		setTab(tabPlanete, 3, "Terre", (double)5.97E+24, 1);
+		setTab(tabPlanete, 4, "Lune", (double)7.6E+22, 0.0);
+		setTab(tabPlanete, 5, "Mars", (double)6.42E+23, 1.88);
+		setTab(tabPlanete, 6, "Jupiter", (double)1.898E+27, 11.86);
+		setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.45);
+		setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.01);
+		setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79);
+
 		demandeTemporisation(20);
 
 		image = lisBMPRGB("background1.bmp");
@@ -110,99 +84,90 @@ void gestionEvenement(EvenementGfx evenement)
 		rafraichisFenetre();
 		break;
 	case Affichage:
-		rayon_terre = echelle_planete(6371, 2, 0.008);
-		rayon_soleil = echelle_planete(696342, 2, 0.002);
-		rayon_lune = echelle_planete(1734, 2, 0.008);
-		rayon_mercure = echelle_planete(2432, 2, 0.008);
-		rayon_venus = echelle_planete(6051, 2, 0.008);
-		rayon_mars = echelle_planete(3389, 2, 0.008);
-		rayon_jupiter = echelle_planete(69911, 2, 0.008);
-		rayon_saturn = echelle_planete(58232, 2, 0.008);
-		rayon_uranus = echelle_planete(25362, 2, 0.008);
-		rayon_neptune = echelle_planete(24622, 2, 0.008);
+		echelle_tab(tabPlanete, 0, (double)0, (double)696342, 2, 0.002);
+		echelle_tab(tabPlanete, 1, (double)57909227, (double)2432, 2, 0.008);
+		echelle_tab(tabPlanete, 2, (double)108209475, (double)6051, 2, 0.008);
+		echelle_tab(tabPlanete, 3, (double)149598262, (double)6371, 2, 0.008);
+		echelle_tab(tabPlanete, 4, (double)384400, (double)1734, 2, 0.008);
+		echelle_tab(tabPlanete, 5, (double)227943824, (double)3389, 2, 0.008);
+		echelle_tab(tabPlanete, 6, (double)778340821, (double)69911, 2, 0.008);
+		echelle_tab(tabPlanete, 7, (double)1426666422, (double)58232, 2, 0.008);
+		echelle_tab(tabPlanete, 8, (double)2870658186, (double)25362, 2, 0.008);
+		echelle_tab(tabPlanete, 9, (double)4498396441, (double)24622, 2, 0.008);
+	
+		tabPlanete[0].x = (0.5 * largeurFenetre());
+		tabPlanete[0].y = (0.5 * hauteurFenetre());
 
-		rayon_orbite_terre = echelle_orbite(149598262);
-		rayon_orbite_lune = echelle_orbite(384400);
-		rayon_orbite_mercure = echelle_orbite(57909227);
-		rayon_orbite_venus = echelle_orbite(108209475);
-		rayon_orbite_mars = echelle_orbite(227943824);
-		rayon_orbite_jupiter = echelle_orbite(778340821);
-		rayon_orbite_saturn = echelle_orbite(1426666422);
-		rayon_orbite_uranus = echelle_orbite(2870658186);
-		rayon_orbite_neptune = echelle_orbite(4498396441);
-		x_soleil = (0.5 * largeurFenetre());
-		y_soleil = (0.5 * hauteurFenetre());
+		tabPlanete[1].x = (x_absolute(tabPlanete[0].x, (tabPlanete[1].Distance_orbit * calculAbscisse(temps))));
+		tabPlanete[1].y= (y_absolute(tabPlanete[0].y, (tabPlanete[1].Distance_orbit * calculOrdonee(temps))));
 
-		x_mercure = (x_absolute(x_soleil, (rayon_orbite_mercure * calculAbscisse(temps))));
-		y_mercure = (y_absolute(y_soleil, (rayon_orbite_mercure * calculOrdonee(temps))));
+		tabPlanete[2].x = (x_absolute(tabPlanete[0].x, (tabPlanete[2].Distance_orbit * calculAbscisse(temps))));
+		tabPlanete[2].y = (y_absolute(tabPlanete[0].y, (tabPlanete[2].Distance_orbit * calculOrdonee(temps))));
 
-		x_venus = (x_absolute(x_soleil, (rayon_orbite_venus * calculAbscisse(temps))));
-		y_venus = (y_absolute(y_soleil, (rayon_orbite_venus * calculOrdonee(temps))));
+		tabPlanete[3].x = (x_absolute(tabPlanete[0].x, (tabPlanete[3].Distance_orbit * calculAbscisse(temps))));
+		tabPlanete[3].y = (y_absolute(tabPlanete[0].y, (tabPlanete[3].Distance_orbit * calculOrdonee(temps))));
 
-		x_terre = (x_absolute(x_soleil, (rayon_orbite_terre * calculAbscisse(temps))));
-		y_terre = (y_absolute(y_soleil, (rayon_orbite_terre * calculOrdonee(temps))));
+		tabPlanete[4].x = (x_absolute(tabPlanete[3].x, (tabPlanete[4].Distance_orbit * calculAbscisse(temps * 13.3593607))));
+		tabPlanete[4].y = (y_absolute(tabPlanete[3].y, (tabPlanete[4].Distance_orbit * calculOrdonee(temps * 13.3593607))));
 
-		x_lune = (x_absolute(x_terre, (rayon_orbite_lune * calculAbscisse(temps * 13.3593607))));
-		y_lune = (y_absolute(y_terre, (rayon_orbite_lune * calculOrdonee(temps * 13.3593607))));
+		tabPlanete[5].x = (x_absolute(tabPlanete[0].x, (tabPlanete[5].Distance_orbit * calculAbscisse(temps))));
+		tabPlanete[5].y = (y_absolute(tabPlanete[0].y, (tabPlanete[5].Distance_orbit * calculOrdonee(temps))));
 
-		x_mars = (x_absolute(x_soleil, (rayon_orbite_mars * calculAbscisse(temps))));
-		y_mars = (y_absolute(y_soleil, (rayon_orbite_mars * calculOrdonee(temps))));
+		tabPlanete[6].x = (x_absolute(tabPlanete[0].x, (tabPlanete[6].Distance_orbit * calculAbscisse(temps))));
+		tabPlanete[6].y = (y_absolute(tabPlanete[0].y, (tabPlanete[6].Distance_orbit * calculOrdonee(temps))));
 
-		x_jupiter = (x_absolute(x_soleil, (rayon_orbite_jupiter * calculAbscisse(temps))));
-		y_jupiter = (y_absolute(y_soleil, (rayon_orbite_jupiter * calculOrdonee(temps))));
+		tabPlanete[7].x = (x_absolute(tabPlanete[0].x, (tabPlanete[7].Distance_orbit * calculAbscisse(temps))));
+		tabPlanete[7].y = (y_absolute(tabPlanete[0].y, (tabPlanete[7].Distance_orbit * calculOrdonee(temps))));
 
-		x_saturn = (x_absolute(x_soleil, (rayon_orbite_saturn * calculAbscisse(temps))));
-		y_saturn = (y_absolute(y_soleil, (rayon_orbite_saturn * calculOrdonee(temps))));
+		tabPlanete[8].x = (x_absolute(tabPlanete[0].x, (tabPlanete[8].Distance_orbit * calculAbscisse(temps))));
+		tabPlanete[8].y = (y_absolute(tabPlanete[0].y, (tabPlanete[8].Distance_orbit * calculOrdonee(temps))));
 
-		x_uranus = (x_absolute(x_soleil, (rayon_orbite_uranus * calculAbscisse(temps))));
-		y_uranus = (y_absolute(y_soleil, (rayon_orbite_uranus * calculOrdonee(temps))));
-
-		x_neptune = (x_absolute(x_soleil, (rayon_orbite_neptune * calculAbscisse(temps))));
-		y_neptune = (y_absolute(y_soleil, (rayon_orbite_neptune * calculOrdonee(temps))));
+		tabPlanete[9].x = (x_absolute(tabPlanete[0].x, (tabPlanete[9].Distance_orbit * calculAbscisse(temps))));
+		tabPlanete[9].y = (y_absolute(tabPlanete[0].y, (tabPlanete[9].Distance_orbit * calculOrdonee(temps))));
 
 		effaceFenetre(0, 0, 0);
 
 		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
 
 		couleurCourante(255, 255, 0);
-		cercle(x_soleil, y_soleil, (rayon_soleil));
-		centre_text(x_soleil, y_soleil, rayon_soleil, "Soleil");
+		cercle(tabPlanete[0].x, tabPlanete[0].y, (tabPlanete[0].rayon));
+		centre_text(tabPlanete[0].x, tabPlanete[0].y, tabPlanete[0].rayon, "Soleil");
 
 		couleurCourante(125, 125, 125);
-		cercle(x_mercure, y_mercure, rayon_mercure);
-		centre_text(x_mercure, y_mercure, rayon_mercure, "Mercure");
+		cercle(tabPlanete[1].x, tabPlanete[1].y, tabPlanete[1].rayon);
+		centre_text(tabPlanete[1].x, tabPlanete[1].y, tabPlanete[1].rayon, "Mercure");
 
 		couleurCourante(125, 125, 125);
-		cercle(x_venus, y_venus, rayon_venus);
-		centre_text(x_venus, y_venus, rayon_venus, "Venus");
+		cercle(tabPlanete[2].x, tabPlanete[2].y, tabPlanete[2].rayon);
+		centre_text(tabPlanete[2].x, tabPlanete[2].y, tabPlanete[2].rayon, "Venus");
 
 		couleurCourante(0, 0, 255);
-		cercle(x_terre, y_terre, rayon_terre);
-		centre_text(x_terre, y_terre, rayon_terre, "Terre");
+		cercle(tabPlanete[3].x, tabPlanete[3].y, tabPlanete[3].rayon);
+		centre_text(tabPlanete[3].x, tabPlanete[3].y, tabPlanete[3].rayon, "Terre");
 
 		couleurCourante(125, 125, 125);
-		cercle(x_lune, y_lune, rayon_lune);
-		centre_text(x_lune, y_lune, rayon_lune, "Lune");
+		cercle(tabPlanete[4].x, tabPlanete[4].y, tabPlanete[4].rayon);
+		centre_text(tabPlanete[4].x, tabPlanete[4].y, tabPlanete[4].rayon, "Lune");
 
 		couleurCourante(125, 125, 125);
-		cercle(x_mars, y_mars, rayon_mars);
-		centre_text(x_mars, y_mars, rayon_mars, "Mars");
+		cercle(tabPlanete[5].x, tabPlanete[5].y, tabPlanete[5].rayon);
+		centre_text(tabPlanete[5].x, tabPlanete[5].y, tabPlanete[5].rayon, "Mars");
 
 		couleurCourante(125, 125, 125);
-		cercle(x_jupiter, y_jupiter, rayon_jupiter);
-		centre_text(x_jupiter, y_jupiter, rayon_jupiter, "Jupiter");
+		cercle(tabPlanete[6].x, tabPlanete[6].y, tabPlanete[6].rayon);
+		centre_text(tabPlanete[6].x, tabPlanete[6].y, tabPlanete[6].rayon, "Jupiter");
 
 		couleurCourante(125, 125, 125);
-		cercle(x_saturn, y_saturn, rayon_saturn);
-		centre_text(x_saturn, y_saturn, rayon_saturn, "Saturn");
+		cercle(tabPlanete[7].x, tabPlanete[7].y, tabPlanete[7].rayon);
+		centre_text(tabPlanete[7].x, tabPlanete[7].y, tabPlanete[7].rayon, "Saturn");
 
 		couleurCourante(125, 125, 125);
-		cercle(x_uranus, y_uranus, rayon_uranus);
-		centre_text(x_uranus, y_uranus, rayon_uranus, "Uranus");
+		cercle(tabPlanete[8].x, tabPlanete[8].y, tabPlanete[8].rayon);
+		centre_text(tabPlanete[8].x, tabPlanete[8].y, tabPlanete[8].rayon, "Uranus");
 
 		couleurCourante(125, 125, 125);
-		cercle(x_neptune, y_neptune, rayon_neptune);
-		centre_text(x_neptune, y_neptune, rayon_neptune, "Neptune");
+		cercle(tabPlanete[9].x, tabPlanete[9].y, tabPlanete[9].rayon);
+		centre_text(tabPlanete[9].x, tabPlanete[9].y, tabPlanete[9].rayon, "Neptune");
 		temps = button_pause(etat_pause,temps,vitesse_simulation);
 		affiche_date(temps, temps_reel);
 		break;

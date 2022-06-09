@@ -5,8 +5,8 @@ typedef struct Planete
     float y;
     float vx;
     float vy;
-    float Distance_Orbit;
-    float rayon;
-    float masse;
+    double Distance_orbit;
+    double rayon;
+    double masse;
     float Orbit_periode;
 }Planete;
