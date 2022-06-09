@@ -37,15 +37,14 @@ void centre_text(int x_objet, int y_objet, int rayon_objet, char nom_objet[]){
 
 float echelle_orbite(double distance_reel)
 {
-  
-    return ((0.5*hauteurFenetre()- 20)*distance_reel)/4498396441;
+
+    return ((0.5*hauteurFenetre() - 30)*distance_reel)/4498396441;
 }
 
-float echelle_planete(double distance_reel, double rayon_reel)
+float echelle_planete(double rayon_reel, int valeur_fixe, float coefficient)
 {
-    return (echelle_orbite(distance_reel)*rayon_reel)/distance_reel;
+    return ((coefficient * largeurFenetre()) * (rayon_reel / 696342) + valeur_fixe);
 }
-
 float facteur_temps(float periode){
     return (1/periode);
 }

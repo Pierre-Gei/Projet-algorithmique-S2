@@ -20,4 +20,4 @@ float facteur_temps(float periode);
 float echelle_orbite(double distance_reel);
 
 /* Donne le facteur d'échelle des planetes*/
-float echelle_planete(double distance_reel, double rayon_reel);
+float echelle_planete(double rayon_reel, int valeur_fixe, float coefficient);
