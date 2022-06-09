@@ -3,6 +3,8 @@
 #include "GFXlib/GfxLib.h"
 #include "GFXlib/BmpLib.h"
 #include "GFXlib/ESLib.h"
+#include "structure.h"
+#include <string.h>
 
 int x_absolute(int x_centre, int x_relatif){
     return(x_relatif+x_centre);
@@ -46,4 +48,15 @@ float echelle_planete(double distance_reel, double rayon_reel)
 
 float facteur_temps(float periode){
     return (1/periode);
+}
+
+Planete initplanete(char nomP[],float Distance_OrbitP,float rayonP,float masseP,float Orbit_periodeP)
+{
+    Planete plane;
+    strcpy(plane.nom,nomP);
+    plane.Distance_Orbit=Distance_OrbitP;
+    plane.rayon=rayonP;
+    plane.masse=masseP;
+    plane.Orbit_periode=Orbit_periodeP;
+    return plane;
 }
