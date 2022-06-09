@@ -14,7 +14,7 @@ float calculOrdonee(double secondes);
 void centre_text(int x_objet, int y_objet, int rayon_objet, char nom_objet[]);
 
 /* Donne le facteur temps d'un objet en fonction de sa période orbitale en années*/
-float facteur_temps(float periode);
+float facteur_temps(Planete planete);
 
 /* Donne le facteur d'échelle des orbites*/
 float echelle_orbite(double distance_reel);

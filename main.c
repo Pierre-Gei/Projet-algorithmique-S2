@@ -49,7 +49,7 @@ void cercle(float centreX, float centreY, float rayon)
 des qu'une evenement survient */
 void gestionEvenement(EvenementGfx evenement)
 {
-	static bool pleinEcran = false;
+	static bool pleinEcran = true;
 	static DonneesImageRGB *image = NULL;
 	static double temps = 0;
 	static time_t temps_reel = 0;
@@ -62,6 +62,7 @@ void gestionEvenement(EvenementGfx evenement)
 	switch (evenement)
 	{
 	case Initialisation:
+		modePleinEcran();
 		temps_reel = time(NULL);
 		temps = (double)difftime(temps_reel, 0);
 		initTab(tabPlanete, 10);
@@ -69,7 +70,7 @@ void gestionEvenement(EvenementGfx evenement)
 		setTab(tabPlanete, 1, "Mercure", (double)3.3E+23, 0.24);
 		setTab(tabPlanete, 2, "Venus", (double)4.87E+24, 0.615);
 		setTab(tabPlanete, 3, "Terre", (double)5.97E+24, 1);
-		setTab(tabPlanete, 4, "Lune", (double)7.6E+22, 0.0);
+		setTab(tabPlanete, 4, "Lune", (double)7.6E+22,  13.3593607);
 		setTab(tabPlanete, 5, "Mars", (double)6.42E+23, 1.88);
 		setTab(tabPlanete, 6, "Jupiter", (double)1.898E+27, 11.86);
 		setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.45);
@@ -99,32 +100,32 @@ void gestionEvenement(EvenementGfx evenement)
 		echelle_tab(tabPlanete, 9, (double)4498396441, (double)24622, 2, 0.008);
 	
 
-		tabPlanete[1].x = (x_absolute(tabPlanete[0].x, (tabPlanete[1].Distance_orbit * calculAbscisse(temps))));
-		tabPlanete[1].y= (y_absolute(tabPlanete[0].y, (tabPlanete[1].Distance_orbit * calculOrdonee(temps))));
+		tabPlanete[1].x = (x_absolute(tabPlanete[0].x, (tabPlanete[1].Distance_orbit * calculAbscisse(temps*facteur_temps(tabPlanete[1])))));
+		tabPlanete[1].y= (y_absolute(tabPlanete[0].y, (tabPlanete[1].Distance_orbit * calculOrdonee(temps*facteur_temps(tabPlanete[1])))));
 
-		tabPlanete[2].x = (x_absolute(tabPlanete[0].x, (tabPlanete[2].Distance_orbit * calculAbscisse(temps))));
-		tabPlanete[2].y = (y_absolute(tabPlanete[0].y, (tabPlanete[2].Distance_orbit * calculOrdonee(temps))));
+		tabPlanete[2].x = (x_absolute(tabPlanete[0].x, (tabPlanete[2].Distance_orbit * calculAbscisse(temps*facteur_temps(tabPlanete[2])))));
+		tabPlanete[2].y = (y_absolute(tabPlanete[0].y, (tabPlanete[2].Distance_orbit * calculOrdonee(temps*facteur_temps(tabPlanete[2])))));
 
-		tabPlanete[3].x = (x_absolute(tabPlanete[0].x, (tabPlanete[3].Distance_orbit * calculAbscisse(temps))));
-		tabPlanete[3].y = (y_absolute(tabPlanete[0].y, (tabPlanete[3].Distance_orbit * calculOrdonee(temps))));
+		tabPlanete[3].x = (x_absolute(tabPlanete[0].x, (tabPlanete[3].Distance_orbit * calculAbscisse(temps*facteur_temps(tabPlanete[3])))));
+		tabPlanete[3].y = (y_absolute(tabPlanete[0].y, (tabPlanete[3].Distance_orbit * calculOrdonee(temps*facteur_temps(tabPlanete[3])))));
 
-		tabPlanete[4].x = (x_absolute(tabPlanete[3].x, (tabPlanete[4].Distance_orbit * calculAbscisse(temps * 13.3593607))));
-		tabPlanete[4].y = (y_absolute(tabPlanete[3].y, (tabPlanete[4].Distance_orbit * calculOrdonee(temps * 13.3593607))));
+		tabPlanete[4].x = (x_absolute(tabPlanete[3].x, (tabPlanete[4].Distance_orbit * calculAbscisse(temps*facteur_temps(tabPlanete[4])))));
+		tabPlanete[4].y = (y_absolute(tabPlanete[3].y, (tabPlanete[4].Distance_orbit * calculOrdonee(temps*facteur_temps(tabPlanete[4])))));
 
-		tabPlanete[5].x = (x_absolute(tabPlanete[0].x, (tabPlanete[5].Distance_orbit * calculAbscisse(temps))));
-		tabPlanete[5].y = (y_absolute(tabPlanete[0].y, (tabPlanete[5].Distance_orbit * calculOrdonee(temps))));
+		tabPlanete[5].x = (x_absolute(tabPlanete[0].x, (tabPlanete[5].Distance_orbit * calculAbscisse(temps*facteur_temps(tabPlanete[5])))));
+		tabPlanete[5].y = (y_absolute(tabPlanete[0].y, (tabPlanete[5].Distance_orbit * calculOrdonee(temps*facteur_temps(tabPlanete[5])))));
 
-		tabPlanete[6].x = (x_absolute(tabPlanete[0].x, (tabPlanete[6].Distance_orbit * calculAbscisse(temps))));
-		tabPlanete[6].y = (y_absolute(tabPlanete[0].y, (tabPlanete[6].Distance_orbit * calculOrdonee(temps))));
+		tabPlanete[6].x = (x_absolute(tabPlanete[0].x, (tabPlanete[6].Distance_orbit * calculAbscisse(temps*facteur_temps(tabPlanete[6])))));
+		tabPlanete[6].y = (y_absolute(tabPlanete[0].y, (tabPlanete[6].Distance_orbit * calculOrdonee(temps*facteur_temps(tabPlanete[6])))));
 
-		tabPlanete[7].x = (x_absolute(tabPlanete[0].x, (tabPlanete[7].Distance_orbit * calculAbscisse(temps))));
-		tabPlanete[7].y = (y_absolute(tabPlanete[0].y, (tabPlanete[7].Distance_orbit * calculOrdonee(temps))));
+		tabPlanete[7].x = (x_absolute(tabPlanete[0].x, (tabPlanete[7].Distance_orbit * calculAbscisse(temps*facteur_temps(tabPlanete[7])))));
+		tabPlanete[7].y = (y_absolute(tabPlanete[0].y, (tabPlanete[7].Distance_orbit * calculOrdonee(temps*facteur_temps(tabPlanete[7])))));
 
-		tabPlanete[8].x = (x_absolute(tabPlanete[0].x, (tabPlanete[8].Distance_orbit * calculAbscisse(temps))));
-		tabPlanete[8].y = (y_absolute(tabPlanete[0].y, (tabPlanete[8].Distance_orbit * calculOrdonee(temps))));
+		tabPlanete[8].x = (x_absolute(tabPlanete[0].x, (tabPlanete[8].Distance_orbit * calculAbscisse(temps*facteur_temps(tabPlanete[8])))));
+		tabPlanete[8].y = (y_absolute(tabPlanete[0].y, (tabPlanete[8].Distance_orbit * calculOrdonee(temps*facteur_temps(tabPlanete[8])))));
 
-		tabPlanete[9].x = (x_absolute(tabPlanete[0].x, (tabPlanete[9].Distance_orbit * calculAbscisse(temps))));
-		tabPlanete[9].y = (y_absolute(tabPlanete[0].y, (tabPlanete[9].Distance_orbit * calculOrdonee(temps))));
+		tabPlanete[9].x = (x_absolute(tabPlanete[0].x, (tabPlanete[9].Distance_orbit * calculAbscisse(temps*facteur_temps(tabPlanete[9])))));
+		tabPlanete[9].y = (y_absolute(tabPlanete[0].y, (tabPlanete[9].Distance_orbit * calculOrdonee(temps*facteur_temps(tabPlanete[9])))));
 
 		effaceFenetre(0, 0, 0);
 
@@ -185,10 +186,13 @@ void gestionEvenement(EvenementGfx evenement)
 		case 'F':
 		case 'f':
 			pleinEcran = !pleinEcran; // Changement de mode plein ecran
-			if (pleinEcran)
+			if (pleinEcran){
 				modePleinEcran();
-			else
+				}
+				
+			else{
 				redimensionneFenetre(LargeurFenetre, HauteurFenetre);
+				}	
 			break;
 		case ' ':
 			switch (etat_pause)
@@ -238,7 +242,6 @@ void gestionEvenement(EvenementGfx evenement)
 		switch(toucheClavier())
 		{
 		case 13:
-			printf("b");
 			tabPlanete[0] = deplacementH(tabPlanete[0]);
 			break;
 		
@@ -268,6 +271,8 @@ void gestionEvenement(EvenementGfx evenement)
 		break;
 
 	case Redimensionnement: // La taille de la fenetre a ete modifie ou on est passe en plein ecran
+		tabPlanete[0].x = (0.5 * largeurFenetre());
+		tabPlanete[0].y = (0.5 * hauteurFenetre());
 		break;
 	}
 }

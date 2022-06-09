@@ -49,9 +49,9 @@ float echelle_planete(double rayon_reel, int valeur_fixe, float coefficient)
 {
     return ((coefficient * largeurFenetre()) * (rayon_reel / 696342) + valeur_fixe);
 }
-float facteur_temps(float periode)
+float facteur_temps(Planete planete)
 {
-    return (1 / periode);
+    return (1 / planete.Orbit_periode);
 }
 
 Planete initplanete(char nomP[], float Distance_OrbitP, float rayonP, float masseP, float Orbit_periodeP)
@@ -135,22 +135,21 @@ void echelle_tab(Planete tab[], int position, double distance_orbitale, double r
 }
 
 Planete deplacementH(Planete astre){
-	astre.y=astre.y-50;
-    printf("a");
+	astre.y=astre.y-10;
 	return astre;
 }
 
 Planete deplacementB(Planete astre){
-	astre.y=astre.y+50;
+	astre.y=astre.y+10;
 	return astre;
 }
 
 Planete deplacementG(Planete astre){
-	astre.x=astre.x+50;
+	astre.x=astre.x+10;
 	return astre;
 }
 
 Planete deplacementD(Planete astre){
-	astre.x=astre.x-50;
+	astre.x=astre.x-10;
 	return astre;
 }	
