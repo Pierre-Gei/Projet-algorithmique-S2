@@ -15,12 +15,22 @@ Fait:
     -image background
     -structure planètes
     -fonction calcul facteur temps
-
-A faire:
     -Mise a l'echelle des orbites
     -Mise a l'echelle des planètes
+    -affichage de la date
+    -affichage pause:vitesse de la simulation
+    -syncro date affichée:date simulée
+    -déplacement:
+        -touches flèches
+    -pause:
+        -espace(mise en pause)
+        -s(accelerer le temps)
+        -d(ralentir le temps)
+        -r(inverser le sens du temps)
+    -les durée des orbites sont réalistes
+
+A faire:
     -affichage intéractif:
         -focus
         -zoom
-        -déplacement
-        -pause
+    -mise en equation
