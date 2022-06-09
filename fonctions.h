@@ -24,3 +24,6 @@ float echelle_planete(double rayon_reel, int valeur_fixe, float coefficient);
 
 /* premet de mettre en pause l'avencement du temps ainsi que de modifer la vitesse de la simulation*/
 double button_pause(int etat, double temps, float facteur);
+
+/* Affiche la date correspondant a la simulation actuelle*/
+void affiche_date(double temps, time_t temps_reel);

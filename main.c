@@ -204,6 +204,7 @@ void gestionEvenement(EvenementGfx evenement)
 		cercle(x_neptune, y_neptune, rayon_neptune);
 		centre_text(x_neptune, y_neptune, rayon_neptune, "Neptune");
 		temps = button_pause(etat_pause,temps,vitesse_simulation);
+		affiche_date(temps, temps_reel);
 		break;
 	case Clavier:
 		printf("%c : ASCII %d\n", caractereClavier(), caractereClavier());

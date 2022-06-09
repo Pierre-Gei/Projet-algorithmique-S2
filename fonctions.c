@@ -5,6 +5,7 @@
 #include "GFXlib/ESLib.h"
 #include "structure.h"
 #include <string.h>
+#include <time.h>
 
 int x_absolute(int x_centre, int x_relatif){
     return(x_relatif+x_centre);
@@ -71,6 +72,18 @@ double button_pause(int etat, double temps, float facteur){
         couleurCourante(255, 255, 0);
         sprintf(chaine, "Vitesse de la simulation = %3.2f", facteur);
         afficheChaine(chaine,20,((largeurFenetre()/2)-((tailleChaine(chaine,20))/2)),((hauteurFenetre())-20));
-        return (temps+(0.02*facteur));
+        return (temps+(0.04*facteur));
     }
+}
+
+void affiche_date(double temps, time_t start_time){
+    double temps_ecoule_relatif;
+    time_t temps_ecoule_absolute;
+    temps_ecoule_relatif = difftime(temps,start_time);
+    temps_ecoule_absolute = (time_t)((temps_ecoule_relatif*86400)+temps);
+    struct tm *date = gmtime(&temps_ecoule_absolute);
+    char text_date[40];
+    couleurCourante(255, 255, 255);
+    sprintf(text_date, "%d/%d/%d", date->tm_mday, (date->tm_mon)+1, (date->tm_year)+1900);
+    afficheChaine(text_date,20,((largeurFenetre()/2)-((tailleChaine(text_date,20))/2)),((hauteurFenetre())-50));
 }
