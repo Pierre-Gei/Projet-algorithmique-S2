@@ -45,9 +45,9 @@ float echelle_orbite(double distance_reel)
     return ((0.5 * hauteurFenetre() - 30) * distance_reel) / 4498396441;
 }
 
-float echelle_planete(double rayon_reel, int valeur_fixe, float coefficient)
+float echelle_planete(double rayon_reel, float coefficient)
 {
-    return ((coefficient * largeurFenetre()) * (rayon_reel / 696342) + valeur_fixe);
+    return ((coefficient * largeurFenetre()) * (rayon_reel / 696342));
 }
 float facteur_temps(Planete planete)
 {
@@ -128,10 +128,10 @@ void setTab(Planete tab[], int position, char nom[],double masseP,float orbit_pe
     tab[position].Orbit_periode = orbit_periode;
 }
 
-void echelle_tab(Planete tab[], int position, double distance_orbitale, double rayon, int planete_fixe, float planet_coeff)
+void echelle_tab(Planete tab[], int position, double distance_orbitale, double rayon, float planet_coeff,float zoom)
 {
-    tab[position].Distance_orbit = echelle_orbite(distance_orbitale);
-    tab[position].rayon = echelle_planete(rayon, planete_fixe, planet_coeff);
+    tab[position].Distance_orbit = (echelle_orbite(distance_orbitale))*zoom;
+    tab[position].rayon = echelle_planete(rayon, planet_coeff)*zoom;
 }
 
 Planete deplacementH(Planete astre){
@@ -153,3 +153,4 @@ Planete deplacementD(Planete astre){
 	astre.x=astre.x-10;
 	return astre;
 }	
+

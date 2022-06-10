@@ -20,7 +20,7 @@ float facteur_temps(Planete planete);
 float echelle_orbite(double distance_reel);
 
 /* Donne le facteur d'échelle des planetes*/
-float echelle_planete(double rayon_reel, int valeur_fixe, float coefficient);
+float echelle_planete(double rayon_reel, float coefficient);
 
 /* premet de mettre en pause l'avencement du temps ainsi que de modifer la vitesse de la simulation*/
 double button_pause(int etat, double temps, float facteur);
@@ -34,10 +34,10 @@ void initTab(Planete tab[], int taille);
 void afficheTab(Planete tab[], int taille);
 
 /*Remplir le tableau de planete*/
-void setTab(Planete tab[], int position, char nom[],double masse,float orbit_periode);
+void setTab(Planete tab[], int position, char nom[], double masse, float orbit_periode);
 
 /*Remplir les echelles du tableaux*/
-void echelle_tab(Planete tab[], int position, double distance_orbitale, double rayon, int planete_fixe, float planet_coeff);
+void echelle_tab(Planete tab[], int position, double distance_orbitale, double rayon, float planet_coeff, float zoom);
 
 /*Déplacement Haut Bas Gauche Droite*/
 Planete deplacementH(Planete astre);
