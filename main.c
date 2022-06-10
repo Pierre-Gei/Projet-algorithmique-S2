@@ -66,15 +66,15 @@ void gestionEvenement(EvenementGfx evenement)
 		temps = (double)difftime(temps_reel, 0);
 		initTab(tabPlanete, 10);
 		setTab(tabPlanete, 0, "Soleil", (double)1.98E+30, 0.0);
-		setTab(tabPlanete, 1, "Mercure", (double)3.3E+23, 0.24);
-		setTab(tabPlanete, 2, "Venus", (double)4.87E+24, 0.615);
+		setTab(tabPlanete, 1, "Mercure", (double)3.3E+23, 0.2408467);
+		setTab(tabPlanete, 2, "Venus", (double)4.87E+24, 0.61519726);
 		setTab(tabPlanete, 3, "Terre", (double)5.97E+24, 1);
-		setTab(tabPlanete, 4, "Lune", (double)7.6E+22, 13.3593607);
-		setTab(tabPlanete, 5, "Mars", (double)6.42E+23, 1.88);
-		setTab(tabPlanete, 6, "Jupiter", (double)1.898E+27, 11.86);
-		setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.45);
-		setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.01);
-		setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79);
+		setTab(tabPlanete, 4, "Lune", (double)7.6E+22, 0.074853881);
+		setTab(tabPlanete, 5, "Mars", (double)6.42E+23, 1.8808476);
+		setTab(tabPlanete, 6, "Jupiter", (double)1.898E+27, 11.862615);
+		setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.447498);
+		setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.016846);
+		setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79132);
 
 		tabPlanete[0].x = (0.5 * largeurFenetre());
 		tabPlanete[0].y = (0.5 * hauteurFenetre());
