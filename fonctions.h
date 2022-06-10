@@ -52,3 +52,6 @@ Planete deplacementG(Planete astre);
 Planete deplacementD(Planete astre);
 
 void calculPosition(Planete tab[], double temps, int taille);
+
+/*Renvoie le temps écoulé a l'echelle entre 2 actualisations*/
+double delta_temps(float facteur);

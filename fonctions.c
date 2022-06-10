@@ -79,7 +79,7 @@ double button_pause(int etat, double temps, float facteur)
         couleurCourante(255, 255, 0);
         sprintf(chaine, "Vitesse de la simulation = %3.2f", facteur);
         afficheChaine(chaine, 20, ((largeurFenetre() / 2) - ((tailleChaine(chaine, 20)) / 2)), ((hauteurFenetre()) - 20));
-        return (temps + (0.04 * facteur));
+        return (temps + (0.02 * facteur));
     }
 }
 
@@ -176,4 +176,10 @@ void calculPosition(Planete tab[], double temps, int taille)
         tab[i].x = (x_absolute(tab[position].x, (tab[i].Distance_orbit * calculAbscisse(temps * facteur_temps(tab[i])))));
         tab[i].y = (y_absolute(tab[position].y, (tab[i].Distance_orbit * calculOrdonee(temps * facteur_temps(tab[i])))));
     }
+}
+
+double delta_temps(float facteur){
+    double delta;
+    delta = (0.02*facteur)*86400;
+    return (delta);
 }

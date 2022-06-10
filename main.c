@@ -146,6 +146,7 @@ void gestionEvenement(EvenementGfx evenement)
 		centre_text(tabPlanete[9].x, tabPlanete[9].y, tabPlanete[9].rayon, "Neptune");
 		temps = button_pause(etat_pause, temps, vitesse_simulation);
 		affiche_date(temps, temps_reel);
+		delta_temps(vitesse_simulation);
 		break;
 	case Clavier:
 		printf("%c : ASCII %d\n", caractereClavier(), caractereClavier());
