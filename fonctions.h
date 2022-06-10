@@ -27,6 +27,10 @@ double button_pause(int etat, double temps, float facteur);
 
 /* Affiche la date correspondant a la simulation actuelle*/
 void affiche_date(double temps, time_t temps_reel);
+
+/*affiche le zoom actuel*/
+void affiche_zoom(float zoom);
+
 /* Initialise le tableau de planètes à 0*/
 void initTab(Planete tab[], int taille);
 
@@ -34,10 +38,10 @@ void initTab(Planete tab[], int taille);
 void afficheTab(Planete tab[], int taille);
 
 /*Remplir le tableau de planete*/
-void setTab(Planete tab[], int position, char nom[], double masse, float orbit_periode);
+void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b);
 
 /*Remplir les echelles du tableaux*/
-void echelle_tab(Planete tab[], int position, double distance_orbitale, double rayon, float planet_coeff, float zoom);
+void echelle_tab(Planete tab[], int taille, float planet_coeff, float zoom);
 
 /*Déplacement Haut*/
 Planete deplacementH(Planete astre);
@@ -51,7 +55,16 @@ Planete deplacementG(Planete astre);
 /*Déplacement Droite*/
 Planete deplacementD(Planete astre);
 
+/*Calcul des coordonnées en temps réel*/
 void calculPosition(Planete tab[], double temps, int taille);
 
 /*Renvoie le temps écoulé a l'echelle entre 2 actualisations*/
 double delta_temps(float facteur);
+/*Focus sur les planètes*/
+void focus(Planete tab[],int nbr_planete,double temps);
+
+/*rayon reel*/
+float rayon_echelle(double rayon_reel, double orbit_reel, double echelle_orbit);
+
+/*Affichage*/
+void affichage(Planete tab[], int taille);
