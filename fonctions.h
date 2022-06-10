@@ -27,6 +27,10 @@ double button_pause(int etat, double temps, float facteur);
 
 /* Affiche la date correspondant a la simulation actuelle*/
 void affiche_date(double temps, time_t temps_reel);
+
+/*affiche le zoom actuel*/
+void affiche_zoom(float zoom);
+
 /* Initialise le tableau de planètes à 0*/
 void initTab(Planete tab[], int taille);
 

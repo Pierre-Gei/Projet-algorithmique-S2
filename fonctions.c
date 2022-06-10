@@ -95,6 +95,14 @@ void affiche_date(double temps, time_t start_time)
     sprintf(text_date, "%d/%d/%d", date->tm_mday, (date->tm_mon) + 1, (date->tm_year) + 1900);
     afficheChaine(text_date, 20, ((largeurFenetre() / 2) - ((tailleChaine(text_date, 20)) / 2)), ((hauteurFenetre()) - 50));
 }
+
+void affiche_zoom(float zoom){
+    char text_zoom[40];
+    couleurCourante(255,255,255);
+    sprintf(text_zoom,"zoom : x%.0f",zoom);
+    afficheChaine(text_zoom,20,largeurFenetre()-tailleChaine(text_zoom,20)-50,hauteurFenetre()-50);
+
+}
 void initTab(Planete tab[], int taille) // OK
 {
     for (int i = 0; i < taille; i++)

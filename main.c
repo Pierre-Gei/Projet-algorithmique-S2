@@ -145,7 +145,11 @@ void gestionEvenement(EvenementGfx evenement)
 		cercle(tabPlanete[9].x, tabPlanete[9].y, tabPlanete[9].rayon);
 		centre_text(tabPlanete[9].x, tabPlanete[9].y, tabPlanete[9].rayon, "Neptune");
 		temps = button_pause(etat_pause, temps, vitesse_simulation);
+
 		affiche_date(temps, temps_reel);
+		
+		affiche_zoom(zoom);
+		
 		break;
 	case Clavier:
 		printf("%c : ASCII %d\n", caractereClavier(), caractereClavier());
@@ -220,6 +224,7 @@ void gestionEvenement(EvenementGfx evenement)
 		case 'p':
 			zoom = zoom + 1;
 			printf("zoom : %.0f\n",zoom);
+
 			break;
 		case 'M':
 		case 'm':
