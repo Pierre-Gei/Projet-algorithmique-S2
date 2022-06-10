@@ -50,3 +50,5 @@ Planete deplacementG(Planete astre);
 
 /*Déplacement Droite*/
 Planete deplacementD(Planete astre);
+
+void calculPosition(Planete tab[], double temps, int taille);

@@ -57,6 +57,7 @@ void gestionEvenement(EvenementGfx evenement)
 	static int etat_pause = 1;
 	static float vitesse_simulation = 1;
 	static float zoom = 1;
+	static int position = 0;
 
 	switch (evenement)
 	{
@@ -97,6 +98,23 @@ void gestionEvenement(EvenementGfx evenement)
 		echelle_tab(tabPlanete, 7, (double)1426666422, (double)58232, 0.008, zoom);
 		echelle_tab(tabPlanete, 8, (double)2870658186, (double)25362, 0.008, zoom);
 		echelle_tab(tabPlanete, 9, (double)4498396441, (double)24622, 0.008, zoom);
+
+		// for (int i = 1; i < 10; i++) // Modifier la taille si on ajoute des planetes
+		// {
+		// 	position = 0;
+		// 	if (i == 4)
+		// 	{
+		// 		position = 4;
+		// 	}
+		// 	else
+		// 	{
+		// 		tabPlanete[i].x = (x_absolute(tabPlanete[position].x, (tabPlanete[i].Distance_orbit * calculAbscisse(temps * facteur_temps(tabPlanete[i])))));
+		// 		tabPlanete[i].y = (y_absolute(tabPlanete[position].y, (tabPlanete[i].Distance_orbit * calculOrdonee(temps * facteur_temps(tabPlanete[i])))));
+		// 	}
+		// }
+
+
+		// calculPosition(tabPlanete,temps, 10);
 
 		tabPlanete[1].x = (x_absolute(tabPlanete[0].x, (tabPlanete[1].Distance_orbit * calculAbscisse(temps * facteur_temps(tabPlanete[1])))));
 		tabPlanete[1].y = (y_absolute(tabPlanete[0].y, (tabPlanete[1].Distance_orbit * calculOrdonee(temps * facteur_temps(tabPlanete[1])))));

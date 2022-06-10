@@ -65,31 +65,35 @@ Planete initplanete(char nomP[], float Distance_OrbitP, float rayonP, float mass
     return plane;
 }
 
-double button_pause(int etat, double temps, float facteur){
-    if(etat==0){
+double button_pause(int etat, double temps, float facteur)
+{
+    if (etat == 0)
+    {
         couleurCourante(255, 255, 0);
-        afficheChaine("paused",20,((largeurFenetre()/2)-((tailleChaine("paused",20))/2)),((hauteurFenetre())-20));
+        afficheChaine("paused", 20, ((largeurFenetre() / 2) - ((tailleChaine("paused", 20)) / 2)), ((hauteurFenetre()) - 20));
         return temps;
     }
-    else{
+    else
+    {
         char chaine[40];
         couleurCourante(255, 255, 0);
         sprintf(chaine, "Vitesse de la simulation = %3.2f", facteur);
-        afficheChaine(chaine,20,((largeurFenetre()/2)-((tailleChaine(chaine,20))/2)),((hauteurFenetre())-20));
-        return (temps+(0.04*facteur));
+        afficheChaine(chaine, 20, ((largeurFenetre() / 2) - ((tailleChaine(chaine, 20)) / 2)), ((hauteurFenetre()) - 20));
+        return (temps + (0.04 * facteur));
     }
 }
 
-void affiche_date(double temps, time_t start_time){
+void affiche_date(double temps, time_t start_time)
+{
     double temps_ecoule_relatif;
     time_t temps_ecoule_absolute;
-    temps_ecoule_relatif = difftime(temps,start_time);
-    temps_ecoule_absolute = (time_t)((temps_ecoule_relatif*86400)+temps);
+    temps_ecoule_relatif = difftime(temps, start_time);
+    temps_ecoule_absolute = (time_t)((temps_ecoule_relatif * 86400) + temps);
     struct tm *date = gmtime(&temps_ecoule_absolute);
     char text_date[40];
     couleurCourante(255, 255, 255);
-    sprintf(text_date, "%d/%d/%d", date->tm_mday, (date->tm_mon)+1, (date->tm_year)+1900);
-    afficheChaine(text_date,20,((largeurFenetre()/2)-((tailleChaine(text_date,20))/2)),((hauteurFenetre())-50));
+    sprintf(text_date, "%d/%d/%d", date->tm_mday, (date->tm_mon) + 1, (date->tm_year) + 1900);
+    afficheChaine(text_date, 20, ((largeurFenetre() / 2) - ((tailleChaine(text_date, 20)) / 2)), ((hauteurFenetre()) - 50));
 }
 void initTab(Planete tab[], int taille) // OK
 {
@@ -121,36 +125,55 @@ void afficheTab(Planete tab[], int taille) // OK
     }
 }
 
-void setTab(Planete tab[], int position, char nom[],double masseP,float orbit_periode)
+void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode)
 {
     strcpy(tab[position].nom, nom);
     tab[position].masse = masseP;
     tab[position].Orbit_periode = orbit_periode;
 }
 
-void echelle_tab(Planete tab[], int position, double distance_orbitale, double rayon, float planet_coeff,float zoom)
+void echelle_tab(Planete tab[], int position, double distance_orbitale, double rayon, float planet_coeff, float zoom)
 {
-    tab[position].Distance_orbit = (echelle_orbite(distance_orbitale))*zoom;
-    tab[position].rayon = echelle_planete(rayon, planet_coeff)*zoom;
+    tab[position].Distance_orbit = (echelle_orbite(distance_orbitale)) * zoom;
+    tab[position].rayon = echelle_planete(rayon, planet_coeff) * zoom;
 }
 
-Planete deplacementH(Planete astre){
-	astre.y=astre.y-10;
-	return astre;
+Planete deplacementH(Planete astre)
+{
+    astre.y = astre.y - 10;
+    return astre;
 }
 
-Planete deplacementB(Planete astre){
-	astre.y=astre.y+10;
-	return astre;
+Planete deplacementB(Planete astre)
+{
+    astre.y = astre.y + 10;
+    return astre;
 }
 
-Planete deplacementG(Planete astre){
-	astre.x=astre.x+10;
-	return astre;
+Planete deplacementG(Planete astre)
+{
+    astre.x = astre.x + 10;
+    return astre;
 }
 
-Planete deplacementD(Planete astre){
-	astre.x=astre.x-10;
-	return astre;
-}	
+Planete deplacementD(Planete astre)
+{
+    astre.x = astre.x - 10;
+    return astre;
+}
 
+void calculPosition(Planete tab[], double temps, int taille)
+{
+    int position = 0;
+    for (int i = 1; i < taille; i++)
+    {
+        position = 0;
+        if (i == 4)
+        {
+            position = 3;
+        }
+
+        tab[i].x = (x_absolute(tab[position].x, (tab[i].Distance_orbit * calculAbscisse(temps * facteur_temps(tab[i])))));
+        tab[i].y = (y_absolute(tab[position].y, (tab[i].Distance_orbit * calculOrdonee(temps * facteur_temps(tab[i])))));
+    }
+}
