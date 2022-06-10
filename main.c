@@ -57,6 +57,8 @@ void gestionEvenement(EvenementGfx evenement)
 	static int etat_pause = 1;
 	static float vitesse_simulation = 1;
 	static float zoom = 1;
+	static int etat_focus = 0;
+	static int nbr_focus =0;
 
 	switch (evenement)
 	{
@@ -102,6 +104,10 @@ void gestionEvenement(EvenementGfx evenement)
 
 		
 		effaceFenetre(0, 0, 0);
+		if (etat_focus==1)
+		{
+			focus(tabPlanete,nbr_focus,temps);
+		}
 
 		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
 
@@ -235,6 +241,20 @@ void gestionEvenement(EvenementGfx evenement)
 			zoom = zoom - 1;
 			printf("zoom : %.0f\n",zoom);
 			break;
+		case 'X':
+		case 'x':
+			switch (etat_focus)
+			{
+			case 0:
+				etat_focus++;
+				nbr_focus=0;
+				break;
+			case 1:
+				etat_focus = 0;
+				break;
+			default:
+				break;
+			}	
 		default:
 			break;
 		}
@@ -245,20 +265,62 @@ void gestionEvenement(EvenementGfx evenement)
 		switch (toucheClavier())
 		{
 		case 13:
-			tabPlanete[0] = deplacementH(tabPlanete[0]);
-			
+			if(etat_focus==1)
+			{
+				break;
+			}
+			else
+			{
+				tabPlanete[0] = deplacementH(tabPlanete[0]);
+			}
 			break;
 
 		case 14:
-			tabPlanete[0] = deplacementB(tabPlanete[0]);
+			if(etat_focus==1)
+			{
+				break;
+			}
+			else
+			{
+				tabPlanete[0] = deplacementB(tabPlanete[0]);
+			}
 			break;
 
 		case 15:
-			tabPlanete[0] = deplacementG(tabPlanete[0]);
+			if(etat_focus==1)
+			{
+				if(nbr_focus==0)
+				{
+					break;
+				}
+				else
+				{
+					nbr_focus--;
+					break;
+				}
+			}
+			else
+			{
+				tabPlanete[0] = deplacementG(tabPlanete[0]);
+			}
 			break;
 
 		case 16:
-			tabPlanete[0] = deplacementD(tabPlanete[0]);
+			if(etat_focus==1)
+			{
+				if(nbr_focus==10)
+				{
+					break;
+				}
+				else
+				{
+					nbr_focus++;
+				}
+			}
+			else
+			{
+				tabPlanete[0] = deplacementD(tabPlanete[0]);
+			}
 			break;
 
 		default:

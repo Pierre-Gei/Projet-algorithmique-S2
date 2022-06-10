@@ -56,3 +56,5 @@ Planete deplacementG(Planete astre);
 Planete deplacementD(Planete astre);
 
 void calculPosition(Planete tab[], double temps, int taille);
+
+void focus(Planete tab[],int nbr_planete,double temps);

@@ -185,3 +185,22 @@ void calculPosition(Planete tab[], double temps, int taille)
         tab[i].y = (y_absolute(tab[position].y, (tab[i].Distance_orbit * calculOrdonee(temps * facteur_temps(tab[i])))));
     }
 }
+
+void focus(Planete tab[],int nbr_planete,double temps)
+{
+    float x,y;
+    if(nbr_planete==0)
+    {
+        tab[0].x=0.5 * largeurFenetre();
+        tab[0].y=0.5 * hauteurFenetre();
+    }
+    else
+    {
+        tab[0].x=0.5 * largeurFenetre();
+        tab[0].y=0.5 * hauteurFenetre();
+        x = (x_absolute(tab[0].x, (tab[nbr_planete].Distance_orbit * calculAbscisse(temps * facteur_temps(tab[nbr_planete])))));
+        y = (y_absolute(tab[0].y, (tab[nbr_planete].Distance_orbit * calculOrdonee(temps * facteur_temps(tab[nbr_planete])))));
+        tab[0].x=((0.5 * largeurFenetre())-x+(0.5 * largeurFenetre()));
+        tab[0].y=((0.5 * hauteurFenetre())-y+(0.5 * hauteurFenetre()));
+    }
+}
