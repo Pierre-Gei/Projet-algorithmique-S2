@@ -9,6 +9,7 @@
 #include <time.h>
 #define LargeurFenetre 800
 #define HauteurFenetre 600
+#define Taille 10
 
 // Fonction de trace de cercle
 void cercle(float centreX, float centreY, float rayon);
@@ -58,7 +59,7 @@ void gestionEvenement(EvenementGfx evenement)
 	static float vitesse_simulation = 1;
 	static float zoom = 1;
 	static int etat_focus = 0;
-	static int nbr_focus =0;
+	static int nbr_focus = 0;
 
 	switch (evenement)
 	{
@@ -67,16 +68,16 @@ void gestionEvenement(EvenementGfx evenement)
 		temps_reel = time(NULL);
 		temps = (double)difftime(temps_reel, 0);
 		initTab(tabPlanete, 10);
-		setTab(tabPlanete, 0, "Soleil", (double)1.98E+30, 0.0);
-		setTab(tabPlanete, 1, "Mercure", (double)3.3E+23, 0.2408467);
-		setTab(tabPlanete, 2, "Venus", (double)4.87E+24, 0.61519726);
-		setTab(tabPlanete, 3, "Terre", (double)5.97E+24, 1);
-		setTab(tabPlanete, 4, "Lune", (double)7.6E+22, 0.074853881);
-		setTab(tabPlanete, 5, "Mars", (double)6.42E+23, 1.8808476);
-		setTab(tabPlanete, 6, "Jupiter", (double)1.898E+27, 11.862615);
-		setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.447498);
-		setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.016846);
-		setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79132);
+		setTab(tabPlanete, 0, "Soleil", (double)1.98E+30, 0.0, (double)0, (double)696342, 255, 255, 0);
+		setTab(tabPlanete, 1, "Mercure", (double)3.3E+23, 0.2408467, (double)57909227, (double)2432, 239, 213, 158);
+		setTab(tabPlanete, 2, "Venus", (double)4.87E+24, 0.61519726, (double)108209475, (double)6051, 238, 140, 65);
+		setTab(tabPlanete, 3, "Terre", (double)5.97E+24, 1, (double)149598262, (double)6371, 0, 0, 255);
+		setTab(tabPlanete, 4, "Lune", (double)7.6E+22, 0.074853881, (double)384400, (double)1734, 125, 125, 125);
+		setTab(tabPlanete, 5, "Mars", (double)6.42E+23, 1.8808476, (double)227943824, (double)3389, 215, 72, 38);
+		setTab(tabPlanete, 6, "Jupiter", (double)1.898E+27, 11.862615, (double)778340821, (double)69911, 246, 212, 145);
+		setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.447498, (double)1426666422, (double)58232, 249, 223, 172);
+		setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.016846, (double)2870658186, (double)25362, 82, 191, 219);
+		setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79132, (double)4498396441, (double)24622, 21, 133, 183);
 
 		tabPlanete[0].x = (0.5 * largeurFenetre());
 		tabPlanete[0].y = (0.5 * hauteurFenetre());
@@ -89,73 +90,30 @@ void gestionEvenement(EvenementGfx evenement)
 		rafraichisFenetre();
 		break;
 	case Affichage:
-		echelle_tab(tabPlanete, 0, (double)0, (double)696342, 0.002, zoom);
-		echelle_tab(tabPlanete, 1, (double)57909227, (double)2432, 0.008, zoom);
-		echelle_tab(tabPlanete, 2, (double)108209475, (double)6051, 0.008, zoom);
-		echelle_tab(tabPlanete, 3, (double)149598262, (double)6371, 0.008, zoom);
-		echelle_tab(tabPlanete, 4, (double)3844000, (double)1734, 0.008, zoom);
-		echelle_tab(tabPlanete, 5, (double)227943824, (double)3389, 0.008, zoom);
-		echelle_tab(tabPlanete, 6, (double)778340821, (double)69911, 0.008, zoom);
-		echelle_tab(tabPlanete, 7, (double)1426666422, (double)58232, 0.008, zoom);
-		echelle_tab(tabPlanete, 8, (double)2870658186, (double)25362, 0.008, zoom);
-		echelle_tab(tabPlanete, 9, (double)4498396441, (double)24622, 0.008, zoom);
 
-		calculPosition(tabPlanete,temps, 10);
+		echelle_tab(tabPlanete, Taille, 0.008, zoom);
+		calculPosition(tabPlanete, temps, Taille);
 
-		
 		effaceFenetre(0, 0, 0);
-		if (etat_focus==1)
+		if (etat_focus == 1)
 		{
-			focus(tabPlanete,nbr_focus,temps);
+			focus(tabPlanete, nbr_focus, temps);
 		}
 
 		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
-
-		couleurCourante(255, 255, 0);
-		cercle(tabPlanete[0].x, tabPlanete[0].y, (tabPlanete[0].rayon));
-		centre_text(tabPlanete[0].x, tabPlanete[0].y, tabPlanete[0].rayon, "Soleil");
-
-		couleurCourante(239,213,158);
-		cercle(tabPlanete[1].x, tabPlanete[1].y, tabPlanete[1].rayon);
-		centre_text(tabPlanete[1].x, tabPlanete[1].y, tabPlanete[1].rayon, "Mercure");
-
-		couleurCourante(238,140,65);
-		cercle(tabPlanete[2].x, tabPlanete[2].y, tabPlanete[2].rayon);
-		centre_text(tabPlanete[2].x, tabPlanete[2].y, tabPlanete[2].rayon, "Venus");
-
-		couleurCourante(0, 0, 255);
-		cercle(tabPlanete[3].x, tabPlanete[3].y, tabPlanete[3].rayon);
-		centre_text(tabPlanete[3].x, tabPlanete[3].y, tabPlanete[3].rayon, "Terre");
-
-		couleurCourante(125, 125, 125);
-		cercle(tabPlanete[4].x, tabPlanete[4].y, tabPlanete[4].rayon);
-		centre_text(tabPlanete[4].x, tabPlanete[4].y, tabPlanete[4].rayon, "Lune");
-
-		couleurCourante(215,72,38);
-		cercle(tabPlanete[5].x, tabPlanete[5].y, tabPlanete[5].rayon);
-		centre_text(tabPlanete[5].x, tabPlanete[5].y, tabPlanete[5].rayon, "Mars");
-
-		couleurCourante(246,212,145);
-		cercle(tabPlanete[6].x, tabPlanete[6].y, tabPlanete[6].rayon);
-		centre_text(tabPlanete[6].x, tabPlanete[6].y, tabPlanete[6].rayon, "Jupiter");
-
-		couleurCourante(249,223,172);
-		cercle(tabPlanete[7].x, tabPlanete[7].y, tabPlanete[7].rayon);
-		centre_text(tabPlanete[7].x, tabPlanete[7].y, tabPlanete[7].rayon, "Saturn");
-
-		couleurCourante(82,191,219);
-		cercle(tabPlanete[8].x, tabPlanete[8].y, tabPlanete[8].rayon);
-		centre_text(tabPlanete[8].x, tabPlanete[8].y, tabPlanete[8].rayon, "Uranus");
-
-		couleurCourante(21,133,183);
-		cercle(tabPlanete[9].x, tabPlanete[9].y, tabPlanete[9].rayon);
-		centre_text(tabPlanete[9].x, tabPlanete[9].y, tabPlanete[9].rayon, "Neptune");
+	// affichage(tabPlanete, Taille);
+		for (int i = 0; i < Taille; i++)
+		{
+			couleurCourante(tabPlanete[i].color[0], tabPlanete[i].color[1], tabPlanete[i].color[2]);
+			cercle(tabPlanete[i].x, tabPlanete[i].y, tabPlanete[i].rayon);
+			centre_text(tabPlanete[i].x, tabPlanete[i].y, tabPlanete[i].rayon, tabPlanete[i].nom);
+		}
 		temps = button_pause(etat_pause, temps, vitesse_simulation);
 
 		affiche_date(temps, temps_reel);
-		
+
 		affiche_zoom(zoom);
-		
+
 		break;
 	case Clavier:
 		printf("%c : ASCII %d\n", caractereClavier(), caractereClavier());
@@ -228,9 +186,16 @@ void gestionEvenement(EvenementGfx evenement)
 
 		case 'P':
 		case 'p':
-			zoom = zoom + 1;
-			printf("zoom : %.0f\n",zoom);
+			if (zoom < 10)
+			{
+				zoom = zoom + 1;
+			}
+			else
+			{
+				zoom = zoom + 400;
+			}
 
+			printf("zoom : %.0f\n", zoom);
 			break;
 		case 'M':
 		case 'm':
@@ -238,8 +203,16 @@ void gestionEvenement(EvenementGfx evenement)
 			{
 				break;
 			}
-			zoom = zoom - 1;
-			printf("zoom : %.0f\n",zoom);
+			else if (zoom <= 10)
+			{
+				zoom = zoom - 1;
+			}
+			else
+			{
+				zoom = zoom - 400;
+			}
+
+			printf("zoom : %.0f\n", zoom);
 			break;
 		case 'X':
 		case 'x':
@@ -247,14 +220,14 @@ void gestionEvenement(EvenementGfx evenement)
 			{
 			case 0:
 				etat_focus++;
-				nbr_focus=0;
+				nbr_focus = 0;
 				break;
 			case 1:
 				etat_focus = 0;
 				break;
 			default:
 				break;
-			}	
+			}
 		default:
 			break;
 		}
@@ -265,7 +238,7 @@ void gestionEvenement(EvenementGfx evenement)
 		switch (toucheClavier())
 		{
 		case 13:
-			if(etat_focus==1)
+			if (etat_focus == 1)
 			{
 				break;
 			}
@@ -276,7 +249,7 @@ void gestionEvenement(EvenementGfx evenement)
 			break;
 
 		case 14:
-			if(etat_focus==1)
+			if (etat_focus == 1)
 			{
 				break;
 			}
@@ -287,9 +260,9 @@ void gestionEvenement(EvenementGfx evenement)
 			break;
 
 		case 15:
-			if(etat_focus==1)
+			if (etat_focus == 1)
 			{
-				if(nbr_focus==0)
+				if (nbr_focus == 0)
 				{
 					break;
 				}
@@ -306,9 +279,9 @@ void gestionEvenement(EvenementGfx evenement)
 			break;
 
 		case 16:
-			if(etat_focus==1)
+			if (etat_focus == 1)
 			{
-				if(nbr_focus==10)
+				if (nbr_focus == 10)
 				{
 					break;
 				}

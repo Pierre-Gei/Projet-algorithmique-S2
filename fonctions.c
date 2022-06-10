@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include "structure.h"
 #include "GFXlib/GfxLib.h"
 #include "GFXlib/BmpLib.h"
 #include "GFXlib/ESLib.h"
+#include "structure.h"
 
 int x_absolute(int x_centre, int x_relatif)
 {
@@ -49,6 +49,7 @@ float echelle_planete(double rayon_reel, float coefficient)
 {
     return ((coefficient * largeurFenetre()) * (rayon_reel / 696342));
 }
+
 float facteur_temps(Planete planete)
 {
     return (1 / planete.Orbit_periode);
@@ -96,12 +97,12 @@ void affiche_date(double temps, time_t start_time)
     afficheChaine(text_date, 20, ((largeurFenetre() / 2) - ((tailleChaine(text_date, 20)) / 2)), ((hauteurFenetre()) - 50));
 }
 
-void affiche_zoom(float zoom){
+void affiche_zoom(float zoom)
+{
     char text_zoom[40];
-    couleurCourante(255,255,255);
-    sprintf(text_zoom,"zoom : x%.0f",zoom);
-    afficheChaine(text_zoom,20,largeurFenetre()-tailleChaine(text_zoom,20)-50,hauteurFenetre()-50);
-
+    couleurCourante(255, 255, 255);
+    sprintf(text_zoom, "zoom : x%.0f", zoom);
+    afficheChaine(text_zoom, 20, largeurFenetre() - tailleChaine(text_zoom, 20) - 50, hauteurFenetre() - 50);
 }
 void initTab(Planete tab[], int taille) // OK
 {
@@ -115,6 +116,12 @@ void initTab(Planete tab[], int taille) // OK
         tab[i].rayon = 0;
         tab[i].masse = 0;
         tab[i].Orbit_periode = 0;
+        tab[i].Distance_reelle = 0;
+        tab[i].rayon_reel = 0;
+        for (int j = 0; j < 2; j++)
+        {
+            tab[i].color[j] = 0;
+        }
         memset(tab[i].nom, 0, 20);
     }
 }
@@ -133,17 +140,39 @@ void afficheTab(Planete tab[], int taille) // OK
     }
 }
 
-void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode)
+void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b)
 {
     strcpy(tab[position].nom, nom);
     tab[position].masse = masseP;
     tab[position].Orbit_periode = orbit_periode;
+    tab[position].Distance_reelle = distance_orbitale;
+    tab[position].rayon_reel = rayon;
+    tab[position].color[0] = r;
+    tab[position].color[1] = v;
+    tab[position].color[2] = b;
 }
 
-void echelle_tab(Planete tab[], int position, double distance_orbitale, double rayon, float planet_coeff, float zoom)
+void echelle_tab(Planete tab[], int taille, float planet_coeff, float zoom)
 {
-    tab[position].Distance_orbit = (echelle_orbite(distance_orbitale)) * zoom;
-    tab[position].rayon = echelle_planete(rayon, planet_coeff) * zoom;
+
+    if (zoom < 20)
+    {
+        tab[0].Distance_orbit = (echelle_orbite(tab[0].Distance_reelle)) * zoom;
+        tab[0].rayon = echelle_planete(tab[0].rayon_reel, 0.002) * zoom;
+        for (int i = 1; i < taille; i++)
+        {
+            tab[i].Distance_orbit = (echelle_orbite(tab[i].Distance_reelle)) * zoom;
+            tab[i].rayon = echelle_planete(tab[i].rayon_reel, planet_coeff) * zoom;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < taille; i++)
+        {
+            tab[i].Distance_orbit = (echelle_orbite(tab[i].Distance_reelle)) * zoom;
+            tab[i].rayon = echelle_orbite(tab[i].rayon_reel) * zoom;
+        }
+    }
 }
 
 Planete deplacementH(Planete astre)
@@ -186,21 +215,31 @@ void calculPosition(Planete tab[], double temps, int taille)
     }
 }
 
-void focus(Planete tab[],int nbr_planete,double temps)
+void focus(Planete tab[], int nbr_planete, double temps)
 {
-    float x,y;
-    if(nbr_planete==0)
+    float x, y;
+    if (nbr_planete == 0)
     {
-        tab[0].x=0.5 * largeurFenetre();
-        tab[0].y=0.5 * hauteurFenetre();
+        tab[0].x = 0.5 * largeurFenetre();
+        tab[0].y = 0.5 * hauteurFenetre();
     }
     else
     {
-        tab[0].x=0.5 * largeurFenetre();
-        tab[0].y=0.5 * hauteurFenetre();
+        tab[0].x = 0.5 * largeurFenetre();
+        tab[0].y = 0.5 * hauteurFenetre();
         x = (x_absolute(tab[0].x, (tab[nbr_planete].Distance_orbit * calculAbscisse(temps * facteur_temps(tab[nbr_planete])))));
         y = (y_absolute(tab[0].y, (tab[nbr_planete].Distance_orbit * calculOrdonee(temps * facteur_temps(tab[nbr_planete])))));
-        tab[0].x=((0.5 * largeurFenetre())-x+(0.5 * largeurFenetre()));
-        tab[0].y=((0.5 * hauteurFenetre())-y+(0.5 * hauteurFenetre()));
+        tab[0].x = ((0.5 * largeurFenetre()) - x + (0.5 * largeurFenetre()));
+        tab[0].y = ((0.5 * hauteurFenetre()) - y + (0.5 * hauteurFenetre()));
     }
+}
+
+void affichage(Planete tab[], int taille)
+{
+    for(int i = 0; i < taille; i++)
+{
+	couleurCourante(tab[i].color[0],tab[i].color[1],tab[i].color[2]);
+    cercle(tab[i].x, tab[i].y, tab[i].rayon);
+	centre_text(tab[i].x, tab[i].y, tab[i].rayon, tab[i].nom);
+}
 }
