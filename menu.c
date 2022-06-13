@@ -86,6 +86,7 @@ void gestionEvenement(EvenementGfx evenement)
 		if (etat_focus == 1)
 		{
 			focus(tabPlanete, nbr_focus, temps);
+			affichage_focus(tabPlanete,nbr_focus);
 		}
 		
 		affiche_date(temps, temps_reel);

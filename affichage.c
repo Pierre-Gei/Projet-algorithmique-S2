@@ -78,3 +78,17 @@ void affichage(Planete tab[], int taille)
 		centre_text(tab[i].x, tab[i].y, tab[i].rayon, tab[i].nom);
 	}
 }
+
+//12200
+
+void affichage_focus(Planete tab[],int Nbr)
+{
+	char chaine[40];
+	couleurCourante(255, 255, 0);
+	sprintf(chaine, "Nom : %s", tab[Nbr].nom);
+	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) - 20));
+	sprintf(chaine, "Rayon : %.0lf km", tab[Nbr].rayon_reel);
+	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) - 40));
+	sprintf(chaine,"Masse : %.2E kg", tab[Nbr].masse);
+	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) - 60));
+}
