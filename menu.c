@@ -5,14 +5,14 @@
 #include "GFXlib/BmpLib.h" // Cet include permet de manipuler des fichiers BMP
 #include "GFXlib/ESLib.h"  // Pour utiliser valeurAleatoire()
 #include "structure.h"
-#include "fonctions.h"
+#include "calcul.h"
+#include "affichage.h"
+#include "save.h"
 #include <time.h>
 #define LargeurFenetre 800
 #define HauteurFenetre 600
 #define Taille 10
 
-// Fonction de trace de cercle
-void cercle(float centreX, float centreY, float rayon);
 /* La fonction de gestion des evenements, appelee automatiquement par le systeme
 des qu'une evenement survient */
 void gestionEvenement(EvenementGfx evenement);
@@ -27,23 +27,6 @@ int main(int argc, char **argv)
 		qui elle-meme utilise fonctionAffichage ci-dessous */
 	lanceBoucleEvenements();
 	return 0;
-}
-
-/* Fonction de trace de cercle */
-void cercle(float centreX, float centreY, float rayon)
-{
-	const int Pas = 200; // Nombre de secteurs pour tracer le cercle
-	const double PasAngulaire = 2. * M_PI / Pas;
-	int index;
-
-	for (index = 0; index < Pas; ++index) // Pour chaque secteur
-	{
-		const double angle = 2. * M_PI * index / Pas; // on calcule l'angle de depart du secteur
-		triangle(centreX, centreY,
-				 centreX + rayon * cos(angle), centreY + rayon * sin(angle),
-				 centreX + rayon * cos(angle + PasAngulaire), centreY + rayon * sin(angle + PasAngulaire));
-		// On trace le secteur a l'aide d'un triangle => approximation d'un cercle
-	}
 }
 
 /* La fonction de gestion des evenements, appelee automatiquement par le systeme
@@ -95,31 +78,20 @@ void gestionEvenement(EvenementGfx evenement)
 		calculPosition(tabPlanete, temps, Taille);
 
 		effaceFenetre(0, 0, 0);
+
+		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
+		affichage(tabPlanete, Taille);
+		temps = button_pause(etat_pause, temps, vitesse_simulation);
+
 		if (etat_focus == 1)
 		{
 			focus(tabPlanete, nbr_focus, temps);
 		}
-
-		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
-	// affichage(tabPlanete, Taille);
-		for (int i = 0; i < Taille; i++)
-		{
-			couleurCourante(tabPlanete[i].color[0], tabPlanete[i].color[1], tabPlanete[i].color[2]);
-			cercle(tabPlanete[i].x, tabPlanete[i].y, tabPlanete[i].rayon);
-			centre_text(tabPlanete[i].x, tabPlanete[i].y, tabPlanete[i].rayon, tabPlanete[i].nom);
-		}
-		temps = button_pause(etat_pause, temps, vitesse_simulation);
-
+		
 		affiche_date(temps, temps_reel);
 
 		affiche_zoom(zoom);
 
-		couleurCourante(21,133,183);
-		cercle(tabPlanete[9].x, tabPlanete[9].y, tabPlanete[9].rayon);
-		centre_text(tabPlanete[9].x, tabPlanete[9].y, tabPlanete[9].rayon, "Neptune");
-		temps = button_pause(etat_pause, temps, vitesse_simulation);
-		affiche_date(temps, temps_reel);
-		delta_temps(vitesse_simulation);
 		break;
 	case Clavier:
 		printf("%c : ASCII %d\n", caractereClavier(), caractereClavier());
