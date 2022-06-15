@@ -7,7 +7,6 @@
 #include "GFXlib/BmpLib.h"
 #include "GFXlib/ESLib.h"
 
-
 void centre_text(int x_objet, int y_objet, int rayon_objet, char nom_objet[])
 {
 	int taille = tailleChaine(nom_objet, 15);
@@ -69,17 +68,43 @@ void cercle(float centreX, float centreY, float rayon)
 	}
 }
 
-void affichage(Planete tab[], int taille)
+void affichage(Planete tab[], int taille, float zoom)
 {
-	for (int i = 0; i < taille; i++)
+	if (zoom < 110)
 	{
-		couleurCourante(tab[i].color[0], tab[i].color[1], tab[i].color[2]);
-		cercle(tab[i].x, tab[i].y, tab[i].rayon);
-		centre_text(tab[i].x, tab[i].y, tab[i].rayon, tab[i].nom);
+		if (zoom < 10)
+		{
+			couleurCourante(tab[0].color[0], tab[0].color[1], tab[0].color[2]);
+			epaisseurDeTrait(4);
+			point(tab[0].x, tab[0].y);
+			epaisseurDeTrait(1);
+			centre_text(tab[0].x, tab[0].y, tab[0].rayon, tab[0].nom);
+		}
+		else
+		{
+			couleurCourante(tab[0].color[0], tab[0].color[1], tab[0].color[2]);
+			cercle(tab[0].x, tab[0].y, tab[0].rayon);
+			centre_text(tab[0].x, tab[0].y, tab[0].rayon, tab[0].nom);
+		}
+		for (int i = 1; i < taille; i++)
+		{
+			couleurCourante(tab[i].color[0], tab[i].color[1], tab[i].color[2]);
+			epaisseurDeTrait(4);
+			point(tab[i].x, tab[i].y);
+			epaisseurDeTrait(1);
+			centre_text(tab[i].x, tab[i].y, tab[i].rayon, tab[i].nom);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < taille; i++)
+		{
+			couleurCourante(tab[i].color[0], tab[i].color[1], tab[i].color[2]);
+			cercle(tab[i].x, tab[i].y, tab[i].rayon);
+			centre_text(tab[i].x, tab[i].y, tab[i].rayon, tab[i].nom);
+		}
 	}
 }
-
-//12200
 
 void affichage_focus(Planete tab[],int Nbr)
 {
@@ -93,7 +118,8 @@ void affichage_focus(Planete tab[],int Nbr)
 	afficheChaine(chaine, 20, 20, ((hauteurFenetre())/2 - 40));
 }
 
-void affichage_help(void){
+void affichage_help(void)
+{
 	couleurCourante(255, 255, 255);
 	epaisseurDeTrait(3);
 	afficheChaine(" Menu commandes :", 20, 0, hauteurFenetre()-20);
@@ -113,8 +139,4 @@ void affichage_help(void){
 	afficheChaine(" S'eloigner du soleil = >", 15, 0, hauteurFenetre()-285);
 	afficheChaine(" Plein ecran = F", 15, 0, hauteurFenetre()-305);
 	afficheChaine(" Quiter gfxlib = Q", 15, 0, hauteurFenetre()-325);
-
-
-
-
 }

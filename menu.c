@@ -52,16 +52,16 @@ void gestionEvenement(EvenementGfx evenement)
 		temps_reel = time(NULL);
 		temps = (double)difftime(temps_reel, 0);
 		initTab(tabPlanete, 10);
-		setTab(tabPlanete, 0, "Soleil", (double)1.98E+30, 0.0, (double)0, (double)696342, 255, 255, 0);
-		setTab(tabPlanete, 1, "Mercure", (double)3.3E+23, 0.2408467, (double)57909227, (double)2432, 239, 213, 158);
-		setTab(tabPlanete, 2, "Venus", (double)4.87E+24, 0.61519726, (double)108209475, (double)6051, 238, 140, 65);
-		setTab(tabPlanete, 3, "Terre", (double)5.97E+24, 1, (double)149598262, (double)6371, 0, 0, 255);
-		setTab(tabPlanete, 4, "Lune", (double)7.6E+22, 0.074853881, (double)384400, (double)1734, 125, 125, 125);
-		setTab(tabPlanete, 5, "Mars", (double)6.42E+23, 1.8808476, (double)227943824, (double)3389, 215, 72, 38);
-		setTab(tabPlanete, 6, "Jupiter", (double)1.898E+27, 11.862615, (double)778340821, (double)69911, 246, 212, 145);
-		setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.447498, (double)1426666422, (double)58232, 249, 223, 172);
-		setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.016846, (double)2870658186, (double)25362, 82, 191, 219);
-		setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79132, (double)4498396441, (double)24622, 21, 133, 183);
+		setTab(tabPlanete, 0, "Soleil", (double)1.98E+30, 0.0, (double)0, (double)696342, 255, 255, 0, 0);
+		setTab(tabPlanete, 1, "Mercure", (double)3.3E+23, 0.2408467, (double)57909227, (double)2432, 239, 213, 158, 0);
+		setTab(tabPlanete, 2, "Venus", (double)4.87E+24, 0.61519726, (double)108209475, (double)6051, 238, 140, 65, 0);
+		setTab(tabPlanete, 3, "Terre", (double)5.97E+24, 1, (double)149598262, (double)6371, 0, 0, 255, 0);
+		setTab(tabPlanete, 4, "Lune", (double)7.6E+22, 0.074853881, (double)384400, (double)1734, 125, 125, 125, 3);
+		setTab(tabPlanete, 5, "Mars", (double)6.42E+23, 1.8808476, (double)227943824, (double)3389, 215, 72, 38, 0);
+		setTab(tabPlanete, 6, "Jupiter", (double)1.898E+27, 11.862615, (double)778340821, (double)69911, 246, 212, 145, 0);
+		setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.447498, (double)1426666422, (double)58232, 249, 223, 172, 0);
+		setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.016846, (double)2870658186, (double)25362, 82, 191, 219, 0);
+		setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79132, (double)4498396441, (double)24622, 21, 133, 183, 0);
 
 		tabPlanete[0].x = (0.5 * largeurFenetre());
 		tabPlanete[0].y = (0.5 * hauteurFenetre());
@@ -81,19 +81,20 @@ void gestionEvenement(EvenementGfx evenement)
 		effaceFenetre(0, 0, 0);
 
 		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
-		affichage(tabPlanete, Taille);
+		affichage(tabPlanete, Taille, zoom);
 		temps = button_pause(etat_pause, temps, vitesse_simulation);
 
 		if (etat_focus == 1)
 		{
-			focus(tabPlanete, nbr_focus, temps);
+			zoom=focus(tabPlanete, nbr_focus, temps);
 			affichage_focus(tabPlanete,nbr_focus);
 		}
 
-		if (etat_help == 1){
+		if (etat_help == 1)
+		{
 			affichage_help();
 		}
-		
+
 		affiche_date(temps, temps_reel);
 
 		affiche_zoom(zoom);
@@ -170,30 +171,19 @@ void gestionEvenement(EvenementGfx evenement)
 
 		case 'P':
 		case 'p':
-			if (zoom < 10)
-			{
-				zoom = zoom + 1;
-			}
-			else
-			{
-				zoom = zoom + 400;
-			}
+			zoom = zoom * 1.25;
 
 			printf("zoom : %.0f\n", zoom);
 			break;
 		case 'M':
 		case 'm':
-			if (zoom == 1)
+			if (zoom <= 1)
 			{
-				break;
-			}
-			else if (zoom <= 10)
-			{
-				zoom = zoom - 1;
+				zoom = 1;
 			}
 			else
 			{
-				zoom = zoom - 400;
+				zoom = zoom / 1.25;
 			}
 
 			printf("zoom : %.0f\n", zoom);
@@ -213,7 +203,6 @@ void gestionEvenement(EvenementGfx evenement)
 				break;
 			}
 			break;
-
 		case 'H':
 		case 'h':
 			switch (etat_help)
@@ -228,7 +217,6 @@ void gestionEvenement(EvenementGfx evenement)
 				break;
 			}
 			break;
-
 		default:
 			break;
 		}
@@ -267,6 +255,10 @@ void gestionEvenement(EvenementGfx evenement)
 				{
 					break;
 				}
+				else if(nbr_focus == 5)
+				{
+					nbr_focus=nbr_focus-2;
+				}
 				else
 				{
 					nbr_focus--;
@@ -282,12 +274,15 @@ void gestionEvenement(EvenementGfx evenement)
 		case 16:
 			if (etat_focus == 1)
 			{
-				if (nbr_focus == 10)
+				if (nbr_focus == 9)
 				{
 					break;
 				}
-				else
+				else if(nbr_focus == 3)
 				{
+					nbr_focus=nbr_focus+2;
+				}
+				else{
 					nbr_focus++;
 				}
 			}

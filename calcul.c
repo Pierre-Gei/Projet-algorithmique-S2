@@ -96,7 +96,7 @@ void afficheTab(Planete tab[], int taille) // OK
     }
 }
 
-void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b)
+void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b, int referentiel_Force)
 {
     strcpy(tab[position].nom, nom);
     tab[position].masse = masseP;
@@ -106,29 +106,19 @@ void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_
     tab[position].color[0] = r;
     tab[position].color[1] = v;
     tab[position].color[2] = b;
+    tab[position].force = (6.67E-11 * tab[position].masse * tab[referentiel_Force].masse) / pow(tab[position].Distance_reelle,2);
 }
 
 void echelle_tab(Planete tab[], int taille, float planet_coeff, float zoom)
 {
 
-    if (zoom < 20)
-    {
-        tab[0].Distance_orbit = (echelle_orbite(tab[0].Distance_reelle)) * zoom;
-        tab[0].rayon = echelle_planete(tab[0].rayon_reel, 0.002) * zoom;
-        for (int i = 1; i < taille; i++)
-        {
-            tab[i].Distance_orbit = (echelle_orbite(tab[i].Distance_reelle)) * zoom;
-            tab[i].rayon = echelle_planete(tab[i].rayon_reel, planet_coeff) * zoom;
-        }
-    }
-    else
-    {
+   
         for (int i = 0; i < taille; i++)
         {
             tab[i].Distance_orbit = (echelle_orbite(tab[i].Distance_reelle)) * zoom;
             tab[i].rayon = echelle_orbite(tab[i].rayon_reel) * zoom;
         }
-    }
+    
 }
 
 Planete deplacementH(Planete astre)
@@ -171,9 +161,10 @@ void calculPosition(Planete tab[], double temps, int taille)
     }
 }
 
-void focus(Planete tab[], int nbr_planete, double temps)
+float focus(Planete tab[], int nbr_planete, double temps)
 {
     float x, y;
+    float liste_zoom[10]={3852,1050000,420000,420000,0,815663,40000,46000,109000,109000};
     if (nbr_planete == 0)
     {
         tab[0].x = 0.5 * largeurFenetre();
@@ -188,4 +179,12 @@ void focus(Planete tab[], int nbr_planete, double temps)
         tab[0].x = ((0.5 * largeurFenetre()) - x + (0.5 * largeurFenetre()));
         tab[0].y = ((0.5 * hauteurFenetre()) - y + (0.5 * hauteurFenetre()));
     }
+    return liste_zoom[nbr_planete];
+}
+
+double delta_temps(float facteur)
+{
+    double delta;
+    delta = (0.02*facteur)*86400;
+    return (delta);
 }
