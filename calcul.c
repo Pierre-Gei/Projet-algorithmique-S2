@@ -180,5 +180,11 @@ float focus(Planete tab[], int nbr_planete, double temps)
         tab[0].y = ((0.5 * hauteurFenetre()) - y + (0.5 * hauteurFenetre()));
     }
     return liste_zoom[nbr_planete];
-    
+}
+
+double delta_temps(float facteur)
+{
+    double delta;
+    delta = (0.02*facteur)*86400;
+    return (delta);
 }

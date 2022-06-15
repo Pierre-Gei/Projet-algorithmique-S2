@@ -68,7 +68,7 @@ void cercle(float centreX, float centreY, float rayon)
 	}
 }
 
-void affichage(Planete tab[], int taille, int zoom)
+void affichage(Planete tab[], int taille, float zoom)
 {
 	if (zoom < 110)
 	{

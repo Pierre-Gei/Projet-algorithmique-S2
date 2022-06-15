@@ -51,3 +51,5 @@ float focus(Planete tab[],int nbr_planete,double temps);
 
 /*rayon reel*/
 float rayon_echelle(double rayon_reel, double orbit_reel, double echelle_orbit);
+
+double delta_temps(float facteur);
