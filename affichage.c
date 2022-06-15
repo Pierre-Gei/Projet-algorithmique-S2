@@ -98,19 +98,21 @@ void affichage_help(void){
 	epaisseurDeTrait(3);
 	afficheChaine(" Menu commandes :", 20, 0, hauteurFenetre()-20);
 	epaisseurDeTrait(2);
-	afficheChaine(" zoom + = P", 15, 0, hauteurFenetre()-45);
-	afficheChaine(" zoom - = M", 15, 0, hauteurFenetre()-65);
-	afficheChaine(" accelerer = S", 15, 0, hauteurFenetre()-85);
-	afficheChaine(" decelerer = D", 15, 0, hauteurFenetre()-105);
-	afficheChaine(" inverser le temps = R", 15, 0, hauteurFenetre()-125);
+	afficheChaine(" Zoom + = P", 15, 0, hauteurFenetre()-45);
+	afficheChaine(" Zoom - = M", 15, 0, hauteurFenetre()-65);
+	afficheChaine(" Accelerer = S", 15, 0, hauteurFenetre()-85);
+	afficheChaine(" Decelerer = D", 15, 0, hauteurFenetre()-105);
+	afficheChaine(" Inverser le temps = R", 15, 0, hauteurFenetre()-125);
 	afficheChaine(" Pause = espace", 15, 0, hauteurFenetre()-145);
-	afficheChaine(" haut = ^", 15, 0, hauteurFenetre()-165);
-	afficheChaine(" bas = V", 15, 0, hauteurFenetre()-185);
-	afficheChaine(" gauche = <", 15, 0, hauteurFenetre()-205);
-	afficheChaine(" droite = >", 15, 0, hauteurFenetre()-225);
-	afficheChaine(" focus = X", 15, 0, hauteurFenetre()-245);
-	afficheChaine(" se rapprocher du soleil = <", 15, 0, hauteurFenetre()-265);
-	afficheChaine(" s'eloigner du soleil = >", 15, 0, hauteurFenetre()-285);
+	afficheChaine(" Haut = ^", 15, 0, hauteurFenetre()-165);
+	afficheChaine(" Bas = V", 15, 0, hauteurFenetre()-185);
+	afficheChaine(" Gauche = <", 15, 0, hauteurFenetre()-205);
+	afficheChaine(" Droite = >", 15, 0, hauteurFenetre()-225);
+	afficheChaine(" Focus = X", 15, 0, hauteurFenetre()-245);
+	afficheChaine(" Se rapprocher du soleil = <", 15, 0, hauteurFenetre()-265);
+	afficheChaine(" S'eloigner du soleil = >", 15, 0, hauteurFenetre()-285);
+	afficheChaine(" Plein ecran = F", 15, 0, hauteurFenetre()-305);
+	afficheChaine(" Quiter gfxlib = Q", 15, 0, hauteurFenetre()-325);
 
 
 
