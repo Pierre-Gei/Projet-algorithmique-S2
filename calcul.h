@@ -47,7 +47,7 @@ Planete deplacementD(Planete astre);
 void calculPosition(Planete tab[], double temps, int taille);
 
 /*Focus sur les planètes*/
-void focus(Planete tab[],int nbr_planete,double temps);
+float focus(Planete tab[],int nbr_planete,double temps);
 
 /*rayon reel*/
 float rayon_echelle(double rayon_reel, double orbit_reel, double echelle_orbit);

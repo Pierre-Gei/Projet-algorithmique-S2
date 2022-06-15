@@ -86,8 +86,8 @@ void gestionEvenement(EvenementGfx evenement)
 
 		if (etat_focus == 1)
 		{
-			focus(tabPlanete, nbr_focus, temps);
-			affichage_focus(tabPlanete, nbr_focus);
+			zoom=focus(tabPlanete, nbr_focus, temps);
+			affichage_focus(tabPlanete,nbr_focus);
 		}
 
 		if (etat_help == 1)
@@ -255,6 +255,10 @@ void gestionEvenement(EvenementGfx evenement)
 				{
 					break;
 				}
+				else if(nbr_focus == 5)
+				{
+					nbr_focus=nbr_focus-2;
+				}
 				else
 				{
 					nbr_focus--;
@@ -270,12 +274,15 @@ void gestionEvenement(EvenementGfx evenement)
 		case 16:
 			if (etat_focus == 1)
 			{
-				if (nbr_focus == 10)
+				if (nbr_focus == 9)
 				{
 					break;
 				}
-				else
+				else if(nbr_focus == 3)
 				{
+					nbr_focus=nbr_focus+2;
+				}
+				else{
 					nbr_focus++;
 				}
 			}

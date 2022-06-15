@@ -161,9 +161,10 @@ void calculPosition(Planete tab[], double temps, int taille)
     }
 }
 
-void focus(Planete tab[], int nbr_planete, double temps)
+float focus(Planete tab[], int nbr_planete, double temps)
 {
     float x, y;
+    float liste_zoom[10]={3852,1050000,420000,420000,0,815663,40000,46000,109000,109000};
     if (nbr_planete == 0)
     {
         tab[0].x = 0.5 * largeurFenetre();
@@ -178,4 +179,6 @@ void focus(Planete tab[], int nbr_planete, double temps)
         tab[0].x = ((0.5 * largeurFenetre()) - x + (0.5 * largeurFenetre()));
         tab[0].y = ((0.5 * hauteurFenetre()) - y + (0.5 * hauteurFenetre()));
     }
+    return liste_zoom[nbr_planete];
+    
 }
