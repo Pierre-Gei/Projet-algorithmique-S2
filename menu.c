@@ -43,6 +43,7 @@ void gestionEvenement(EvenementGfx evenement)
 	static float zoom = 1;
 	static int etat_focus = 0;
 	static int nbr_focus = 0;
+	static int etat_help = 0;
 
 	switch (evenement)
 	{
@@ -87,6 +88,10 @@ void gestionEvenement(EvenementGfx evenement)
 		{
 			focus(tabPlanete, nbr_focus, temps);
 			affichage_focus(tabPlanete,nbr_focus);
+		}
+
+		if (etat_help == 1){
+			affichage_help();
 		}
 		
 		affiche_date(temps, temps_reel);
@@ -207,6 +212,23 @@ void gestionEvenement(EvenementGfx evenement)
 			default:
 				break;
 			}
+			break;
+
+		case 'H':
+		case 'h':
+			switch (etat_help)
+			{
+			case 0:
+				etat_help++;
+				break;
+			case 1:
+				etat_help = 0;
+				break;
+			default:
+				break;
+			}
+			break;
+
 		default:
 			break;
 		}

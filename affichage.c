@@ -92,3 +92,27 @@ void affichage_focus(Planete tab[],int Nbr)
 	sprintf(chaine,"Masse : %.2E kg", tab[Nbr].masse);
 	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) - 60));
 }
+
+void affichage_help(void){
+	couleurCourante(255, 255, 255);
+	epaisseurDeTrait(3);
+	afficheChaine(" Menu commandes :", 20, 0, hauteurFenetre()-20);
+	epaisseurDeTrait(2);
+	afficheChaine(" zoom + = P", 15, 0, hauteurFenetre()-45);
+	afficheChaine(" zoom - = M", 15, 0, hauteurFenetre()-65);
+	afficheChaine(" accelerer = S", 15, 0, hauteurFenetre()-85);
+	afficheChaine(" decelerer = D", 15, 0, hauteurFenetre()-105);
+	afficheChaine(" inverser le temps = R", 15, 0, hauteurFenetre()-125);
+	afficheChaine(" Pause = espace", 15, 0, hauteurFenetre()-145);
+	afficheChaine(" haut = ^", 15, 0, hauteurFenetre()-165);
+	afficheChaine(" bas = V", 15, 0, hauteurFenetre()-185);
+	afficheChaine(" gauche = <", 15, 0, hauteurFenetre()-205);
+	afficheChaine(" droite = >", 15, 0, hauteurFenetre()-225);
+	afficheChaine(" focus = X", 15, 0, hauteurFenetre()-245);
+	afficheChaine(" se rapprocher du soleil = <", 15, 0, hauteurFenetre()-265);
+	afficheChaine(" s'eloigner du soleil = >", 15, 0, hauteurFenetre()-285);
+
+
+
+
+}

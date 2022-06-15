@@ -16,5 +16,8 @@ void cercle(float centreX, float centreY, float rayon);
 /*Affichage*/
 void affichage(Planete tab[], int taille);
 
-/*Afiiche focus*/
+/*Affiche focus*/
 void affichage_focus(Planete tab[],int Nbr);
+
+/*affiche help*/
+void affichage_help(void);
