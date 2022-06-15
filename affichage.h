@@ -14,10 +14,10 @@ void affiche_zoom(float zoom);
 void cercle(float centreX, float centreY, float rayon);
 
 /*Affichage*/
-void affichage(Planete tab[], int taille);
+void affichage(Planete tab[], int taille, int zoom);
 
-/*Affiche focus*/
+/*Afiiche focus*/
 void affichage_focus(Planete tab[],int Nbr);
 
-/*affiche help*/
+/*Affiche les commandes*/
 void affichage_help(void);

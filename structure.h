@@ -5,6 +5,7 @@ typedef struct Planete
     float y;
     float vx;
     float vy;
+    float force;
     double Distance_orbit;
     double Distance_reelle;
     double rayon;
