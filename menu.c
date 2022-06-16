@@ -38,7 +38,7 @@ void gestionEvenement(EvenementGfx evenement)
 	static double temps = 0;
 	static time_t temps_reel = 0;
 	static Planete tabPlanete[10];
-	static int etat_pause = 1;
+	static int etat_pause = 0;
 	static float vitesse_simulation = 1;
 	static float zoom = 1;
 	static int etat_focus = 0;
@@ -98,6 +98,8 @@ void gestionEvenement(EvenementGfx evenement)
 		affiche_date(temps, temps_reel);
 
 		affiche_zoom(zoom);
+
+		delta_temps(vitesse_simulation, etat_pause);
 
 		break;
 	case Clavier:

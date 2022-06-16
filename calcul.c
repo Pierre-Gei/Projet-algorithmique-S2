@@ -182,9 +182,14 @@ float focus(Planete tab[], int nbr_planete, double temps)
     return liste_zoom[nbr_planete];
 }
 
-double delta_temps(float facteur)
+double delta_temps(float facteur, int etat_pause)
 {
-    double delta;
-    delta = (0.02*facteur)*86400;
-    return (delta);
+    if(etat_pause==1){
+        return 0;
+    }
+    else{
+        double delta;
+        delta = (0.02*facteur)*86400;
+        return (delta);
+    } 
 }

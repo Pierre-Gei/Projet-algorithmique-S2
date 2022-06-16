@@ -15,7 +15,7 @@ void centre_text(int x_objet, int y_objet, int rayon_objet, char nom_objet[])
 
 double button_pause(int etat, double temps, float facteur)
 {
-	if (etat == 0)
+	if (etat == 1)
 	{
 		couleurCourante(255, 255, 0);
 		afficheChaine("paused", 20, ((largeurFenetre() / 2) - ((tailleChaine("paused", 20)) / 2)), ((hauteurFenetre()) - 20));
