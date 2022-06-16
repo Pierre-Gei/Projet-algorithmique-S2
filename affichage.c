@@ -111,11 +111,11 @@ void affichage_focus(Planete tab[],int Nbr)
 	char chaine[40];
 	couleurCourante(255, 255, 0);
 	sprintf(chaine, "Nom : %s", tab[Nbr].nom);
-	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) - 20));
+	afficheChaine(chaine, 20, 20, ((hauteurFenetre())/2 + 40));
 	sprintf(chaine, "Rayon : %.0lf km", tab[Nbr].rayon_reel);
-	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) - 40));
+	afficheChaine(chaine, 20, 20, ((hauteurFenetre())/2));
 	sprintf(chaine,"Masse : %.2E kg", tab[Nbr].masse);
-	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) - 60));
+	afficheChaine(chaine, 20, 20, ((hauteurFenetre())/2 - 40));
 }
 
 void affichage_help(void)
