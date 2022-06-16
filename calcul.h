@@ -26,7 +26,7 @@ void initTab(Planete tab[], int taille);
 void afficheTab(Planete tab[], int taille);
 
 /*Remplir le tableau de planete*/
-void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b, int referentiel_Force);
+void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b, float x, float y, float vx, float vy);
 
 /*Remplir les echelles du tableaux*/
 void echelle_tab(Planete tab[], int taille, float planet_coeff, float zoom);
@@ -52,5 +52,6 @@ float focus(Planete tab[],int nbr_planete,double temps);
 /*rayon reel*/
 float rayon_echelle(double rayon_reel, double orbit_reel, double echelle_orbit);
 
-/*Renvoie le temps réel entre 2 frames*/
 double delta_temps(float facteur, int etat_pause);
+
+void ellipse(Planete tab[],int taille, double delta_temps, float zoom);

@@ -52,16 +52,16 @@ void gestionEvenement(EvenementGfx evenement)
 		temps_reel = time(NULL);
 		temps = (double)difftime(temps_reel, 0);
 		initTab(tabPlanete, 10);
-		setTab(tabPlanete, 0, "Soleil", (double)1.98E+30, 0.0, (double)0, (double)696342, 255, 255, 0, 0);
-		setTab(tabPlanete, 1, "Mercure", (double)3.3E+23, 0.2408467, (double)57909227, (double)2432, 239, 213, 158, 0);
-		setTab(tabPlanete, 2, "Venus", (double)4.87E+24, 0.61519726, (double)108209475, (double)6051, 238, 140, 65, 0);
-		setTab(tabPlanete, 3, "Terre", (double)5.97E+24, 1, (double)149598262, (double)6371, 0, 0, 255, 0);
-		setTab(tabPlanete, 4, "Lune", (double)7.6E+22, 0.074853881, (double)384400, (double)1734, 125, 125, 125, 3);
-		setTab(tabPlanete, 5, "Mars", (double)6.42E+23, 1.8808476, (double)227943824, (double)3389, 215, 72, 38, 0);
-		setTab(tabPlanete, 6, "Jupiter", (double)1.898E+27, 11.862615, (double)778340821, (double)69911, 246, 212, 145, 0);
-		setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.447498, (double)1426666422, (double)58232, 249, 223, 172, 0);
-		setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.016846, (double)2870658186, (double)25362, 82, 191, 219, 0);
-		setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79132, (double)4498396441, (double)24622, 21, 133, 183, 0);
+		setTab(tabPlanete, 0, "Soleil", (double)1.98E+30, 0.0, (double)0, (double)696342, 255, 255, 0, 0, 0, 0, 0);
+		setTab(tabPlanete, 1, "Mercure", (double)3.3E+23, 0.2408467, (double)57909227, (double)2432, 239, 213, 158, 3.594726526628610E+10, -5.308320772035544E+10, 3.061786711527284E+04,  2.969487961696706E+04);
+		setTab(tabPlanete, 2, "Venus", (double)4.87E+24, 0.61519726, (double)108209475, (double)6051, 238, 140, 65, 1.083351303124208E+11, -6.601895150749428E+09, 1.973551007040168E+03 , 3.479748046438341E+04);
+		setTab(tabPlanete, 3, "Terre", (double)5.97E+24, 1, (double)149598262, (double)6371, 0, 0, 255, -2.195413736531780E+10, -1.503189593792233E+11, 2.897969704638881E+04, -4.412399716983023E+03);
+		setTab(tabPlanete, 4, "Lune", (double)7.6E+22, 0.074853881, (double)384400, (double)1734, 125, 125, 125, -1.772995063388539E+08, -3.145608581792313E+08, 9.660551037828017E+02, -4.949635271469468E+02);
+		setTab(tabPlanete, 5, "Mars", (double)6.42E+23, 1.8808476, (double)227943824, (double)3389, 215, 72, 38, 1.803420120063720E+11, -1.008312072682970E+11, 1.274510435272690E+04, 2.322329691202391E+04);
+		setTab(tabPlanete, 6, "Jupiter", (double)1.898E+27, 11.862615, (double)778340821, (double)69911, 246, 212, 145, 7.381350767436030E+11, -8.133858440677193E+10, 1.279258512194355E+03, 1.361634441215909E+04);
+		setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.447498, (double)1426666422, (double)58232, 249, 223, 172, 1.126286149331401E+12, -9.576415881787971E+11, 5.722017760403925E+03, 7.353978837153003E+03);
+		setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.016846, (double)2870658186, (double)25362, 82, 191, 219, 1.126286149331401E+12, -9.576415881787971E+11, 5.722017760403925E+03, 7.353978837153003E+03);
+		setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79132, (double)4498396441, (double)24622, 21, 133, 183, 4.442437942853459E+12, -5.353686097326288E+11, 6.174016588041462E+02, 5.444565377510131E+03);
 
 		tabPlanete[0].x = (0.5 * largeurFenetre());
 		tabPlanete[0].y = (0.5 * hauteurFenetre());
@@ -76,7 +76,9 @@ void gestionEvenement(EvenementGfx evenement)
 	case Affichage:
 
 		echelle_tab(tabPlanete, Taille, 0.008, zoom);
-		calculPosition(tabPlanete, temps, Taille);
+		// calculPosition(tabPlanete, temps, Taille);
+		ellipse(tabPlanete,10,delta_temps(vitesse_simulation, etat_pause), zoom);
+
 
 		effaceFenetre(0, 0, 0);
 

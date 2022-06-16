@@ -49,17 +49,6 @@ float facteur_temps(Planete planete)
     return (1 / planete.Orbit_periode);
 }
 
-Planete initplanete(char nomP[], float Distance_OrbitP, float rayonP, float masseP, float Orbit_periodeP)
-{
-    Planete plane;
-    strcpy(plane.nom, nomP);
-    plane.Distance_orbit = Distance_OrbitP;
-    plane.rayon = rayonP;
-    plane.masse = masseP;
-    plane.Orbit_periode = Orbit_periodeP;
-    return plane;
-}
-
 void initTab(Planete tab[], int taille) // OK
 {
     for (int i = 0; i < taille; i++)
@@ -96,7 +85,7 @@ void afficheTab(Planete tab[], int taille) // OK
     }
 }
 
-void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b, int referentiel_Force)
+void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b, float x, float y, float vx, float vy)
 {
     strcpy(tab[position].nom, nom);
     tab[position].masse = masseP;
@@ -106,19 +95,20 @@ void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_
     tab[position].color[0] = r;
     tab[position].color[1] = v;
     tab[position].color[2] = b;
-    tab[position].force = (6.67E-11 * tab[position].masse * tab[referentiel_Force].masse) / pow(tab[position].Distance_reelle,2);
+    tab[position].x = x;
+    tab[position].y = y;
+    tab[position].vx = vx;
+    tab[position].vy = vy;
 }
 
 void echelle_tab(Planete tab[], int taille, float planet_coeff, float zoom)
 {
 
-   
-        for (int i = 0; i < taille; i++)
-        {
-            tab[i].Distance_orbit = (echelle_orbite(tab[i].Distance_reelle)) * zoom;
-            tab[i].rayon = echelle_orbite(tab[i].rayon_reel) * zoom;
-        }
-    
+    for (int i = 0; i < taille; i++)
+    {
+        // tab[i].Distance_orbit = (echelle_orbite(tab[i].Distance_reelle)) * zoom;
+        tab[i].rayon = echelle_orbite(tab[i].rayon_reel) * zoom;
+    }
 }
 
 Planete deplacementH(Planete astre)
@@ -164,7 +154,7 @@ void calculPosition(Planete tab[], double temps, int taille)
 float focus(Planete tab[], int nbr_planete, double temps)
 {
     float x, y;
-    float liste_zoom[10]={3852,1050000,420000,420000,0,815663,40000,46000,109000,109000};
+    float liste_zoom[10] = {3852, 1050000, 420000, 420000, 0, 815663, 40000, 46000, 109000, 109000};
     if (nbr_planete == 0)
     {
         tab[0].x = 0.5 * largeurFenetre();
@@ -174,8 +164,9 @@ float focus(Planete tab[], int nbr_planete, double temps)
     {
         tab[0].x = 0.5 * largeurFenetre();
         tab[0].y = 0.5 * hauteurFenetre();
-        x = (x_absolute(tab[0].x, (tab[nbr_planete].Distance_orbit * calculAbscisse(temps * facteur_temps(tab[nbr_planete])))));
-        y = (y_absolute(tab[0].y, (tab[nbr_planete].Distance_orbit * calculOrdonee(temps * facteur_temps(tab[nbr_planete])))));
+        x = x_absolute(tab[0].x, echelle_orbite(tab[nbr_planete].x * pow(10, -3)));
+        y = y_absolute(tab[0].y, echelle_orbite(tab[nbr_planete].y * pow(10, -3)));
+        printf("x : %f , y : %f \n", x, y);
         tab[0].x = ((0.5 * largeurFenetre()) - x + (0.5 * largeurFenetre()));
         tab[0].y = ((0.5 * hauteurFenetre()) - y + (0.5 * hauteurFenetre()));
     }
@@ -184,12 +175,38 @@ float focus(Planete tab[], int nbr_planete, double temps)
 
 double delta_temps(float facteur, int etat_pause)
 {
-    if(etat_pause==1){
+    if (etat_pause == 1)
+    {
         return 0;
     }
-    else{
+    else
+    {
         double delta;
-        delta = (0.02*facteur)*86400;
+        delta = ((0.02 * facteur) * 86400)/365.25;
         return (delta);
-    } 
+    }
+}
+
+void ellipse(Planete tab[], int taille, double delta_temps, float zoom)
+{
+    float ax = 0, ay = 0, deltaVx = 0, deltaVy = 0, deltaMx = 0, deltaMy = 0;
+    float temps = delta_temps / 100.0;
+    printf("%f\n", temps);
+    for (int j = 0; j < delta_temps; j = j + temps)
+    {
+        for (int i = 1; i < taille; i++)
+        {
+            tab[i].Distance_reelle = sqrt(pow(tab[i].x, 2) + pow(tab[i].y, 2));
+            ax = ((6.67E-11) * tab[0].masse * (-tab[i].x)) / pow(tab[i].Distance_reelle, 3);
+            ay = ((6.67E-11) * tab[0].masse * (-tab[i].y)) / pow(tab[i].Distance_reelle, 3);
+            deltaVx = delta_temps * ax;
+            deltaVy = delta_temps * ay;
+            deltaMx = tab[i].vx * delta_temps + (ax * pow(delta_temps, 2)) / 2;
+            deltaMy = tab[i].vy * delta_temps + (ay * pow(delta_temps, 2)) / 2;
+            tab[i].x = tab[i].x + deltaMx;
+            tab[i].y = tab[i].y + deltaMy;
+            tab[i].vx = tab[i].vx + deltaVx;
+            tab[i].vy = tab[i].vy + deltaVy;
+        }
+    }
 }

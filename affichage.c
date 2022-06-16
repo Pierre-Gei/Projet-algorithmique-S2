@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "structure.h"
+#include "calcul.h"
 #include "GFXlib/GfxLib.h"
 #include "GFXlib/BmpLib.h"
 #include "GFXlib/ESLib.h"
@@ -83,16 +84,16 @@ void affichage(Planete tab[], int taille, float zoom)
 		else
 		{
 			couleurCourante(tab[0].color[0], tab[0].color[1], tab[0].color[2]);
-			cercle(tab[0].x, tab[0].y, tab[0].rayon);
+			cercle( tab[0].x, tab[0].y, tab[0].rayon);
 			centre_text(tab[0].x, tab[0].y, tab[0].rayon, tab[0].nom);
 		}
 		for (int i = 1; i < taille; i++)
 		{
 			couleurCourante(tab[i].color[0], tab[i].color[1], tab[i].color[2]);
 			epaisseurDeTrait(4);
-			point(tab[i].x, tab[i].y);
+			point(x_absolute(tab[0].x,echelle_orbite(tab[i].x * pow(10,-3)) * zoom),y_absolute(tab[0].y,echelle_orbite(tab[i].y * pow(10,-3)) * zoom));
 			epaisseurDeTrait(1);
-			centre_text(tab[i].x, tab[i].y, tab[i].rayon, tab[i].nom);
+			centre_text(x_absolute(tab[0].x,echelle_orbite(tab[i].x * pow(10,-3)) * zoom),y_absolute(tab[0].y,echelle_orbite(tab[i].y * pow(10,-3)) * zoom), tab[i].rayon, tab[i].nom);
 		}
 	}
 	else
@@ -100,8 +101,8 @@ void affichage(Planete tab[], int taille, float zoom)
 		for (int i = 0; i < taille; i++)
 		{
 			couleurCourante(tab[i].color[0], tab[i].color[1], tab[i].color[2]);
-			cercle(tab[i].x, tab[i].y, tab[i].rayon);
-			centre_text(tab[i].x, tab[i].y, tab[i].rayon, tab[i].nom);
+			cercle(x_absolute(tab[0].x,echelle_orbite(tab[i].x * pow(10,-3)) * zoom),y_absolute(tab[0].y,echelle_orbite(tab[i].y * pow(10,-3)) * zoom), tab[i].rayon);
+			centre_text(x_absolute(tab[0].x,echelle_orbite(tab[i].x * pow(10,-3)) * zoom),y_absolute(tab[0].y,echelle_orbite(tab[i].y * pow(10,-3)) * zoom), tab[i].rayon, tab[i].nom);
 		}
 	}
 }
