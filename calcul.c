@@ -182,7 +182,7 @@ double delta_temps(float facteur, int etat_pause)
     else
     {
         double delta;
-        delta = ((0.02 * facteur) * 86400)/365.25;
+        delta = ((0.04 * facteur) * 86400);
         return (delta);
     }
 }
@@ -190,19 +190,19 @@ double delta_temps(float facteur, int etat_pause)
 void ellipse(Planete tab[], int taille, double delta_temps, float zoom)
 {
     float ax = 0, ay = 0, deltaVx = 0, deltaVy = 0, deltaMx = 0, deltaMy = 0;
-    float temps = delta_temps / 100.0;
-    printf("%f\n", temps);
-    for (int j = 0; j < delta_temps; j = j + temps)
+    double temps = (double)(delta_temps / 5000.0);
+    printf("%lf\n", temps);
+    for (int j = 0; j < 5000; j = j + 1)
     {
         for (int i = 1; i < taille; i++)
         {
             tab[i].Distance_reelle = sqrt(pow(tab[i].x, 2) + pow(tab[i].y, 2));
             ax = ((6.67E-11) * tab[0].masse * (-tab[i].x)) / pow(tab[i].Distance_reelle, 3);
             ay = ((6.67E-11) * tab[0].masse * (-tab[i].y)) / pow(tab[i].Distance_reelle, 3);
-            deltaVx = delta_temps * ax;
-            deltaVy = delta_temps * ay;
-            deltaMx = tab[i].vx * delta_temps + (ax * pow(delta_temps, 2)) / 2;
-            deltaMy = tab[i].vy * delta_temps + (ay * pow(delta_temps, 2)) / 2;
+            deltaVx = temps * ax;
+            deltaVy = temps * ay;
+            deltaMx = tab[i].vx * temps + (ax * pow(temps, 2)) / 2;
+            deltaMy = tab[i].vy * temps + (ay * pow(temps, 2)) / 2;
             tab[i].x = tab[i].x + deltaMx;
             tab[i].y = tab[i].y + deltaMy;
             tab[i].vx = tab[i].vx + deltaVx;

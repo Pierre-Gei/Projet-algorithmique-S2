@@ -101,8 +101,6 @@ void gestionEvenement(EvenementGfx evenement)
 
 		affiche_zoom(zoom);
 
-		delta_temps(vitesse_simulation, etat_pause);
-
 		break;
 	case Clavier:
 		printf("%c : ASCII %d\n", caractereClavier(), caractereClavier());
