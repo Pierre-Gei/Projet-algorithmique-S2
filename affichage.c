@@ -154,8 +154,8 @@ void menu(int etat_menu){
 		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.38,largeurFenetre()*0.75,hauteurFenetre()*0.24);
 		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.20,largeurFenetre()*0.75,hauteurFenetre()*0.05);
 		couleurCourante(0,0,0);
-		afficheChaine("Créer un nouvelle simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Créer un nouvelle simulation",18)/2)),0.88*hauteurFenetre());
-		afficheChaine("Reprendre une simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Reprendre une simulation",18)/2)),0.69*hauteurFenetre());
+		afficheChaine("Creer un nouvelle simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Creer un nouvelle simulation",18)/2)),0.88*hauteurFenetre());
+		afficheChaine("Reprendre une simulation enregistree",18,((largeurFenetre()*0.5)-(tailleChaine("Reprendre une simulation enregistree",18)/2)),0.69*hauteurFenetre());
 		afficheChaine("Charger une simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Charger une simulation",18)/2)),0.50*hauteurFenetre());
 		afficheChaine("Sauvgarder la simulation en cours",18,((largeurFenetre()*0.5)-(tailleChaine("Sauvgarder la simulation en cours",18)/2)),0.31*hauteurFenetre());
 		afficheChaine("Quitter",18,((largeurFenetre()*0.5)-(tailleChaine("Quitter",18)/2)),0.12*hauteurFenetre());
