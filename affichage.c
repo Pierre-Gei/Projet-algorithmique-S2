@@ -141,3 +141,60 @@ void affichage_help(void)
 	afficheChaine(" Plein ecran = F", 15, 0, hauteurFenetre()-305);
 	afficheChaine(" Quiter gfxlib = Q", 15, 0, hauteurFenetre()-325);
 }
+
+
+void menu(int etat_menu){
+	if(etat_menu == 1){
+		effaceFenetre(255,255,255);
+		couleurCourante(125,125,125);
+		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.95,largeurFenetre()*0.75,hauteurFenetre()*0.81);
+		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.76,largeurFenetre()*0.75,hauteurFenetre()*0.62);
+		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.57,largeurFenetre()*0.75,hauteurFenetre()*0.43);
+		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.38,largeurFenetre()*0.75,hauteurFenetre()*0.24);
+		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.20,largeurFenetre()*0.75,hauteurFenetre()*0.05);
+		couleurCourante(0,0,0);
+		afficheChaine("Créer un nouvelle simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Créer un nouvelle simulation",18)/2)),0.88*hauteurFenetre());
+		afficheChaine("Reprendre une simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Reprendre une simulation",18)/2)),0.69*hauteurFenetre());
+		afficheChaine("Charger une simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Charger une simulation",18)/2)),0.50*hauteurFenetre());
+		afficheChaine("Sauvgarder la simulation en cours",18,((largeurFenetre()*0.5)-(tailleChaine("Sauvgarder la simulation en cours",18)/2)),0.31*hauteurFenetre());
+		afficheChaine("Quitter",18,((largeurFenetre()*0.5)-(tailleChaine("Quitter",18)/2)),0.12*hauteurFenetre());
+	}
+}
+
+int bouton_new_sim(void){
+	int new_sim = 0;
+	if((abscisseSouris()>largeurFenetre()*0.25) && (abscisseSouris()<largeurFenetre()*0.75) && (ordonneeSouris()<hauteurFenetre()*0.95) && (ordonneeSouris()>hauteurFenetre()*0.81)){
+		new_sim = 1;
+	}
+	return new_sim;
+}
+
+int bouton_continue(void){
+	int continuer = 0;
+	if((abscisseSouris()>largeurFenetre()*0.25) && (abscisseSouris()<largeurFenetre()*0.75) && (ordonneeSouris()<hauteurFenetre()*0.76) && (ordonneeSouris()>hauteurFenetre()*0.62)){
+		continuer = 1;
+	}
+	return continuer;
+}
+
+int bouton_load(void){
+	int load_sim = 0;
+	if((abscisseSouris()>largeurFenetre()*0.25) && (abscisseSouris()<largeurFenetre()*0.75) && (ordonneeSouris()<hauteurFenetre()*0.57) && (ordonneeSouris()>hauteurFenetre()*0.43)){
+		load_sim = 1;
+	}
+	return load_sim;
+}
+
+int bouton_save(int etat_menu){
+	int save_sim = 0;
+	if((abscisseSouris()>largeurFenetre()*0.25) && (abscisseSouris()<largeurFenetre()*0.75) && (ordonneeSouris()<hauteurFenetre()*0.38) && (ordonneeSouris()>hauteurFenetre()*0.24)){
+		save_sim = 1;
+	}
+	return save_sim;
+}
+
+void bouton_quit(void){
+	if((abscisseSouris()>largeurFenetre()*0.25) && (abscisseSouris()<largeurFenetre()*0.75) && (ordonneeSouris()<hauteurFenetre()*0.20) && (ordonneeSouris()>hauteurFenetre()*0.05)){
+		termineBoucleEvenements();
+	}
+}

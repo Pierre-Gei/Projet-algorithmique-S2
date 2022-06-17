@@ -182,7 +182,7 @@ double delta_temps(float facteur, int etat_pause)
     else
     {
         double delta;
-        delta = ((0.04 * facteur) * 86400);
+        delta = ((0.02 * facteur) * 86400);
         return (delta);
     }
 }

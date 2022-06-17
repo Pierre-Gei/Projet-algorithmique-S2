@@ -21,3 +21,15 @@ void affichage_focus(Planete tab[],int Nbr);
 
 /*Affiche les commandes*/
 void affichage_help(void);
+
+void menu(int etat_menu);
+
+int bouton_new_sim(void);
+
+int bouton_continue(void);
+
+int bouton_load(void);
+
+int bouton_save(void);
+
+void bouton_quit(void);
