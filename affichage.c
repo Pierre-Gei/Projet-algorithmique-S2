@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <stdlib.h>
 #include "structure.h"
 #include "calcul.h"
 #include "GFXlib/GfxLib.h"
@@ -197,5 +198,39 @@ int bouton_save(int etat_menu){
 void bouton_quit(void){
 	if((abscisseSouris()>largeurFenetre()*0.25) && (abscisseSouris()<largeurFenetre()*0.75) && (ordonneeSouris()<hauteurFenetre()*0.20) && (ordonneeSouris()>hauteurFenetre()*0.05)){
 		termineBoucleEvenements();
+	}
+}
+
+void affiche_zone_de_texte(char name_file[], int cptchar){
+	effaceFenetre(255,255,255);
+	couleurCourante(0,0,0);
+	afficheChaine("Entrez le nom du fichier et appuyez le boutton",18,((largeurFenetre()/2)-(tailleChaine("Entrez le nom du fichier et appuyez sur le bouton",18)/2)), (hauteurFenetre()/2)+30);
+	afficheChaine(name_file,18,((largeurFenetre()/2)-(tailleChaine(name_file,18)/2)), hauteurFenetre()/2);
+	couleurCourante(125,125,125);
+	rectangle(0.35*largeurFenetre(),0.37*hauteurFenetre(),0.45*largeurFenetre(),0.47*hauteurFenetre());
+	rectangle(0.55*largeurFenetre(),0.37*hauteurFenetre(),0.65*largeurFenetre(),0.47*hauteurFenetre());
+	couleurCourante(255,255,255);
+	afficheChaine("Valider",18,((largeurFenetre()*0.4)-(tailleChaine("Valider",18)/2)), hauteurFenetre()*0.42);
+	afficheChaine("Annuler",18,((largeurFenetre()*0.6)-(tailleChaine("Annuler",18)/2)), hauteurFenetre()*0.42);
+}
+
+int boutton_valider(char name_file[]){
+	if((abscisseSouris()>0.35*largeurFenetre()) && (abscisseSouris()<0.45*largeurFenetre()) && (ordonneeSouris()>0.37*hauteurFenetre()) && (ordonneeSouris()<0.47*hauteurFenetre()) && (name_file[0] =! '\0')){
+		return 0;
+	}
+	else{
+		return 1;
+	}
+
+}
+
+int boutton_annuler(char name_file[], int* cptchar){
+	if((abscisseSouris()>0.55*largeurFenetre()) && (abscisseSouris()<0.65*largeurFenetre()) && (ordonneeSouris()>0.37*hauteurFenetre()) && (ordonneeSouris()<0.47*hauteurFenetre())){
+		memset(name_file, '\0', 20);
+		*cptchar = 0;
+		return 0;
+	}
+	else{
+		return 1;
 	}
 }

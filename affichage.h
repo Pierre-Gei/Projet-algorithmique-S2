@@ -33,3 +33,9 @@ int bouton_load(void);
 int bouton_save(void);
 
 void bouton_quit(void);
+
+void affiche_zone_de_texte(char name_file[], int cptchar);
+
+int boutton_valider(char name_file[]);
+
+int boutton_annuler(char name_file[],int* cptchar );

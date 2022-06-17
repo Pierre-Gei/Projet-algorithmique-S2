@@ -9,6 +9,7 @@
 #include "affichage.h"
 #include "save.h"
 #include <time.h>
+#include <string.h>
 #define LargeurFenetre 800
 #define HauteurFenetre 600
 #define Taille 10
@@ -19,6 +20,8 @@ void gestionEvenement(EvenementGfx evenement);
 
 int main(int argc, char **argv)
 {
+	srand(time(NULL));
+
 	initialiseGfx(argc, argv);
 
 	prepareFenetreGraphique("GfxLib", LargeurFenetre, HauteurFenetre);
@@ -49,12 +52,16 @@ void gestionEvenement(EvenementGfx evenement)
 	static int load_sim = 0;
 	static int save_sim = 0;
 	static int continuer = 0;
+	static char name_file[20];
+	static int cptchar = 0;
+	static int *ptcptchar = &cptchar;
 
 	switch (evenement)
 	{
 	case Initialisation:
 		modePleinEcran();
 		initTab(tabPlanete, 10);
+		memset(name_file,'\0',20);
 		image = lisBMPRGB("background1.bmp");
 		demandeTemporisation(20);
 		break;
@@ -82,17 +89,6 @@ void gestionEvenement(EvenementGfx evenement)
 
 		}
 
-		if(load_sim == 1){
-			etat_menu = 0;
-			load_sim = 0;
-			//fonction de chargement
-		}
-
-		if(save_sim == 1){
-			save_sim = 0;
-			//fonction de save
-		}
-
 		if (continuer == 1 && tabPlanete[0].masse != 0){
 			continuer = 0;
 			etat_menu = 0;
@@ -102,11 +98,16 @@ void gestionEvenement(EvenementGfx evenement)
 		break;
 	case Affichage:
 
-		menu(etat_menu);
+		if(load_sim == 1 || save_sim == 1){
+			affiche_zone_de_texte(name_file, cptchar);
+		}
+		else{
+			menu(etat_menu);
+		}
 
-		echelle_tab(tabPlanete, Taille, 0.008, zoom);
-		// calculPosition(tabPlanete, temps, Taille);
+
 		if(etat_menu == 0){
+			echelle_tab(tabPlanete, Taille, 0.008, zoom);
 			ellipse(tabPlanete,10,delta_temps(vitesse_simulation, etat_pause), zoom);
 			coordonnee_absolu(tabPlanete, Taille, zoom);
 			effaceFenetre(0, 0, 0);
@@ -133,130 +134,150 @@ void gestionEvenement(EvenementGfx evenement)
 		}
 
 		break;
-	case Clavier:
-		switch (caractereClavier())
-		{
-		case 'Q': /* Pour sortir quelque peu proprement du programme */
-		case 'q':
-
-			termineBoucleEvenements();
-			break;
-
-		case 'F':
-		case 'f':
-			pleinEcran = !pleinEcran; // Changement de mode plein ecran
-			if (pleinEcran)
-			{
-				modePleinEcran();
+case Clavier:
+		if(save_sim == 1){
+			if(*ptcptchar<20){
+				name_file[cptchar]=caractereClavier();
+				cptchar++;
 			}
-
-			else
-			{
-				redimensionneFenetre(LargeurFenetre, HauteurFenetre);
-			}
-			break;
-		case ' ':
-			switch (etat_pause)
-			{
-			case 0:
-				etat_pause++;
-				break;
-			case 1:
-				etat_pause = 0;
-				break;
-			default:
-				break;
-			}
-			break;
-		case 'S':
-		case 's':
-			if (vitesse_simulation > 100000 || vitesse_simulation < -100000)
-			{
-				vitesse_simulation = vitesse_simulation;
-			}
-			else if (vitesse_simulation > 3124 || vitesse_simulation < -3124)
-			{
-				vitesse_simulation *= 2.5;
-			}
-			else
-			{
-				vitesse_simulation *= 5;
-			}
-
-			break;
-		case 'D':
-		case 'd':
-			if (vitesse_simulation > 3126 || vitesse_simulation < -3126)
-			{
-				vitesse_simulation /= 2.5;
-			}
-			else
-			{
-				vitesse_simulation /= 5;
-			}
-
-			break;
-		case 'R':
-		case 'r':
-			vitesse_simulation *= (-1);
-			break;
-
-		case 'P':
-		case 'p':
-			zoom = zoom * 1.25;
-
-			printf("zoom : %.0f\n", zoom);
-			break;
-		case 'M':
-		case 'm':
-			if (zoom <= 1)
-			{
-				zoom = 1;
-			}
-			else
-			{
-				zoom = zoom / 1.25;
-			}
-
-			printf("zoom : %.0f\n", zoom);
-			break;
-		case 'X':
-		case 'x':
-			switch (etat_focus)
-			{
-			case 0:
-				etat_focus++;
-				nbr_focus = 0;
-				break;
-			case 1:
-				etat_focus = 0;
-				break;
-			default:
-				break;
-			}
-			break;
-		case 'H':
-		case 'h':
-			switch (etat_help)
-			{
-			case 0:
-				etat_help++;
-				break;
-			case 1:
-				etat_help = 0;
-				break;
-			default:
-				break;
-			}
-			break;
-		case '	':
-			etat_menu = 1;
-			break;
-		default:
-			break;
 		}
-		break;
+		else if(load_sim == 1){
+			if(*ptcptchar<20){
+				name_file[cptchar]=caractereClavier();
+				cptchar++;
+				
+			}
+		}
+		else{
+			switch (caractereClavier())
+			{
+			case 'Q': /* Pour sortir quelque peu proprement du programme */
+			case 'q':
 
+				termineBoucleEvenements();
+				break;
+
+			case 'F':
+			case 'f':
+				pleinEcran = !pleinEcran; // Changement de mode plein ecran
+				if (pleinEcran)
+				{
+					modePleinEcran();
+				}
+
+				else
+				{
+					redimensionneFenetre(LargeurFenetre, HauteurFenetre);
+				}
+				break;
+			}
+			if(etat_menu == 0){
+				switch (caractereClavier())
+				{
+					case ' ':
+					switch (etat_pause)
+					{
+					case 0:
+						etat_pause++;
+						break;
+					case 1:
+						etat_pause = 0;
+						break;
+					default:
+						break;
+					}
+					break;
+				case 'S':
+				case 's':
+					if (vitesse_simulation > 100000 || vitesse_simulation < -100000)
+					{
+						vitesse_simulation = vitesse_simulation;
+					}
+					else if (vitesse_simulation > 3124 || vitesse_simulation < -3124)
+					{
+						vitesse_simulation *= 2.5;
+					}
+					else
+					{
+						vitesse_simulation *= 5;
+					}
+
+					break;
+				case 'D':
+				case 'd':
+					if (vitesse_simulation > 3126 || vitesse_simulation < -3126)
+					{
+						vitesse_simulation /= 2.5;
+					}
+					else
+					{
+						vitesse_simulation /= 5;
+					}
+
+					break;
+				case 'R':
+				case 'r':
+					vitesse_simulation *= (-1);
+					break;
+
+				case 'P':
+				case 'p':
+					zoom = zoom * 1.25;
+
+					printf("zoom : %.0f\n", zoom);
+					break;
+				case 'M':
+				case 'm':
+					if (zoom <= 1)
+					{
+						zoom = 1;
+					}
+					else
+					{
+						zoom = zoom / 1.25;
+					}
+
+					printf("zoom : %.0f\n", zoom);
+					break;
+				case 'X':
+				case 'x':
+					switch (etat_focus)
+					{
+					case 0:
+						etat_focus++;
+						nbr_focus = 0;
+						break;
+					case 1:
+						etat_focus = 0;
+						break;
+					default:
+						break;
+					}
+					break;
+				case 'H':
+				case 'h':
+					switch (etat_help)
+					{
+					case 0:
+						etat_help++;
+						break;
+					case 1:
+						etat_help = 0;
+						break;
+					default:
+						break;
+					}
+					break;
+				case '	':
+					etat_menu = 1;
+					break;
+				default:
+					break;
+				}
+			}
+			break;
+
+		}
 	case ClavierSpecial:
 		printf("ASCII %d\n", toucheClavier());
 		switch (toucheClavier())
@@ -332,13 +353,40 @@ void gestionEvenement(EvenementGfx evenement)
 		break;
 
 	case BoutonSouris:
+		if(etatBoutonSouris() == GaucheAppuye){
 			if(etat_menu == 1){
-				new_sim = bouton_new_sim();
-				continuer = bouton_continue();
-				load_sim = bouton_load();
-				save_sim = bouton_save();
-				bouton_quit();
+				if(load_sim == 1){
+					load_sim = boutton_valider(name_file);
+					if(load_sim == 0){
+						//fonction de load ici
+						*ptcptchar = 0;
+						memset(name_file, '\0', 20);
+					}
+					else{
+						load_sim = boutton_annuler(name_file, ptcptchar);
+					}
+				}
+				else if(save_sim == 1){
+					save_sim = boutton_valider(name_file);
+					if(save_sim == 0){
+						//fonction de save ici
+						*ptcptchar = 0;
+						memset(name_file, '\0', 20);
+					}
+					else{
+						save_sim = boutton_annuler(name_file, ptcptchar);
+					}
+					
+				}
+				else{
+					new_sim = bouton_new_sim();
+					continuer = bouton_continue();
+					load_sim = bouton_load();
+					save_sim = bouton_save();
+					bouton_quit();
+				}
 			}
+		}
 		break;
 
 	case Souris: // Si la souris est deplacee
