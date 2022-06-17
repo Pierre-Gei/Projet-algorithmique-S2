@@ -84,16 +84,16 @@ void affichage(Planete tab[], int taille, float zoom)
 		else
 		{
 			couleurCourante(tab[0].color[0], tab[0].color[1], tab[0].color[2]);
-			cercle( tab[0].x, tab[0].y, tab[0].rayon);
+			cercle(tab[0].x, tab[0].y, tab[0].rayon);
 			centre_text(tab[0].x, tab[0].y, tab[0].rayon, tab[0].nom);
 		}
 		for (int i = 1; i < taille; i++)
 		{
 			couleurCourante(tab[i].color[0], tab[i].color[1], tab[i].color[2]);
 			epaisseurDeTrait(4);
-			point(x_absolute(tab[0].x,echelle_orbite(tab[i].x * pow(10,-3)) * zoom),y_absolute(tab[0].y,echelle_orbite(tab[i].y * pow(10,-3)) * zoom));
+			point(tab[i].x_absolu, tab[i].y_absolu);
 			epaisseurDeTrait(1);
-			centre_text(x_absolute(tab[0].x,echelle_orbite(tab[i].x * pow(10,-3)) * zoom),y_absolute(tab[0].y,echelle_orbite(tab[i].y * pow(10,-3)) * zoom), tab[i].rayon, tab[i].nom);
+			centre_text(tab[i].x_absolu, tab[i].y_absolu, tab[i].rayon, tab[i].nom);
 		}
 	}
 	else
@@ -101,29 +101,29 @@ void affichage(Planete tab[], int taille, float zoom)
 		for (int i = 0; i < taille; i++)
 		{
 			couleurCourante(tab[i].color[0], tab[i].color[1], tab[i].color[2]);
-			cercle(x_absolute(tab[0].x,echelle_orbite(tab[i].x * pow(10,-3)) * zoom),y_absolute(tab[0].y,echelle_orbite(tab[i].y * pow(10,-3)) * zoom), tab[i].rayon);
-			centre_text(x_absolute(tab[0].x,echelle_orbite(tab[i].x * pow(10,-3)) * zoom),y_absolute(tab[0].y,echelle_orbite(tab[i].y * pow(10,-3)) * zoom), tab[i].rayon, tab[i].nom);
+			cercle(tab[i].x_absolu, tab[i].y_absolu, tab[i].rayon);
+			centre_text(tab[i].x_absolu, tab[i].y_absolu, tab[i].rayon, tab[i].nom);
 		}
 	}
 }
 
-void affichage_focus(Planete tab[],int Nbr)
+void affichage_focus(Planete tab[], int Nbr)
 {
 	char chaine[40];
 	couleurCourante(255, 255, 0);
 	sprintf(chaine, "Nom : %s", tab[Nbr].nom);
-	afficheChaine(chaine, 20, 20, ((hauteurFenetre())/2 + 40));
+	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) / 2 + 40));
 	sprintf(chaine, "Rayon : %.0lf km", tab[Nbr].rayon_reel);
-	afficheChaine(chaine, 20, 20, ((hauteurFenetre())/2));
-	sprintf(chaine,"Masse : %.2E kg", tab[Nbr].masse);
-	afficheChaine(chaine, 20, 20, ((hauteurFenetre())/2 - 40));
+	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) / 2));
+	sprintf(chaine, "Masse : %.2E kg", tab[Nbr].masse);
+	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) / 2 - 40));
 }
 
 void affichage_help(void)
 {
 	couleurCourante(255, 255, 255);
 	epaisseurDeTrait(3);
-	afficheChaine(" Menu commandes :", 20, 0, hauteurFenetre()-20);
+	afficheChaine(" Menu commandes :", 20, 0, hauteurFenetre() - 20);
 	epaisseurDeTrait(2);
 	afficheChaine(" Zoom + = P", 15, 0, hauteurFenetre()-45);
 	afficheChaine(" Zoom - = M", 15, 0, hauteurFenetre()-65);
@@ -154,8 +154,8 @@ void menu(int etat_menu){
 		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.38,largeurFenetre()*0.75,hauteurFenetre()*0.24);
 		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.20,largeurFenetre()*0.75,hauteurFenetre()*0.05);
 		couleurCourante(0,0,0);
-		afficheChaine("Créer un nouvelle simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Créer un nouvelle simulation",18)/2)),0.88*hauteurFenetre());
-		afficheChaine("Reprendre une simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Reprendre une simulation",18)/2)),0.69*hauteurFenetre());
+		afficheChaine("Creer un nouvelle simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Creer un nouvelle simulation",18)/2)),0.88*hauteurFenetre());
+		afficheChaine("Reprendre une simulation enregistree",18,((largeurFenetre()*0.5)-(tailleChaine("Reprendre une simulation enregistree",18)/2)),0.69*hauteurFenetre());
 		afficheChaine("Charger une simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Charger une simulation",18)/2)),0.50*hauteurFenetre());
 		afficheChaine("Sauvgarder la simulation en cours",18,((largeurFenetre()*0.5)-(tailleChaine("Sauvgarder la simulation en cours",18)/2)),0.31*hauteurFenetre());
 		afficheChaine("Quitter",18,((largeurFenetre()*0.5)-(tailleChaine("Quitter",18)/2)),0.12*hauteurFenetre());

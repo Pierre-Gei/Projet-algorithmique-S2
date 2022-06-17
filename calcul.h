@@ -55,3 +55,7 @@ float rayon_echelle(double rayon_reel, double orbit_reel, double echelle_orbit);
 double delta_temps(float facteur, int etat_pause);
 
 void ellipse(Planete tab[],int taille, double delta_temps, float zoom);
+
+void coordonnee_absolu(Planete tab[], int taille, float zoom);
+
+void coordonnee_absolu2(Planete tab[], float zoom,int i);

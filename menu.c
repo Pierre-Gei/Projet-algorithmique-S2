@@ -108,7 +108,7 @@ void gestionEvenement(EvenementGfx evenement)
 		// calculPosition(tabPlanete, temps, Taille);
 		if(etat_menu == 0){
 			ellipse(tabPlanete,10,delta_temps(vitesse_simulation, etat_pause), zoom);
-
+			coordonnee_absolu(tabPlanete, Taille, zoom);
 			effaceFenetre(0, 0, 0);
 			ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
 

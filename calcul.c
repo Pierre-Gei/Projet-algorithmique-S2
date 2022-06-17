@@ -188,24 +188,52 @@ double delta_temps(float facteur, int etat_pause)
 
 void ellipse(Planete tab[], int taille, double delta_temps, float zoom)
 {
-    float ax = 0, ay = 0, deltaVx = 0, deltaVy = 0, deltaMx = 0, deltaMy = 0;
-    double temps = (double)(delta_temps / 5000.0);
-    printf("%lf\n", temps);
-    for (int j = 0; j < 5000; j = j + 1)
+    float deltaVx = 0, deltaVy = 0, deltaMx = 0, deltaMy = 0;
+    double temps = (double)(delta_temps / 4000.0);
+    for (int j = 0; j < 4000; j = j + 1)
     {
         for (int i = 1; i < taille; i++)
         {
-            tab[i].Distance_reelle = sqrt(pow(tab[i].x, 2) + pow(tab[i].y, 2));
-            ax = ((6.67E-11) * tab[0].masse * (-tab[i].x)) / pow(tab[i].Distance_reelle, 3);
-            ay = ((6.67E-11) * tab[0].masse * (-tab[i].y)) / pow(tab[i].Distance_reelle, 3);
-            deltaVx = temps * ax;
-            deltaVy = temps * ay;
-            deltaMx = tab[i].vx * temps + (ax * pow(temps, 2)) / 2;
-            deltaMy = tab[i].vy * temps + (ay * pow(temps, 2)) / 2;
+            if (i == 4)
+            {
+                tab[i].Distance_reelle = sqrt(pow((tab[i].x), 2) + pow((tab[i].y), 2));
+                tab[i].ax = (((6.67E-11) * tab[3].masse * (-tab[i].x)) / pow(tab[i].Distance_reelle, 3)); // + (((6.67E-11) * tab[3].masse * (tab[3].x- tab[i].x)) / pow((sqrt(pow((tab[3].x- tab[i].x), 2) + pow((tab[3].y- tab[i].y), 2))), 3));
+                tab[i].ay = ((6.67E-11) * tab[3].masse * (-tab[i].y)) / pow(tab[i].Distance_reelle, 3);   // + ((6.67E-11) * tab[3].masse * (tab[3].y- tab[i].y)) / pow((sqrt(pow((tab[3].x- tab[i].x), 2) + pow((tab[3].y- tab[i].y), 2))), 3);
+            }
+            else
+            {
+                tab[i].Distance_reelle = sqrt(pow(tab[i].x, 2) + pow(tab[i].y, 2));
+                tab[i].ax = ((6.67E-11) * tab[0].masse * (-tab[i].x)) / pow(tab[i].Distance_reelle, 3);
+                tab[i].ay = ((6.67E-11) * tab[0].masse * (-tab[i].y)) / pow(tab[i].Distance_reelle, 3);
+            }
+        }
+        for (int i = 1; i < taille; i++)
+        {
+            deltaVx = temps * tab[i].ax;
+            deltaVy = temps * tab[i].ay;
+            deltaMx = tab[i].vx * temps + (tab[i].ax * pow(temps, 2)) / 2;
+            deltaMy = tab[i].vy * temps + (tab[i].ay * pow(temps, 2)) / 2;
             tab[i].x = tab[i].x + deltaMx;
             tab[i].y = tab[i].y + deltaMy;
             tab[i].vx = tab[i].vx + deltaVx;
             tab[i].vy = tab[i].vy + deltaVy;
+        }
+    }
+}
+
+void coordonnee_absolu(Planete tab[], int taille, float zoom)
+{
+    for (int i = 0; i < taille; i++)
+    {
+        if (i == 4)
+        {
+            tab[i].x_absolu = x_absolute(tab[3].x_absolu, echelle_orbite(tab[i].x * 0.001) * zoom);
+            tab[i].y_absolu = y_absolute(tab[3].y_absolu, echelle_orbite(tab[i].y * 0.001) * zoom);
+        }
+        else
+        {
+            tab[i].x_absolu = x_absolute(tab[0].x, echelle_orbite(tab[i].x * 0.001) * zoom);
+            tab[i].y_absolu = y_absolute(tab[0].y, echelle_orbite(tab[i].y * 0.001) * zoom);
         }
     }
 }
