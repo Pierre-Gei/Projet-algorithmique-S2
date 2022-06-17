@@ -72,7 +72,7 @@ void initTab(Planete tab[], int taille) // OK
             tab[i].color[j] = 0;
         }
         memset(tab[i].nom, 0, 20);
-        mesmet(tab[i].type, 0, 20);
+        memset(tab[i].type, 0, 20);
     }
 }
 
