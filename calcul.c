@@ -154,7 +154,7 @@ void calculPosition(Planete tab[], double temps, int taille)
 float focus(Planete tab[], int nbr_planete, double temps)
 {
     float x, y;
-    float liste_zoom[10] = {3852, 1050000, 420000, 420000, 0, 815663, 40000, 46000, 109000, 109000};
+    float liste_zoom[10] = {3852, 1050, 420, 420, 0, 815, 40, 46, 109, 109};
     if (nbr_planete == 0)
     {
         tab[0].x = 0.5 * largeurFenetre();
@@ -164,9 +164,8 @@ float focus(Planete tab[], int nbr_planete, double temps)
     {
         tab[0].x = 0.5 * largeurFenetre();
         tab[0].y = 0.5 * hauteurFenetre();
-        x = x_absolute(tab[0].x, echelle_orbite(tab[nbr_planete].x * pow(10, -3)));
-        y = y_absolute(tab[0].y, echelle_orbite(tab[nbr_planete].y * pow(10, -3)));
-        printf("x : %f , y : %f \n", x, y);
+        x = x_absolute(tab[0].x, liste_zoom[nbr_planete]*(echelle_orbite(tab[nbr_planete].x * pow(10, -3))));
+        y = y_absolute(tab[0].y, liste_zoom[nbr_planete]*(echelle_orbite(tab[nbr_planete].y * pow(10, -3))));
         tab[0].x = ((0.5 * largeurFenetre()) - x + (0.5 * largeurFenetre()));
         tab[0].y = ((0.5 * hauteurFenetre()) - y + (0.5 * hauteurFenetre()));
     }
