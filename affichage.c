@@ -140,6 +140,7 @@ void affichage_help(void)
 	afficheChaine(" S'eloigner du soleil = >", 15, 0, hauteurFenetre()-285);
 	afficheChaine(" Plein ecran = F", 15, 0, hauteurFenetre()-305);
 	afficheChaine(" Quiter gfxlib = Q", 15, 0, hauteurFenetre()-325);
+	afficheChaine(" Retour au menu = Tab", 15, 0, hauteurFenetre()-345);
 }
 
 
