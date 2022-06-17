@@ -34,8 +34,8 @@ des qu'une evenement survient */
 void gestionEvenement(EvenementGfx evenement)
 {
 	static bool pleinEcran = true;
-	static DonneesImageRGB *image = NULL;
 	static double temps = 0;
+	static DonneesImageRGB *image = NULL;
 	static time_t temps_reel = 0;
 	static Planete tabPlanete[10];
 	static int etat_pause = 0;
@@ -55,9 +55,8 @@ void gestionEvenement(EvenementGfx evenement)
 	case Initialisation:
 		modePleinEcran();
 		initTab(tabPlanete, 10);
-		demandeTemporisation(20);
-
 		image = lisBMPRGB("background1.bmp");
+		demandeTemporisation(20);
 		break;
 	case Temporisation:
 		if(new_sim == 1){
@@ -111,8 +110,9 @@ void gestionEvenement(EvenementGfx evenement)
 			ellipse(tabPlanete,10,delta_temps(vitesse_simulation, etat_pause), zoom);
 
 			effaceFenetre(0, 0, 0);
-
 			ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
+
+
 			affichage(tabPlanete, Taille, zoom);
 			temps = button_pause(etat_pause, temps, vitesse_simulation);
 
