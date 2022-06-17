@@ -54,9 +54,13 @@ void initTab(Planete tab[], int taille) // OK
     for (int i = 0; i < taille; i++)
     {
         tab[i].x = 0;
+        tab[i].x_absolu = 0;
         tab[i].y = 0;
+        tab[i].y_absolu = 0;
         tab[i].vx = 0;
         tab[i].vy = 0;
+        tab[i].ax = 0;
+        tab[i].ay = 0;
         tab[i].Distance_orbit = 0;
         tab[i].rayon = 0;
         tab[i].masse = 0;
@@ -68,6 +72,7 @@ void initTab(Planete tab[], int taille) // OK
             tab[i].color[j] = 0;
         }
         memset(tab[i].nom, 0, 20);
+        memset(tab[i].type, 0, 20);
     }
 }
 
@@ -85,7 +90,7 @@ void afficheTab(Planete tab[], int taille) // OK
     }
 }
 
-void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b, float x, float y, float vx, float vy)
+void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b, float x, float y, float vx, float vy,char type[])
 {
     strcpy(tab[position].nom, nom);
     tab[position].masse = masseP;
@@ -99,6 +104,7 @@ void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_
     tab[position].y = y;
     tab[position].vx = vx;
     tab[position].vy = vy;
+    strcpy(tab[position].type,type);
 }
 
 void echelle_tab(Planete tab[], int taille, float planet_coeff, float zoom)
@@ -164,8 +170,8 @@ float focus(Planete tab[], int nbr_planete, double temps)
     {
         tab[0].x = 0.5 * largeurFenetre();
         tab[0].y = 0.5 * hauteurFenetre();
-        x = x_absolute(tab[0].x, liste_zoom[nbr_planete]*(echelle_orbite(tab[nbr_planete].x * pow(10, -3))));
-        y = y_absolute(tab[0].y, liste_zoom[nbr_planete]*(echelle_orbite(tab[nbr_planete].y * pow(10, -3))));
+        x = x_absolute(tab[0].x, liste_zoom[nbr_planete] * (echelle_orbite(tab[nbr_planete].x * pow(10, -3))));
+        y = y_absolute(tab[0].y, liste_zoom[nbr_planete] * (echelle_orbite(tab[nbr_planete].y * pow(10, -3))));
         tab[0].x = ((0.5 * largeurFenetre()) - x + (0.5 * largeurFenetre()));
         tab[0].y = ((0.5 * hauteurFenetre()) - y + (0.5 * hauteurFenetre()));
     }
