@@ -26,7 +26,7 @@ void initTab(Planete tab[], int taille);
 void afficheTab(Planete tab[], int taille);
 
 /*Remplir le tableau de planete*/
-void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b, float x, float y, float vx, float vy);
+void setTab(Planete tab[], int position, char nom[], double masseP, float orbit_periode, double distance_orbitale, double rayon, int r, int v, int b, float x, float y, float vx, float vy,char type[]);
 
 /*Remplir les echelles du tableaux*/
 void echelle_tab(Planete tab[], int taille, float planet_coeff, float zoom);
