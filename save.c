@@ -18,18 +18,16 @@ void save_nom(char nom[])
 	}
 }
 
-void save(Planete tab[], int taille, int i)
+void save(Planete tab[], int taille, char nom[],double* temps_simulation)
 {
 	FILE *fichier = NULL;
 	char fin[] = ".txt";
-	char debut[30];
-	printf("entrer \n");
-	scanf("%s", debut);
-	strcat(debut, fin);
-	fichier = fopen(debut, "w");
+	strcat(nom, fin);
+	fichier = fopen(nom, "w");
 
 	if (fichier != NULL)
 	{
+		fprintf(fichier, "Temps: %lf\n\n",*temps_simulation);
 		for (int i = 0; i < taille; i++)
 		{
 			fprintf(fichier, "Nom: %s\n", tab[i].nom);
@@ -46,16 +44,19 @@ void save(Planete tab[], int taille, int i)
 		}
 		fclose(fichier);
 	}
-	save_nom(debut);
+	save_nom(nom);
 }
 
-void chargement(char nom[], Planete tab[], int taille)
+void chargement(char nom[], Planete tab[], int taille, double* temps_simulation)
 {
 	FILE *fichier = NULL;
+	char fin[] = ".txt";
+	strcat(nom, fin);
 	fichier = fopen(nom, "r");
 
 	if (fichier != NULL)
 	{
+		//fscanf(fichier, "Temps: %lf\n\n",temps_simulation);
 		for (int i = 0; i < taille; i++)
 		{
 			fscanf(fichier, "Nom: %s\n", tab[i].nom);

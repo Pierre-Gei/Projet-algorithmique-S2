@@ -215,7 +215,7 @@ void affiche_zone_de_texte(char name_file[], int cptchar){
 }
 
 int boutton_valider(char name_file[]){
-	if((abscisseSouris()>0.35*largeurFenetre()) && (abscisseSouris()<0.45*largeurFenetre()) && (ordonneeSouris()>0.37*hauteurFenetre()) && (ordonneeSouris()<0.47*hauteurFenetre()) && (name_file[0] =! '\0')){
+	if((abscisseSouris()>0.35*largeurFenetre()) && (abscisseSouris()<0.45*largeurFenetre()) && (ordonneeSouris()>0.37*hauteurFenetre()) && (ordonneeSouris()<0.47*hauteurFenetre()) && (name_file[0] != '\0')){
 		return 0;
 	}
 	else{

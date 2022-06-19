@@ -79,7 +79,7 @@ void gestionEvenement(EvenementGfx evenement)
 			setTab(tabPlanete, 5, "Mars", (double)6.42E+23, 1.8808476, (double)227943824, (double)3389, 215, 72, 38, 1.803420120063720E+11, -1.008312072682970E+11, 1.274510435272690E+04, 2.322329691202391E+04,"Planète");
 			setTab(tabPlanete, 6, "Jupiter", (double)1.898E+27, 11.862615, (double)778340821, (double)69911, 246, 212, 145, 7.381350767436030E+11, -8.133858440677193E+10, 1.279258512194355E+03, 1.361634441215909E+04,"Planète");
 			setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.447498, (double)1426666422, (double)58232, 249, 223, 172, 1.126286149331401E+12, -9.576415881787971E+11, 5.722017760403925E+03, 7.353978837153003E+03,"Planète");
-			setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.016846, (double)2870658186, (double)25362, 82, 191, 219, 1.126286149331401E+12, -9.576415881787971E+11, 5.722017760403925E+03, 7.353978837153003E+03,"Planète");
+			setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.016846, (double)2870658186, (double)25362, 82, 191, 219, 2.085282775726888E+12, 2.082241602893633E+12,  -4.860899446758633E+03, 4.515412676455412E+03,"Planète");
 			setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79132, (double)4498396441, (double)24622, 21, 133, 183, 4.442437942853459E+12, -5.353686097326288E+11, 6.174016588041462E+02, 5.444565377510131E+03,"Planète");
 
 			tabPlanete[0].x = (0.5 * largeurFenetre());
@@ -358,7 +358,7 @@ case Clavier:
 				if(load_sim == 1){
 					load_sim = boutton_valider(name_file);
 					if(load_sim == 0){
-						//fonction de load ici
+						chargement(name_file,tabPlanete,Taille,&temps);
 						*ptcptchar = 0;
 						memset(name_file, '\0', 20);
 					}
@@ -369,7 +369,7 @@ case Clavier:
 				else if(save_sim == 1){
 					save_sim = boutton_valider(name_file);
 					if(save_sim == 0){
-						//fonction de save ici
+						save(tabPlanete,Taille,name_file,&temps);
 						*ptcptchar = 0;
 						memset(name_file, '\0', 20);
 					}
