@@ -8,15 +8,14 @@
 #include "calcul.h"
 #include "affichage.h"
 #include "save.h"
+#include "menu.h"
 #include <time.h>
 #include <string.h>
 #define LargeurFenetre 800
 #define HauteurFenetre 600
 #define Taille 12
+#define TLune 10
 
-/* La fonction de gestion des evenements, appelee automatiquement par le systeme
-des qu'une evenement survient */
-void gestionEvenement(EvenementGfx evenement);
 
 int main(int argc, char **argv)
 {
@@ -41,6 +40,7 @@ void gestionEvenement(EvenementGfx evenement)
 	static DonneesImageRGB *image = NULL;
 	static time_t temps_reel = 0;
 	static Planete tabPlanete[Taille];
+	static Planete tabLune[TLune];
 	static int etat_pause = 0;
 	static float vitesse_simulation = 1;
 	static float zoom = 1;
@@ -361,7 +361,7 @@ case Clavier:
 				if(load_sim == 1){
 					load_sim = boutton_valider(name_file);
 					if(load_sim == 0){
-						chargement(name_file,tabPlanete,Taille,&temps);
+						chargement(name_file,tabPlanete,Taille,&temps,&temps_reel);
 						*ptcptchar = 0;
 						memset(name_file, '\0', 20);
 					}
@@ -372,7 +372,7 @@ case Clavier:
 				else if(save_sim == 1){
 					save_sim = boutton_valider(name_file);
 					if(save_sim == 0){
-						save(tabPlanete,Taille,name_file,&temps);
+						save(tabPlanete,Taille,name_file,&temps,&temps_reel);
 						*ptcptchar = 0;
 						memset(name_file, '\0', 20);
 					}

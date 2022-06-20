@@ -7,18 +7,8 @@
 #include "GFXlib/BmpLib.h"
 #include "GFXlib/ESLib.h"
 
-void save_nom(char nom[])
-{
-	FILE *fichier = NULL;
-	fichier = fopen("save.txt", "a");
-	if (fichier != NULL)
-	{
-		fprintf(fichier, "%s\n", nom);
-		fclose(fichier);
-	}
-}
 
-void save(Planete tab[], int taille, char nom[],double* temps_simulation)
+void save(Planete tab[], int taille, char nom[], double *temps_simulation, time_t *temps_reel)
 {
 	FILE *fichier = NULL;
 	char fin[] = ".txt";
@@ -27,7 +17,8 @@ void save(Planete tab[], int taille, char nom[],double* temps_simulation)
 
 	if (fichier != NULL)
 	{
-		fprintf(fichier, "Temps: %lf\n\n",*temps_simulation);
+		fprintf(fichier, "Tempsinit: %ld\n", *temps_reel);
+		fprintf(fichier, "Temps: %lf\n\n", *temps_simulation);
 		for (int i = 0; i < taille; i++)
 		{
 			fprintf(fichier, "Nom: %s\n", tab[i].nom);
@@ -44,10 +35,9 @@ void save(Planete tab[], int taille, char nom[],double* temps_simulation)
 		}
 		fclose(fichier);
 	}
-	save_nom(nom);
 }
 
-void chargement(char nom[], Planete tab[], int taille, double* temps_simulation)
+void chargement(char nom[], Planete tab[], int taille, double *temps_simulation, time_t *temps_reel)
 {
 	FILE *fichier = NULL;
 	char fin[] = ".txt";
@@ -56,7 +46,8 @@ void chargement(char nom[], Planete tab[], int taille, double* temps_simulation)
 
 	if (fichier != NULL)
 	{
-		//fscanf(fichier, "Temps: %lf\n\n",temps_simulation);
+		fscanf(fichier, "Tempsinit: %ld\n", temps_reel);
+		fscanf(fichier, "Temps: %lf\n\n", temps_simulation);
 		for (int i = 0; i < taille; i++)
 		{
 			fscanf(fichier, "Nom: %s\n", tab[i].nom);

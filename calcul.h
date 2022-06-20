@@ -52,10 +52,13 @@ float focus(Planete tab[],int nbr_planete,double temps);
 /*rayon reel*/
 float rayon_echelle(double rayon_reel, double orbit_reel, double echelle_orbit);
 
+/*Pour définir le nombre d'itération*/
 double delta_temps(float facteur, int etat_pause);
 
+/*Calcul des coordonnées elliptiques*/
 void ellipse(Planete tab[],int taille, double delta_temps, float zoom);
 
+/*Calcul des coordonnées par rapport à la fenêtre*/
 void coordonnee_absolu(Planete tab[], int taille, float zoom);
 
-void coordonnee_absolu2(Planete tab[], float zoom,int i);
+
