@@ -160,7 +160,7 @@ void calculPosition(Planete tab[], double temps, int taille)
 float focus(Planete tab[], int nbr_planete, double temps)
 {
     float x, y;
-    float liste_zoom[10] = {3852, 1050, 420, 420, 0, 815, 40, 46, 109, 109};
+    float liste_zoom[12] = {3852, 1050, 420, 420, 0, 815, 40, 46, 109, 109, 250, 300};
     if (nbr_planete == 0)
     {
         tab[0].x = 0.5 * largeurFenetre();

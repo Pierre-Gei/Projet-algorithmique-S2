@@ -12,7 +12,7 @@
 #include <string.h>
 #define LargeurFenetre 800
 #define HauteurFenetre 600
-#define Taille 10
+#define Taille 12
 
 /* La fonction de gestion des evenements, appelee automatiquement par le systeme
 des qu'une evenement survient */
@@ -40,7 +40,7 @@ void gestionEvenement(EvenementGfx evenement)
 	static double temps = 0;
 	static DonneesImageRGB *image = NULL;
 	static time_t temps_reel = 0;
-	static Planete tabPlanete[10];
+	static Planete tabPlanete[Taille];
 	static int etat_pause = 0;
 	static float vitesse_simulation = 1;
 	static float zoom = 1;
@@ -55,14 +55,17 @@ void gestionEvenement(EvenementGfx evenement)
 	static char name_file[20];
 	static int cptchar = 0;
 	static int *ptcptchar = &cptchar;
+	static char nombre_objets[40];
 
 	switch (evenement)
 	{
 	case Initialisation:
+		epaisseurDeTrait(2);
 		modePleinEcran();
 		initTab(tabPlanete, 10);
 		memset(name_file,'\0',20);
 		image = lisBMPRGB("background1.bmp");
+		sprintf(nombre_objets, "Nombre d'objets = %d", Taille);
 		demandeTemporisation(20);
 		break;
 	case Temporisation:
@@ -81,6 +84,9 @@ void gestionEvenement(EvenementGfx evenement)
 			setTab(tabPlanete, 7, "Saturne", (double)5.68E+26, 29.447498, (double)1426666422, (double)58232, 249, 223, 172, 1.126286149331401E+12, -9.576415881787971E+11, 5.722017760403925E+03, 7.353978837153003E+03,"Planète");
 			setTab(tabPlanete, 8, "Uranus", (double)8.68E+25, 84.016846, (double)2870658186, (double)25362, 82, 191, 219, 2.085282775726888E+12, 2.082241602893633E+12,  -4.860899446758633E+03, 4.515412676455412E+03,"Planète");
 			setTab(tabPlanete, 9, "Neptune", (double)1.02E+26, 164.79132, (double)4498396441, (double)24622, 21, 133, 183, 4.442437942853459E+12, -5.353686097326288E+11, 6.174016588041462E+02, 5.444565377510131E+03,"Planète");
+			setTab(tabPlanete, 10, "PSP", (double)685 , 0, (double)6.150099824120720E+10, (double)0.001, 125, 125, 125, 2.480492082498334E+10, -5.623332788775445E+10, 3.828529362470469E+04, -2.618792274253275E+04,"Sonde");
+			setTab(tabPlanete, 11, "voyager 2", (double)722 , 0, (double) 1.951421713161150E+13, (double)0.001, 125, 125, 125, 5.395883881531995E+12, -1.450898056059902E+13, 4.228713829442690E+03, -9.351932312118578E+03,"Sonde");
+
 
 			tabPlanete[0].x = (0.5 * largeurFenetre());
 			tabPlanete[0].y = (0.5 * hauteurFenetre());
@@ -97,7 +103,6 @@ void gestionEvenement(EvenementGfx evenement)
 		rafraichisFenetre();
 		break;
 	case Affichage:
-
 		if(load_sim == 1 || save_sim == 1){
 			affiche_zone_de_texte(name_file, cptchar);
 		}
@@ -108,14 +113,14 @@ void gestionEvenement(EvenementGfx evenement)
 
 		if(etat_menu == 0){
 			echelle_tab(tabPlanete, Taille, 0.008, zoom);
-			ellipse(tabPlanete,10,delta_temps(vitesse_simulation, etat_pause), zoom);
+			ellipse(tabPlanete,Taille,delta_temps(vitesse_simulation, etat_pause), zoom);
 			coordonnee_absolu(tabPlanete, Taille, zoom);
 			effaceFenetre(0, 0, 0);
 			ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
-
+			couleurCourante(255,255,255);
+			afficheChaine(nombre_objets,18,20,20);
 
 			affichage(tabPlanete, Taille, zoom);
-			temps = button_pause(etat_pause, temps, vitesse_simulation);
 
 			if (etat_focus == 1)
 			{
@@ -127,6 +132,10 @@ void gestionEvenement(EvenementGfx evenement)
 			{
 				affichage_help();
 			}
+
+			epaisseurDeTrait(2);
+
+			temps = button_pause(etat_pause, temps, vitesse_simulation);
 
 			affiche_date(temps, temps_reel);
 
@@ -151,12 +160,6 @@ case Clavier:
 		else{
 			switch (caractereClavier())
 			{
-			case 'Q': /* Pour sortir quelque peu proprement du programme */
-			case 'q':
-
-				termineBoucleEvenements();
-				break;
-
 			case 'F':
 			case 'f':
 				pleinEcran = !pleinEcran; // Changement de mode plein ecran
@@ -224,13 +227,13 @@ case Clavier:
 				case 'p':
 					zoom = zoom * 1.25;
 
-					printf("zoom : %.0f\n", zoom);
+					printf("zoom : %.2f\n", zoom);
 					break;
 				case 'M':
 				case 'm':
-					if (zoom <= 1)
+					if (zoom <= 0.5)
 					{
-						zoom = 1;
+						zoom = 0.50;
 					}
 					else
 					{
@@ -330,7 +333,7 @@ case Clavier:
 			case 16:
 				if (etat_focus == 1)
 				{
-					if (nbr_focus == 9)
+					if (nbr_focus == (Taille-1))
 					{
 						break;
 					}
