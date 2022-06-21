@@ -72,7 +72,7 @@ void cercle(float centreX, float centreY, float rayon)
 
 void affichage(Planete tab[], int taille, float zoom)
 {
-	if (zoom < 110)
+	if (zoom < 110) // Les planètes sont des points avant le seuil
 	{
 		if (zoom < 10)
 		{
@@ -117,12 +117,24 @@ void affichage_focus(Planete tab[], int Nbr , DonneesImageRGB* imtab[])
 	couleurCourante(255, 255, 0);
 	sprintf(chaine, "Nom : %s", tab[Nbr].nom);
 	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) / 2 + 40));
-	sprintf(chaine, "Rayon : %.0lf km", tab[Nbr].rayon_reel);
+	sprintf(chaine, "type : %s", tab[Nbr].type);
 	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) / 2));
-	sprintf(chaine, "Masse : %.2E kg", tab[Nbr].masse);
+	sprintf(chaine, "Rayon : %.0lf km", tab[Nbr].rayon_reel);
 	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) / 2 - 40));
-	
-
+	sprintf(chaine, "Masse : %.2E kg", tab[Nbr].masse);
+	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) / 2 - 80));
+	if (Nbr == 3)
+	{
+		couleurCourante(255, 255, 0);
+		sprintf(chaine, "Nom : %s", tab[4].nom);
+		afficheChaine(chaine, 20, largeurFenetre()-300, ((hauteurFenetre()) / 2 + 40));
+		sprintf(chaine, "type : %s", tab[4].type);
+		afficheChaine(chaine, 20, largeurFenetre()-300, ((hauteurFenetre()) / 2));
+		sprintf(chaine, "Rayon : %.0lf km", tab[4].rayon_reel);
+		afficheChaine(chaine, 20, largeurFenetre()-300, ((hauteurFenetre()) / 2 - 40));
+		sprintf(chaine, "Masse : %.2E kg", tab[4].masse);
+		afficheChaine(chaine, 20, largeurFenetre()-300, ((hauteurFenetre()) / 2 - 80));
+	}
 }
 
 void affichage_help(void)
@@ -168,38 +180,47 @@ void menu(int etat_menu){
 
 int bouton_new_sim(void){
 	int new_sim = 0;
-	if((abscisseSouris()>largeurFenetre()*0.25) && (abscisseSouris()<largeurFenetre()*0.75) && (ordonneeSouris()<hauteurFenetre()*0.95) && (ordonneeSouris()>hauteurFenetre()*0.81)){
+	if ((abscisseSouris() > largeurFenetre() * 0.25) && (abscisseSouris() < largeurFenetre() * 0.75) && (ordonneeSouris() < hauteurFenetre() * 0.95) && (ordonneeSouris() > hauteurFenetre() * 0.81))
+	{
 		new_sim = 1;
 	}
 	return new_sim;
 }
 
-int bouton_continue(void){
+int bouton_continue(void)
+{
 	int continuer = 0;
-	if((abscisseSouris()>largeurFenetre()*0.25) && (abscisseSouris()<largeurFenetre()*0.75) && (ordonneeSouris()<hauteurFenetre()*0.76) && (ordonneeSouris()>hauteurFenetre()*0.62)){
+	if ((abscisseSouris() > largeurFenetre() * 0.25) && (abscisseSouris() < largeurFenetre() * 0.75) && (ordonneeSouris() < hauteurFenetre() * 0.76) && (ordonneeSouris() > hauteurFenetre() * 0.62))
+	{
 		continuer = 1;
 	}
 	return continuer;
 }
 
-int bouton_load(void){
+int bouton_load(void)
+{
 	int load_sim = 0;
-	if((abscisseSouris()>largeurFenetre()*0.25) && (abscisseSouris()<largeurFenetre()*0.75) && (ordonneeSouris()<hauteurFenetre()*0.57) && (ordonneeSouris()>hauteurFenetre()*0.43)){
+	if ((abscisseSouris() > largeurFenetre() * 0.25) && (abscisseSouris() < largeurFenetre() * 0.75) && (ordonneeSouris() < hauteurFenetre() * 0.57) && (ordonneeSouris() > hauteurFenetre() * 0.43))
+	{
 		load_sim = 1;
 	}
 	return load_sim;
 }
 
-int bouton_save(int etat_menu){
+int bouton_save(int etat_menu)
+{
 	int save_sim = 0;
-	if((abscisseSouris()>largeurFenetre()*0.25) && (abscisseSouris()<largeurFenetre()*0.75) && (ordonneeSouris()<hauteurFenetre()*0.38) && (ordonneeSouris()>hauteurFenetre()*0.24)){
+	if ((abscisseSouris() > largeurFenetre() * 0.25) && (abscisseSouris() < largeurFenetre() * 0.75) && (ordonneeSouris() < hauteurFenetre() * 0.38) && (ordonneeSouris() > hauteurFenetre() * 0.24))
+	{
 		save_sim = 1;
 	}
 	return save_sim;
 }
 
-void bouton_quit(void){
-	if((abscisseSouris()>largeurFenetre()*0.25) && (abscisseSouris()<largeurFenetre()*0.75) && (ordonneeSouris()<hauteurFenetre()*0.20) && (ordonneeSouris()>hauteurFenetre()*0.05)){
+void bouton_quit(void)
+{
+	if ((abscisseSouris() > largeurFenetre() * 0.25) && (abscisseSouris() < largeurFenetre() * 0.75) && (ordonneeSouris() < hauteurFenetre() * 0.20) && (ordonneeSouris() > hauteurFenetre() * 0.05))
+	{
 		termineBoucleEvenements();
 	}
 }
@@ -216,23 +237,28 @@ void affiche_zone_de_texte(char name_file[], int cptchar){
 	afficheChaine("Annuler",18,((largeurFenetre()*0.6)-(tailleChaine("Annuler",18)/2)), hauteurFenetre()*0.42);
 }
 
-int boutton_valider(char name_file[]){
-	if((abscisseSouris()>0.35*largeurFenetre()) && (abscisseSouris()<0.45*largeurFenetre()) && (ordonneeSouris()>0.37*hauteurFenetre()) && (ordonneeSouris()<0.47*hauteurFenetre()) && (name_file[0] != '\0')){
+int boutton_valider(char name_file[])
+{
+	if ((abscisseSouris() > 0.35 * largeurFenetre()) && (abscisseSouris() < 0.45 * largeurFenetre()) && (ordonneeSouris() > 0.37 * hauteurFenetre()) && (ordonneeSouris() < 0.47 * hauteurFenetre()) && (name_file[0] != '\0'))
+	{
 		return 0;
 	}
-	else{
+	else
+	{
 		return 1;
 	}
-
 }
 
-int boutton_annuler(char name_file[], int* cptchar){
-	if((abscisseSouris()>0.55*largeurFenetre()) && (abscisseSouris()<0.65*largeurFenetre()) && (ordonneeSouris()>0.37*hauteurFenetre()) && (ordonneeSouris()<0.47*hauteurFenetre())){
+int boutton_annuler(char name_file[], int *cptchar)
+{
+	if ((abscisseSouris() > 0.55 * largeurFenetre()) && (abscisseSouris() < 0.65 * largeurFenetre()) && (ordonneeSouris() > 0.37 * hauteurFenetre()) && (ordonneeSouris() < 0.47 * hauteurFenetre()))
+	{
 		memset(name_file, '\0', 20);
 		*cptchar = 0;
 		return 0;
 	}
-	else{
+	else
+	{
 		return 1;
 	}
 }

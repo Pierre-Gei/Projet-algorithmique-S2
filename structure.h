@@ -15,6 +15,5 @@ typedef struct Planete
     double rayon;
     double rayon_reel;
     double masse;
-    float Orbit_periode;
     int color[3];
 }Planete;

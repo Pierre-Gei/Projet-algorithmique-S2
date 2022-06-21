@@ -22,6 +22,7 @@ void affichage_focus(Planete tab[],int Nbr, DonneesImageRGB* imtab[]);
 /*Affiche les commandes*/
 void affichage_help(void);
 
+/*Affichage du menu et de ses boutons*/
 void menu(int etat_menu);
 
 int bouton_new_sim(void);
