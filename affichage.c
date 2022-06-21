@@ -151,7 +151,6 @@ void affichage_help(void)
 
 void menu(int etat_menu){
 	if(etat_menu == 1){
-		effaceFenetre(255,255,255);
 		couleurCourante(125,125,125);
 		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.95,largeurFenetre()*0.75,hauteurFenetre()*0.81);
 		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.76,largeurFenetre()*0.75,hauteurFenetre()*0.62);
@@ -206,8 +205,7 @@ void bouton_quit(void){
 }
 
 void affiche_zone_de_texte(char name_file[], int cptchar){
-	effaceFenetre(255,255,255);
-	couleurCourante(0,0,0);
+	couleurCourante(255,255,255);
 	afficheChaine("Entrez le nom du fichier et appuyez le boutton",18,((largeurFenetre()/2)-(tailleChaine("Entrez le nom du fichier et appuyez sur le bouton",18)/2)), (hauteurFenetre()/2)+30);
 	afficheChaine(name_file,18,((largeurFenetre()/2)-(tailleChaine(name_file,18)/2)), hauteurFenetre()/2);
 	couleurCourante(125,125,125);

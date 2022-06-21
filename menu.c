@@ -131,6 +131,8 @@ void gestionEvenement(EvenementGfx evenement)
 		rafraichisFenetre();
 		break;
 	case Affichage:
+		effaceFenetre(0, 0, 0);
+		ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
 		if(load_sim == 1 || save_sim == 1){
 			affiche_zone_de_texte(name_file, cptchar);
 		}
@@ -143,8 +145,6 @@ void gestionEvenement(EvenementGfx evenement)
 			echelle_tab(tabPlanete, Taille, 0.008, zoom);
 			ellipse(tabPlanete,Taille,delta_temps(vitesse_simulation, etat_pause), zoom);
 			coordonnee_absolu(tabPlanete, Taille, zoom);
-			effaceFenetre(0, 0, 0);
-			ecrisImage(0, 0, image->largeurImage, image->hauteurImage, image->donneesRGB);
 			couleurCourante(255,255,255);
 			afficheChaine(nombre_objets,18,20,20);
 
@@ -173,13 +173,17 @@ void gestionEvenement(EvenementGfx evenement)
 
 		break;
 case Clavier:
-		if(save_sim == 1){
+	if(caractereClavier() == 8 && cptchar > 0){
+					name_file[cptchar-1] = '\0';
+					cptchar-=1;
+				}
+		if(save_sim == 1 && caractereClavier() != 8){
 			if(*ptcptchar<20){
 				name_file[cptchar]=caractereClavier();
 				cptchar++;
 			}
 		}
-		else if(load_sim == 1){
+		else if(load_sim == 1 && caractereClavier() != 8){
 			if(*ptcptchar<20){
 				name_file[cptchar]=caractereClavier();
 				cptchar++;
@@ -303,13 +307,13 @@ case Clavier:
 				case '	':
 					etat_menu = 1;
 					break;
+				
 				default:
 					break;
 				}
 			}
-			break;
-
 		}
+		break;
 	case ClavierSpecial:
 		printf("ASCII %d\n", toucheClavier());
 		switch (toucheClavier())
