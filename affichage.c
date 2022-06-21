@@ -113,6 +113,9 @@ void affichage_focus(Planete tab[], int Nbr , DonneesImageRGB* imtab[])
 	if (imtab[Nbr] != NULL) {
 		ecrisImage(0, 120, imtab[Nbr]->largeurImage, imtab[Nbr]->hauteurImage, imtab[Nbr]->donneesRGB);
 	}
+	if(Nbr==3){
+		ecrisImage(largeurFenetre()-(imtab[4]->largeurImage), 120, imtab[4]->largeurImage, imtab[4]->hauteurImage, imtab[4]->donneesRGB);
+	}
 	char chaine[40];
 	couleurCourante(255, 255, 0);
 	sprintf(chaine, "Nom : %s", tab[Nbr].nom);
