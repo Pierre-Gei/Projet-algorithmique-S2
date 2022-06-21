@@ -260,7 +260,7 @@ case Clavier:
 				case 'p':
 					zoom = zoom * 1.25;
 
-					printf("zoom : %.2f\n", zoom);
+					
 					break;
 				case 'M':
 				case 'm':
@@ -273,7 +273,7 @@ case Clavier:
 						zoom = zoom / 1.25;
 					}
 
-					printf("zoom : %.0f\n", zoom);
+					
 					break;
 				case 'X':
 				case 'x':
@@ -318,7 +318,7 @@ case Clavier:
 		}
 		break;
 	case ClavierSpecial:
-		printf("ASCII %d\n", toucheClavier());
+		
 		switch (toucheClavier())
 		{
 		case 13:
