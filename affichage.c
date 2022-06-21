@@ -4,7 +4,6 @@
 #include <time.h>
 #include <stdlib.h>
 #include "structure.h"
-#include "calcul.h"
 #include "GFXlib/GfxLib.h"
 #include "GFXlib/BmpLib.h"
 #include "GFXlib/ESLib.h"
