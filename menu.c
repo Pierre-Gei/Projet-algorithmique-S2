@@ -38,6 +38,10 @@ void gestionEvenement(EvenementGfx evenement)
 	static bool pleinEcran = true;
 	static double temps = 0;
 	static DonneesImageRGB *image = NULL;
+
+
+	static DonneesImageRGB* imtab[12];
+
 	static time_t temps_reel = 0;
 	static Planete tabPlanete[Taille];
 	static Planete tabLune[TLune];
@@ -57,6 +61,8 @@ void gestionEvenement(EvenementGfx evenement)
 	static int *ptcptchar = &cptchar;
 	static char nombre_objets[40];
 
+	
+
 	switch (evenement)
 	{
 	case Initialisation:
@@ -66,6 +72,28 @@ void gestionEvenement(EvenementGfx evenement)
 		memset(name_file,'\0',20);
 		image = lisBMPRGB("background1.bmp");
 		sprintf(nombre_objets, "Nombre d'objets = %d", Taille);
+		image = lisBMPRGB("BMP/background1.bmp");
+
+	
+
+		imtab[0] = lisBMPRGB("BMP/soleil.bmp");
+		imtab[1] = lisBMPRGB("BMP/mercure.bmp");
+		imtab[2] = lisBMPRGB("BMP/venus.bmp");
+		imtab[3] = lisBMPRGB("BMP/terre.bmp");
+		imtab[4] = lisBMPRGB("BMP/lune.bmp");
+		imtab[5] = lisBMPRGB("BMP/mars.bmp");
+		imtab[6] = lisBMPRGB("BMP/jupiter.bmp");
+		imtab[7] = lisBMPRGB("BMP/saturne.bmp");
+		imtab[8] = lisBMPRGB("BMP/uranus.bmp");
+		imtab[9] = lisBMPRGB("BMP/neptune.bmp");
+		imtab[10] = lisBMPRGB("BMP/psp.bmp");
+		imtab[11] = lisBMPRGB("BMP/Voyager_2.bmp");
+		for (int i = 0 ; i<12 ; i++){
+			if (imtab[i]== NULL){
+				printf("erreur planete %d\n",i);
+			}
+		}
+
 		demandeTemporisation(20);
 		break;
 	case Temporisation:
@@ -124,8 +152,9 @@ void gestionEvenement(EvenementGfx evenement)
 
 			if (etat_focus == 1)
 			{
+				
 				zoom=focus(tabPlanete, nbr_focus, temps);
-				affichage_focus(tabPlanete,nbr_focus);
+				affichage_focus(tabPlanete,nbr_focus, imtab);
 			}
 
 			if (etat_help == 1)

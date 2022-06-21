@@ -108,8 +108,11 @@ void affichage(Planete tab[], int taille, float zoom)
 	}
 }
 
-void affichage_focus(Planete tab[], int Nbr)
+void affichage_focus(Planete tab[], int Nbr , DonneesImageRGB* imtab[])
 {
+	if (imtab[Nbr] != NULL) {
+		ecrisImage(0, 120, imtab[Nbr]->largeurImage, imtab[Nbr]->hauteurImage, imtab[Nbr]->donneesRGB);
+	}
 	char chaine[40];
 	couleurCourante(255, 255, 0);
 	sprintf(chaine, "Nom : %s", tab[Nbr].nom);
@@ -118,6 +121,8 @@ void affichage_focus(Planete tab[], int Nbr)
 	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) / 2));
 	sprintf(chaine, "Masse : %.2E kg", tab[Nbr].masse);
 	afficheChaine(chaine, 20, 20, ((hauteurFenetre()) / 2 - 40));
+	
+
 }
 
 void affichage_help(void)
@@ -154,10 +159,10 @@ void menu(int etat_menu){
 		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.38,largeurFenetre()*0.75,hauteurFenetre()*0.24);
 		rectangle(largeurFenetre()*0.25,hauteurFenetre()*0.20,largeurFenetre()*0.75,hauteurFenetre()*0.05);
 		couleurCourante(0,0,0);
-		afficheChaine("Creer un nouvelle simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Creer un nouvelle simulation",18)/2)),0.88*hauteurFenetre());
-		afficheChaine("Reprendre une simulation enregistree",18,((largeurFenetre()*0.5)-(tailleChaine("Reprendre une simulation enregistree",18)/2)),0.69*hauteurFenetre());
-		afficheChaine("Charger une simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Charger une simulation",18)/2)),0.50*hauteurFenetre());
-		afficheChaine("Sauvgarder la simulation en cours",18,((largeurFenetre()*0.5)-(tailleChaine("Sauvgarder la simulation en cours",18)/2)),0.31*hauteurFenetre());
+		afficheChaine("Creer une nouvelle simulation",18,((largeurFenetre()*0.5)-(tailleChaine("Creer une nouvelle simulation",18)/2)),0.88*hauteurFenetre());
+		afficheChaine("Reprendre la simulation ",18,((largeurFenetre()*0.5)-(tailleChaine("Reprendre la simulation ",18)/2)),0.69*hauteurFenetre());
+		afficheChaine("Charger une simulation enregistree",18,((largeurFenetre()*0.5)-(tailleChaine("Charger une simulation enregistree",18)/2)),0.50*hauteurFenetre());
+		afficheChaine("Sauvegarder la simulation en cours",18,((largeurFenetre()*0.5)-(tailleChaine("Sauvegarder la simulation en cours",18)/2)),0.31*hauteurFenetre());
 		afficheChaine("Quitter",18,((largeurFenetre()*0.5)-(tailleChaine("Quitter",18)/2)),0.12*hauteurFenetre());
 	}
 }
